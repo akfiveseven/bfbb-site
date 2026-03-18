@@ -58,10 +58,10 @@ ${className ? className : ''}`}
           </div>
 
           <div className='font-bob lg:!text-2xl lg:!mt-[0px] xl:!text-3xl'>
-            <PageLink label='Leaderboards' route='#' />
-            <PageLink label='Discord' route='#' />
-            <PageLink label='Forums' route='#' />
-            <PageLink label='Route Builder' route='#' />
+            <PageLink label='Leaderboards' route='https://www.speedrun.com/bfbb' />
+            <PageLink label='Discord' route='https://discord.gg/8BKC3US' />
+            {/* <PageLink label='Forums' route='#' /> */}
+            {/* <PageLink label='Route Builder' route='#' /> */}
           </div>
 
         </div>
