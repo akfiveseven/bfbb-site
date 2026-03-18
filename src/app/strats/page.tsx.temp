@@ -1,0 +1,307 @@
+"use client";
+
+import { ContentContainer } from "@/components/layout/ContentContainer";
+// import { CenteredContainer } from "@/components/layout/CenteredContainer";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Difficulty } from "@/components/ui/Difficulty";
+import { CenteredContainer } from "@/components/layout/CenteredContainer";
+
+
+const StratsTable = () => {
+    const [stratsData, setStratsData] = useState([]);
+    const [expandedRow, setExpandedRow] = useState(null);
+
+    useEffect(() => {
+        axios
+            .get("/data/Strategies.json")
+            .then((res) => {
+                setStratsData(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    const [selectedLevel, setSelectedLevel] = useState("All");
+    const handleLevelChange = (e) => {
+        setSelectedLevel(e.target.value);
+    };
+
+    //  const { stratName } = useParams();
+
+    const filteredData =
+        selectedLevel === "All"
+            ? stratsData
+            : stratsData.filter((item) => item.level === selectedLevel);
+
+    /*
+  useEffect(() => {
+    if (stratName) {
+      let index = -1;
+
+      for (let i = 0; i < stratsData.length; i++) {
+        if (stratsData[i].name === decodeURIComponent(stratName)) {
+          index = stratsData[i].index;
+        }
+      }
+
+      if (index != -1) {
+        setExpandedRow(index);
+      }
+    }
+  }, [stratsData]);
+  */
+
+    const handleRowClick = (index) => {
+        setExpandedRow((prev) => (prev === index ? null : index));
+    };
+
+    const renderInnerTable = (methods) => {
+        return (
+            <table className="inner-table">
+                <thead>
+                    <tr>
+                        <th className="font-mono">Method</th>
+                        <th className="font-mono">Difficulty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {methods.map((method, methodIndex) => (
+                        <tr key={methodIndex}>
+                            <td>
+                                {method.videoURL !== "N/A" ? (
+                                    <a
+                                        href={method.videoURL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="underline hover:text-[#FFEB7A]"
+                                    >
+                                        <>{method.name}</>
+                                    </a>
+                                ) : (
+                                        <>{method.name}</>
+                                    )}
+                            </td>
+                            <td>
+                                <Difficulty
+                                    count={method.difficulty}
+                                    className="hidden md:block text-center"
+                                />
+                            </td>
+
+                            {/*<td>{method.name}</td>
+              <td>{method.difficulty}</td>
+              <td>
+                {method.videoURL !== "N/A" ? (
+                  <a href={method.videoURL} target="_blank" rel="noopener noreferrer" className='underline'>Watch Video</a>
+                ) : (
+                  "N/A"
+                )}
+              </td>
+              */}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        );
+    };
+
+    return (
+        <>
+            <ContentContainer>
+                <h1 className="text-center text-xl font-bob text-yellow">Strategies</h1>
+                <div className="my-container my-table-container">
+                    <div>
+                        <select
+                            className="text-[#000000] styled-select bg-white w-full md:w-auto"
+                            id="levelSelect"
+                            value={selectedLevel}
+                            onChange={handleLevelChange}
+                        >
+                            <option value="All">All Levels</option>
+                            <option value="Bikini Bottom">Bikini Bottom</option>
+                            <option value="Jellyfish Fields">Jellyfish Fields</option>
+                        </select>
+                        <br className="md:hidden" />
+                        <br className="md:hidden" />
+                        <p className="md:inline md:pl-4">
+                            Note: Click on a row to expand it.
+                        </p>
+                        <table className="my-table">
+                            <thead>
+                                <tr>
+                                    <th className="font-bob">Strategy</th>
+                                    {/*<th className='font-bob'>Category</th>*/}
+                                    <th className="font-bob">Level</th>
+                                    <th className="font-bob">Spatula</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredData.map((strat, index) => (
+                                    <React.Fragment key={index}>
+                                        <tr
+                                            onClick={() => handleRowClick(index)}
+                                            className={
+                                                expandedRow === index
+                                                    ? "clicked hover:text-[#FFEB7A] hover:underline"
+                                                    : "hover:text-[#FFEB7A] hover:underline"
+                                            }
+                                        >
+                                            <td>{strat.name}</td>
+                                            {/*<td className="ext-cols">{strat.category}</td>*/}
+                                            <td className="ext-cols">{strat.level}</td>
+                                            <td className="ext-cols">{strat.spatula}</td>
+                                        </tr>
+                                        {expandedRow === index && (
+                                            <tr>
+                                                <td colSpan="4">{renderInnerTable(strat.methods)}</td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ContentContainer>
+        </>
+    );
+};
+
+export default function Strats() {
+    return (
+        <div className="p-[1rem]">
+            <ContentContainer className="" >
+                <div className="flex">
+                    <div className="flex-1 !min-h-[calc(100vh-14.25rem)] !max-h-[calc(100vh-14.25rem)]">
+                        <h1 className="text-center text-4xl font-bob text-yellow mb-[4rem]">Strategies</h1>
+                        <div className="!min-h-[100vh]">
+                            <div className="grid grid-cols-2 gap-4 w-[100%]">
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Bikini Bottom</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Jellyfish Fields</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Downtown Bikini Bottom</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Goo Lagoon</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Poseidome</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Rock Bottom</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Mermalair</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Sand Mountain</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Industrial Park</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Kelp Forest</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Flying Dutchman's Graveyard</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">SpongeBob's Dream</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">Chum Bucket Lab</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                    <div className="my-container-dev">
+                                        <CenteredContainer className="!min-h-full">
+                                            <h1 className="text-xl font-bob text-white">All</h1>
+                                        </CenteredContainer>
+                                    </div>
+                                
+                            </div>
+                        </div> 
+                    </div>
+                    <div className="flex-auto">
+                        <h1 className="text-center text-4xl font-bob text-yellow mb-[4rem]">Level</h1>
+                        <div className="my-container-dev !min-h-[calc(100vh-14.5rem)] overflow-scroll scroll-p-0">
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                            <h1 className="text-2xl font-bob text-white">Strategies</h1>
+                        </div>
+                    </div>
+
+                </div>
+            </ContentContainer>
+        </div>
+    );
+}
