@@ -1,0 +1,527 @@
+[
+  {
+    "id": 1,
+    "name": "Library sock",
+    "area": "SpongeBob's House",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 2,
+    "name": "Patrick sock",
+    "area": "Hub Area 1",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 3,
+    "name": "Couch sock",
+    "area": "Patrick's House",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 4,
+    "name": "Destroy Squidward's Belongings sock",
+    "area": "Squidward's House",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 5,
+    "name": "TV sock (Shady Shoals)",
+    "area": "Shady Shoals",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 6,
+    "name": "Fountain sock (Hub Area 2)",
+    "area": "Hub Area 2",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 7,
+    "name": "Destroy Krusty Krab sock",
+    "area": "Krusty Krab",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 8,
+    "name": "Dumpster sock (Behind Krusty Krab)",
+    "area": "Hub Area 3",
+    "level": "Bikini Bottom",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 9,
+    "name": "Cowa-Bungee sock",
+    "area": "Area 1 / Jellyfish Rock",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 10,
+    "name": "Lake sock",
+    "area": "Area 1 / Jellyfish Rock",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 11,
+    "name": "Island sock",
+    "area": "Area 1 / Jellyfish Rock",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 12,
+    "name": "Bowling sock",
+    "area": "Area 1 / Jellyfish Rock",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 16
+  },
+  {
+    "id": 13,
+    "name": "Jellyfish Rock sock",
+    "area": "Area 1 / Jellyfish Rock",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 14,
+    "name": "Tiki sock",
+    "area": "Area 1 / Jellyfish Rock",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 15,
+    "name": "Slide sock",
+    "area": "Area 2 / Jellyfish Caves",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 16,
+    "name": "Slide-end sock",
+    "area": "Area 2 / Jellyfish Caves",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 17,
+    "name": "Jellyfish Caves sock",
+    "area": "Area 2 / Jellyfish Caves",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 18,
+    "name": "Jellyfish Caves goo sock",
+    "area": "Area 2 / Jellyfish Caves",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 19,
+    "name": "Destroy Tikis",
+    "area": "Area 3 / Jellyfish Canyons & Mesas",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 41
+  },
+  {
+    "id": 20,
+    "name": "Upper-canyon sock",
+    "area": "Area 3 / Jellyfish Canyons & Mesas",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 21,
+    "name": "Hidden ledge sock",
+    "area": "Area 3 / Jellyfish Canyons & Mesas",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 22,
+    "name": "Spork Mountain slide sock",
+    "area": "Area 4 / Spork Mountain",
+    "level": "Jellyfish Fields",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 23,
+    "name": "Toppled-building sock",
+    "area": "Downtown Streets",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 24,
+    "name": "Hovering-platform sock",
+    "area": "Downtown Streets",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 25,
+    "name": "Small-platform building sock",
+    "area": "Downtown Streets",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 26,
+    "name": "Ring-platform building sock",
+    "area": "Downtown Streets",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 27,
+    "name": "Windmill sock",
+    "area": "Downtown Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 28,
+    "name": "Pipe-slide end sock",
+    "area": "Downtown Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 29,
+    "name": "Behind Lighthouse sock",
+    "area": "Downtown Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 30,
+    "name": "Lighthouse sock",
+    "area": "Lighthouse",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 31,
+    "name": "Hovering sock",
+    "area": "Sea Needle",
+    "level": "Downtown Bikini Bottom",
+    "min_spat_requirement": 5
+  },
+  {
+    "id": 32,
+    "name": "Lifeguard Stand sock",
+    "area": "Beach",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 33,
+    "name": "Juice-bar sock",
+    "area": "Beach",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 34,
+    "name": "Sand-castle entrance sock",
+    "area": "Beach",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 35,
+    "name": "Under trampoline inside sand-castle sock",
+    "area": "Beach",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 36,
+    "name": "On Top of Sand-castle sock",
+    "area": "Beach",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 37,
+    "name": "Submerged sock",
+    "area": "Sea Caves",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 38,
+    "name": "Upper-platform sock",
+    "area": "Sea Caves",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 39,
+    "name": "Stalagmite sock",
+    "area": "Sea Caves",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 40,
+    "name": "Whack-a-Tiki sock",
+    "area": "Pier",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 41,
+    "name": "Ice-rink sock",
+    "area": "Pier",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 42,
+    "name": "Top of tent sock",
+    "area": "Pier",
+    "level": "Goo Lagoon",
+    "min_spat_requirement": 10
+  },
+  {
+    "id": 43,
+    "name": "Between Peaks sock",
+    "area": "Downtown Rock Bottom",
+    "level": "Rock Bottom",
+    "min_spat_requirement": 25
+  },
+  {
+    "id": 44,
+    "name": "Far-right sock",
+    "area": "Museum",
+    "level": "Rock Bottom",
+    "min_spat_requirement": 25
+  },
+  {
+    "id": 45,
+    "name": "Duplicatotron sock",
+    "area": "Trench of Advanced Darkness",
+    "level": "Rock Bottom",
+    "min_spat_requirement": 25
+  },
+  {
+    "id": 46,
+    "name": "Bungee sock",
+    "area": "Trench of Advanced Darkness",
+    "level": "Rock Bottom",
+    "min_spat_requirement": 25
+  },
+  {
+    "id": 47,
+    "name": "Rising-platform sock",
+    "area": "Downtown Rock Bottom",
+    "level": "Rock Bottom",
+    "min_spat_requirement": 25
+  },
+  {
+    "id": 48,
+    "name": "Low-platform slide sock",
+    "area": "Downtown Rock Bottom",
+    "level": "Rock Bottom",
+    "min_spat_requirement": 25
+  },
+  {
+    "id": 49,
+    "name": "Bungee sock",
+    "area": "Lobby",
+    "level": "Mermalair",
+    "min_spat_requirement": 0
+  },
+  {
+    "id": 50,
+    "name": "End-slide/pole sock",
+    "area": "Main Chamber",
+    "level": "Mermalair",
+    "min_spat_requirement": 16
+  },
+  {
+    "id": 51,
+    "name": "Security Tunnel sock",
+    "area": "Security Tunnel",
+    "level": "Mermalair",
+    "min_spat_requirement": 16
+  },
+  {
+    "id": 52,
+    "name": "Ballroom sock",
+    "area": "Rolling Ball Area",
+    "level": "Mermalair",
+    "min_spat_requirement": 16
+  },
+  {
+    "id": 53,
+    "name": "Snowman sock",
+    "area": "Ski Lodge",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 54,
+    "name": "Under-bridge sock",
+    "area": "Ski Lodge",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 55,
+    "name": "Slide sock 1",
+    "area": "Guppy Mound",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 56,
+    "name": "Slide sock 2",
+    "area": "Guppy Mound",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 57,
+    "name": "Slide sock 3",
+    "area": "Guppy Mound",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 58,
+    "name": "Slide sock 1",
+    "area": "Flounder Hill",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 59,
+    "name": "Snomen sock",
+    "area": "Flounder Hill",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 60,
+    "name": "Slide sock 1",
+    "area": "Sand Mountain Slopes",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 61,
+    "name": "Slide sock 2",
+    "area": "Sand Mountain Slopes",
+    "level": "Sand Mountain",
+    "min_spat_requirement": 35
+  },
+  {
+    "id": 62,
+    "name": "Platform sock",
+    "area": "Woods",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 63,
+    "name": "Tiki-bowl sock",
+    "area": "Woods",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 64,
+    "name": "Goo sock",
+    "area": "Woods",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 65,
+    "name": "Thunder tiki ledge sock",
+    "area": "Swamp",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 66,
+    "name": "Spring-leaf path sock",
+    "area": "Swamp",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 67,
+    "name": "Monsoon sock",
+    "area": "Caves",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 68,
+    "name": "Vine slide sock",
+    "area": "Vines",
+    "level": "Kelp Forest",
+    "min_spat_requirement": 50
+  },
+  {
+    "id": 69,
+    "name": "Broken ship sock",
+    "area": "Graveyard of Ships",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spat_requirement": 60
+  },
+  {
+    "id": 70,
+    "name": "Dutchman's Ship sock",
+    "area": "Dutchman's Ship",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spat_requirement": 60
+  },
+  {
+    "id": 71,
+    "name": "Slide sock",
+    "area": "Sandy's Dream",
+    "level": "SpongeBob's Dream",
+    "min_spat_requirement": 60
+  },
+  {
+    "id": 72,
+    "name": "Oil sock",
+    "area": "Sandy's Dream",
+    "level": "SpongeBob's Dream",
+    "min_spat_requirement": 60
+  },
+  {
+    "id": 73,
+    "name": "Alamo sock",
+    "area": "Sandy's Dream",
+    "level": "SpongeBob's Dream",
+    "min_spat_requirement": 60
+  },
+  {
+    "id": 74,
+    "name": "Squidward's Dream sock",
+    "area": "Squidward's Dream",
+    "level": "SpongeBob's Dream",
+    "min_spat_requirement": 60
+  },
+  {
+    "id": 75,
+    "name": "Grill sock",
+    "area": "Mr. Krab's Dream",
+    "level": "SpongeBob's Dream",
+    "min_spat_requirement": 60
+  }
+]

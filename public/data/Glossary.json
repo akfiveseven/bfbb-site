@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Hand Disable",
+    "difficulty": 1,
+    "description": "Name for the trick that allows SpongeBob to travel Out-of-Bounds in most areas/levels.",
+    "videoURL": "#",
+    "index": 0
+  },
+  {
+    "name": "Cruise Boost (CB)",
+    "difficulty": 5,
+    "description": "Name for the trick (performed by pressing the Cruise Bubble and Bubble Bowl on the same frame) that gives SpongeBob a constant forward movement vector, allowing for travel at much faster speeds.",
+    "videoURL": "#",
+    "index": 1
+  }
+]

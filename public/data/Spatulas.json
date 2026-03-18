@@ -1,0 +1,758 @@
+[
+  {
+    "id": 1,
+    "pos": 1,
+    "name": "SpongeBob's Closet",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 0
+  },
+  {
+    "id": 2,
+    "pos": 2,
+    "name": "On Top of the Pineapple",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 3,
+    "pos": 3,
+    "name": "Annoy Squidward",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 4,
+    "pos": 4,
+    "name": "Ambush at the Tree Dome",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 5,
+    "pos": 5,
+    "name": "On Top of Shady Shoals",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 6,
+    "pos": 6,
+    "name": "Infestation at the Krusty Krab",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 7,
+    "pos": 7,
+    "name": "On Top of the Chum Bucket",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 8,
+    "pos": 8,
+    "name": "A Wall Jump in the Bucket",
+    "level": "Bikini Bottom",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 9,
+    "pos": 1,
+    "name": "Top of the Hill",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 10,
+    "pos": 2,
+    "name": "Cowa-Bungee!",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 11,
+    "pos": 3,
+    "name": "Patrick's Dilemma",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 12,
+    "pos": 4,
+    "name": "Spelunking",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 13,
+    "pos": 5,
+    "name": "Navigating the Canyons and Mesas",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 14,
+    "pos": 6,
+    "name": "Drain the Lake",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 15,
+    "pos": 7,
+    "name": "Defeat King Jellyfish",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 16,
+    "pos": 8,
+    "name": "Slide Leap",
+    "level": "Jellyfish Fields",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 17,
+    "pos": 1,
+    "name": "End of the Road",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 18,
+    "pos": 2,
+    "name": "Learn Sandy's Moves",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 19,
+    "pos": 3,
+    "name": "Tikis Go Boom",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 20,
+    "pos": 4,
+    "name": "Across the Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 21,
+    "pos": 5,
+    "name": "Swingin' Sandy",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 22,
+    "pos": 6,
+    "name": "Ambush in the Lighthouse",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 23,
+    "pos": 7,
+    "name": "Extreme Bungee",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 5
+  },
+  {
+    "id": 24,
+    "pos": 8,
+    "name": "Come Back with the Cruise Bubble",
+    "level": "Downtown Bikini Bottom",
+    "min_spatula_requirement": 41
+  },
+  {
+    "id": 25,
+    "pos": 1,
+    "name": "Connect the Towers",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 26,
+    "pos": 2,
+    "name": "Save the Children",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 27,
+    "pos": 3,
+    "name": "King of the Castle",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 28,
+    "pos": 4,
+    "name": "Over the Moat",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 29,
+    "pos": 5,
+    "name": "Through the Sea Caves",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 30,
+    "pos": 6,
+    "name": "Clean Out the Bumper Boats",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 31,
+    "pos": 7,
+    "name": "Tower Bungee",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 32,
+    "pos": 8,
+    "name": "Slip and Slide Under the Pier",
+    "level": "Goo Lagoon",
+    "min_spatula_requirement": 10
+  },
+  {
+    "id": 33,
+    "pos": 1,
+    "name": "Rumble at the Poseidome",
+    "level": "Poseidome",
+    "min_spatula_requirement": 15
+  },
+  {
+    "id": 34,
+    "pos": 1,
+    "name": "Return the Museum's Art",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 35,
+    "pos": 2,
+    "name": "Get to the Museum",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 36,
+    "pos": 3,
+    "name": "Swing Along Spatula",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 37,
+    "pos": 4,
+    "name": "Stop the Plundering Robots",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 38,
+    "pos": 5,
+    "name": "Across the Trench of Darkness",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 39,
+    "pos": 6,
+    "name": "How in Tarnation Do You Get There?",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 40,
+    "pos": 7,
+    "name": "Lasers Are Fun and Good For You",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 41,
+    "pos": 8,
+    "name": "Slip Sliding Away",
+    "level": "Rock Bottom",
+    "min_spatula_requirement": 25
+  },
+  {
+    "id": 42,
+    "pos": 1,
+    "name": "Top of the Entrance Area",
+    "level": "Mermalair",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 43,
+    "pos": 2,
+    "name": "Top of the Computer Area",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 44,
+    "pos": 3,
+    "name": "Shut Down the Security System",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 45,
+    "pos": 4,
+    "name": "The Funnel Machines",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 46,
+    "pos": 5,
+    "name": "The Spinning Towers of Power",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 47,
+    "pos": 6,
+    "name": "Top of the Security Tunnel",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 48,
+    "pos": 7,
+    "name": "Complete the Rolling Ball Room",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 49,
+    "pos": 8,
+    "name": "Defeat Prawn",
+    "level": "Mermalair",
+    "min_spatula_requirement": 16
+  },
+  {
+    "id": 50,
+    "pos": 1,
+    "name": "Frosty Bungee",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 51,
+    "pos": 2,
+    "name": "Top of the Lodge",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 52,
+    "pos": 3,
+    "name": "Defeat the Robots on Guppy Mound",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 53,
+    "pos": 4,
+    "name": "Beat Mrs. Puff's Time",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 54,
+    "pos": 5,
+    "name": "Defeat the Robots on Flounder Hill",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 55,
+    "pos": 6,
+    "name": "Beat Bubble Buddy's Time",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 56,
+    "pos": 7,
+    "name": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 57,
+    "pos": 8,
+    "name": "Beat Larry's Time",
+    "level": "Sand Mountain",
+    "min_spatula_requirement": 35
+  },
+  {
+    "id": 58,
+    "pos": 1,
+    "name": "Robo-Patrick Ahoy!",
+    "level": "Industrial Park",
+    "min_spatula_requirement": 40
+  },
+  {
+    "id": 59,
+    "pos": 1,
+    "name": "Through the Woods",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 60,
+    "pos": 2,
+    "name": "Find All the Lost Campers",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 61,
+    "pos": 3,
+    "name": "Tiki Roundup",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 62,
+    "pos": 4,
+    "name": "Down in the Swamp",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 63,
+    "pos": 5,
+    "name": "Through the Kelp Caves",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 64,
+    "pos": 6,
+    "name": "Power Crystal Crisis",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 65,
+    "pos": 7,
+    "name": "Kelp Vine Slide",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 66,
+    "pos": 8,
+    "name": "Beat Mermaid Man's Time",
+    "level": "Kelp Forest",
+    "min_spatula_requirement": 50
+  },
+  {
+    "id": 67,
+    "pos": 1,
+    "name": "Top of the Entrance Area",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 68,
+    "pos": 2,
+    "name": "A Path Through the Goo",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 69,
+    "pos": 3,
+    "name": "Goo Tanker Ahoy!",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 70,
+    "pos": 4,
+    "name": "Top of the Stack of Ships",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 71,
+    "pos": 5,
+    "name": "Shipwreck Bungee",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 72,
+    "pos": 6,
+    "name": "Destroy the Robot Ship",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 73,
+    "pos": 7,
+    "name": "Get Aloft There, Matey!",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 74,
+    "pos": 8,
+    "name": "Defeat the Flying Dutchman",
+    "level": "Flying Dutchman's Graveyard",
+    "min_spatula_requirement": 60
+  },
+  {
+    "id": 75,
+    "pos": 1,
+    "name": "Across the Dreamscape",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 76,
+    "pos": 2,
+    "name": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 77,
+    "pos": 3,
+    "name": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 78,
+    "pos": 4,
+    "name": "Swingers Ahoy",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 79,
+    "pos": 5,
+    "name": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 80,
+    "pos": 6,
+    "name": "Krabby Patty Platforms",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 81,
+    "pos": 7,
+    "name": "Super Bounce",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 82,
+    "pos": 8,
+    "name": "Here You Go",
+    "level": "SpongeBob's Dream",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 83,
+    "pos": 1,
+    "name": "Kah-Rah-Tae!",
+    "level": "Chum Bucket Lab",
+    "min_spatula_requirement": 75
+  },
+  {
+    "id": 84,
+    "pos": 2,
+    "name": "The Small Shall Rule... Or Not",
+    "level": "Chum Bucket Lab",
+    "min_spatula_requirement": 76
+  },
+  {
+    "id": 85,
+    "pos": 1,
+    "name": "Patrick trade 1",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 86,
+    "pos": 2,
+    "name": "Patrick trade 2",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 87,
+    "pos": 3,
+    "name": "Patrick trade 3",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 88,
+    "pos": 4,
+    "name": "Patrick trade 4",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 89,
+    "pos": 5,
+    "name": "Patrick trade 5",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 90,
+    "pos": 6,
+    "name": "Patrick trade 6",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 91,
+    "pos": 7,
+    "name": "Patrick trade 7",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 92,
+    "pos": 8,
+    "name": "Patrick trade 8",
+    "level": "Patrick",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 93,
+    "pos": 1,
+    "name": "Mr. Krabs spatula 1",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 94,
+    "pos": 2,
+    "name": "Mr. Krabs spatula 2",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 95,
+    "pos": 3,
+    "name": "Mr. Krabs spatula 3",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 96,
+    "pos": 4,
+    "name": "Mr. Krabs spatula 4",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 97,
+    "pos": 5,
+    "name": "Mr. Krabs spatula 5",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 98,
+    "pos": 6,
+    "name": "Mr. Krabs spatula 6",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 99,
+    "pos": 7,
+    "name": "Mr. Krabs spatula 7",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 100,
+    "pos": 8,
+    "name": "Mr. Krabs spatula 8",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 101,
+    "pos": 9,
+    "name": "Mr. Krabs duplicate spatula 1",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 102,
+    "pos": 10,
+    "name": "Mr. Krabs duplicate spatula 2",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 103,
+    "pos": 11,
+    "name": "Mr. Krabs duplicate spatula 3",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 104,
+    "pos": 12,
+    "name": "Mr. Krabs duplicate spatula 4",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 105,
+    "pos": 13,
+    "name": "Mr. Krabs duplicate spatula 5",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 106,
+    "pos": 14,
+    "name": "Mr. Krabs duplicate spatula 6",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 107,
+    "pos": 15,
+    "name": "Mr. Krabs duplicate spatula 7",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  },
+  {
+    "id": 108,
+    "pos": 16,
+    "name": "Mr. Krabs duplicate spatula 8",
+    "level": "Mr. Krabs",
+    "min_spatula_requirement": 1
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Original Disable",
+    "strat": "Hand Disable",
+    "difficulty": "1",
+    "description": "Activate the Jellyfish Fields taxi pad by standing OOB to the left of the pad and wait for Hans to grab you and press the button to confirm the taxi. When Hans places you back in the hub, once again stand OOB to the left of the taxi pad and wait for Hans to grab you. This time, it should warp you to Jellyfish Fields without needing to press A to confirm. If performed correctly, you will be able to move on and collect the Cowa-Bungee Golden Spatula.",
+    "videoURL": "https://youtu.be/xEyu4KrlrGo?si=5dtARIj2jA5NwUJ3&t=477"
+  },
+  {
+    "name": "Modern Disable",
+    "strat": "Hand Disable",
+    "difficulty": "5",
+    "description": "TBA",
+    "videoURL": "https://youtu.be/XkAsOyyaE90?si=xzsdNTQ23dXboxsF"
+  },
+  {
+    "name": "Head Bash",
+    "strat": "Hammer Skip",
+    "difficulty": "4",
+    "description": "Manipulate the hammer robot so that you can bash on its head and enable an invisible check point, then drown (kill yourself) in the goo. You should spawn on the hill above.",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Head 1-frame Jump",
+    "strat": "Hammer Skip",
+    "difficulty": "6",
+    "description": "Manipulate the hammer robot so that you set up a damage-boost one frame jump off the hammer robot to be able to reach the platform or ledge.",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Duplicatotron Bash+Slam",
+    "strat": "Dilemma Skip",
+    "difficulty": "5",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Pat's Hammer Bash",
+    "strat": "Dilemma Skip",
+    "difficulty": "4",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Save-Game Glitch",
+    "strat": "Hub 1 Skip",
+    "difficulty": "1",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Using VMS",
+    "strat": "Hub 1 Skip",
+    "difficulty": "6",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "RSS",
+    "strat": "Hub 1 Skip",
+    "difficulty": "9",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Top of the Police Station",
+    "strat": "Hub 2 Skip",
+    "difficulty": "5",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Rollbuck",
+    "strat": "Hub 2 Skip",
+    "difficulty": "7",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Trampoline Jump",
+    "strat": "Super Bounce Skip",
+    "difficulty": "6",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Slam+Bash",
+    "strat": "Oil Skip",
+    "difficulty": "6",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Quick Slick (1-frame)",
+    "strat": "Oil Skip",
+    "difficulty": "8",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Sandy Nut",
+    "strat": "Sandy Slide Skip",
+    "difficulty": "3",
+    "description": "N/A",
+    "videoURL": "N/A"
+  },
+  {
+    "name": "Fast Nut",
+    "strat": "Sandy Slide Skip",
+    "difficulty": "9",
+    "description": "N/A",
+    "videoURL": "N/A"
+  }
+]

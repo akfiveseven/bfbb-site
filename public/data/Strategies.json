@@ -1,0 +1,2316 @@
+[
+  {
+    "id": 1,
+    "name": "Hand Disable",
+    "spatula": "N/A",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "SpongeBob can disable Hans using any taxipad in the Bikini Bottom hub world. This allows the player to traverse many previously out-of-bounds areas.",
+    "links": []
+  },
+  {
+    "id": 2,
+    "name": "Climb Squidward's House",
+    "spatula": "On Top of the Pineapple",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "SpongeBob can climb Squidward’s house to reach the golden underwear and On Top of the Pineapple, skipping the two buttons that spawn the platforms.",
+    "links": []
+  },
+  {
+    "id": 3,
+    "name": "Shady Glide",
+    "spatula": "On Top of Shady Shoals",
+    "level": "Bikini Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using a cruise boost and an ascending sponge-glide, SpongeBob can jump across the top of the invisible walls and make it to the top of Shady Shoals. This strategy is used in Restricted Cheat% categories (i.e., Early Powers).",
+    "links": []
+  },
+  {
+    "id": 4,
+    "name": "Shoals SDJ",
+    "spatula": "On Top of Shady Shoals",
+    "level": "Bikini Bottom",
+    "prerequisites": ["Poseidome"],
+    "hans": "N/A",
+    "description": "Using the SpongeBall located in the first hub area, SpongeBob can reach the Shady Shoals spatula using an SDJ. This can be setup using either the floating tiki’s near Bubble Buddy, or the floating platform near Patrick. NOTE: Music cycles are different between Xbox Disc and Xbox HDD.",
+    "links": [
+      "https://youtu.be/s7Rfbqkdwf8?t=1461"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Shoals VMS",
+    "spatula": "On Top of Shady Shoals",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 6,
+    "name": "Reverse Shoals SDJ",
+    "spatula": "On Top of Shady Shoals",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 7,
+    "name": "Rollbuck",
+    "spatula": "On Top of the Chum Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "Using SpongeBall storage, SpongeBob can roll up and across the wall into the third hub area early, bypassing Robo-Patrick and collecting On Top of the Chum Bucket.",
+    "links": [
+      "https://youtu.be/slgY9eljr6E"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Fast Buck",
+    "spatula": "On Top of the Chum Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "Using a one-frame double jump out of a damage boost,, SpongeBob can jump across the wall into the third hub area early, bypassing Robo-Patrick and collecting On Top of the Chum Bucket.",
+    "links": []
+  },
+  {
+    "id": 9,
+    "name": "Midbuck",
+    "spatula": "On Top of the Chum Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "N/A",
+    "description": "Using SpongeBall storage, SpongeBob can roll from the police station into the third hub area early, bypassing Robo-Patrick and collecting On Top of the Chum Bucket.",
+    "links": []
+  },
+  {
+    "id": 10,
+    "name": "Police Jump",
+    "spatula": "On Top of the Chum Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "From on top of the police station, Spongebob can jump over the wall into the third hub area by double jumping and spinning.",
+    "links": []
+  },
+  {
+    "id": 11,
+    "name": "Police Station CB",
+    "spatula": "On Top of the Chum Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 12,
+    "name": "R-Bowl",
+    "spatula": "SpongeBob's Closet",
+    "level": "Bikini Bottom",
+    "prerequisites": ["Bubble Bowl", "TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 13,
+    "name": "CC/CCW Sock",
+    "spatula": "Annoy Squidward",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 14,
+    "name": "Tree-Dome SAS",
+    "spatula": "Ambush at Sandy's Tree-Dome",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 15,
+    "name": "Spatula Overlap",
+    "spatula": "Infestation at the Krusty Krab",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "After completing the fight and leaving the Krusty Krab, SpongeBob can purchase a spatula from Mr. Krabs at the same time as collecting the reward. Both spatulas are collected simultaneously, skipping a spatula animation.",
+    "links": []
+  },
+  {
+    "id": 16,
+    "name": "Wall Jump Skip",
+    "spatula": "A Wall Jump in the Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 17,
+    "name": "CB Wall Jump",
+    "spatula": "A Wall Jump in the Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 18,
+    "name": "Bucket SAS",
+    "spatula": "A Wall Jump in the Bucket",
+    "level": "Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": []
+  },
+  {
+    "id": 19,
+    "name": "Hub Glide",
+    "spatula": "N/A",
+    "level": "Bikini Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "With a cruise boost, SpongeBob can glide over the invisible wall and bypass Robo-Sandy and enter the second hub area.",
+    "links": ["https://youtu.be/bCyiCC6cZ2c"]
+  },
+  {
+    "id": 20,
+    "name": "Robo-Sandy Skip (RSS)",
+    "spatula": "N/A",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "Disabled",
+    "description": "By jumping under an out-of-bounds invisible wall, SpongeBob can bypass the invisible wall blocking the second hub area.",
+    "links": ["https://youtu.be/Taquh9g2eVo"]
+  },
+  {
+    "id": 21,
+    "name": "Bring it Around Town",
+    "spatula": "N/A",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "Disabled",
+    "description": "By activating Save Game Glitch, SpongeBob can walk on the out of bounds sand without being grabbed by Hans and walk around the invisible walls to reach the second hub area.",
+    "links": []
+  },
+  {
+    "id": 22,
+    "name": "Hub One VMS",
+    "spatula": "N/A",
+    "level": "Bikini Bottom",
+    "prerequisites": [],
+    "hans": "Enabled",
+    "description": "By using the copper platforms or thunder tiki stack in Downtown and pausing at a specific time to set up VMS, you can jump over the Hub One wall avoiding the Hans trigger. Used in No Hand Disable.",
+    "links": []
+  },
+  {
+    "id": 23,
+    "name": "Hammer Skip",
+    "spatula": "Top of the Hill",
+    "level": "Jellyfish Fields",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "SpongeBob can manipulate the Ham-mer robot to move into a certain position. By jumping off of its head into the goo puddle, SpongeBob can launch himself higher than normal and reach the top of the cliff, skipping a large portion of the level.",
+    "links": []
+  },
+  {
+    "id": 24,
+    "name": "Rock Climb",
+    "spatula": "Top of the Hill",
+    "level": "Jellyfish Fields",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "SpongeBob can climb Jellyfish Rock early, collecting the sock and skipping a large portion of the level.",
+    "links": []
+  },
+  {
+    "id": 25,
+    "name": "Rock VMS",
+    "spatula": "Top of the Hill",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 26,
+    "name": "Top of the Hill SAS",
+    "spatula": "Top of the Hill",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 27,
+    "name": "Cowa Skip",
+    "spatula": "Cowa-Bungee!",
+    "level": "Jellyfish Fields",
+    "prerequisites": [],
+    "hans": "Disabled",
+    "description": "SpongeBob can bypass the Hans trigger and collect the spatula early, unlocking the spatula’s warp. Going to the warp skips a large portion of the level.",
+    "links": []
+  },
+  {
+    "id": 28,
+    "name": "Under the Caves",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "SpongeBob can skip going through the caves platforming segment by using a cruise boost to jump out of bounds from Patrick's dilemma area to go under the caves.",
+    "links": []
+  },
+  {
+    "id": 29,
+    "name": "Rock Skip",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using cruise boost movement, SpongeBob can use the stalagmite to optimally reach the Spelunking spatula.",
+    "links": []
+  },
+  {
+    "id": 30,
+    "name": "Spelunking Bowl Boost",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 31,
+    "name": "Gate LCB",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 32,
+    "name": "Gate LCB",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 33,
+    "name": "Checkpoint LCB + Cave Glide",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 34,
+    "name": "Geode Clip",
+    "spatula": "Spelunking",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 35,
+    "name": "Dilemma Skip",
+    "spatula": "Patrick's Dilemma",
+    "level": "Jellyfish Fields",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "Using the Duplicatotron’s explosion, SpongeBob can damage boost himself to Patrick, skipping the robot fight.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 36,
+    "name": "Pat’s Hammer",
+    "spatula": "Patrick's Dilemma",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["No Powers"],
+    "hans": "N/A",
+    "description": "Using the Ham-mer’s damage, SpongeBob can damage boost himself to Patrick, skipping the robot fight.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 37,
+    "name": "CB Dilemma Right/Left",
+    "spatula": "Patrick's Dilemma",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using cruise boost movement, SpongeBob can reach Patrick, skipping the robot fight.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 38,
+    "name": "Seesaw Jump",
+    "spatula": "Navigate the Canyons and Mesas",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 39,
+    "name": "Tiki Skip",
+    "spatula": "Navigate the Canyons and Mesas",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 40,
+    "name": "Mesa Glide",
+    "spatula": "Navigate the Canyons and Mesas",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 41,
+    "name": "Fountain Glide",
+    "spatula": "Navigate the Canyons and Mesas",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 42,
+    "name": "Drain the Lake Clip",
+    "spatula": "Drain the Lake",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using a cruise boost and lag clipping, SpongeBob can clip through the ground and collect the Drain the Lake spatula.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 43,
+    "name": "Drainless Glide/Bash",
+    "spatula": "Drain the Lake",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 44,
+    "name": "Slide Leap Enable",
+    "spatula": "Slide Leap",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 45,
+    "name": "Slide Leap HBB",
+    "spatula": "Slide Leap",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 46,
+    "name": "Fast King Jellyfish Fight",
+    "spatula": "Defeat King Jellyfish",
+    "level": "Jellyfish Fields",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 47,
+    "name": "TBA",
+    "spatula": "End of the Road",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 48,
+    "name": "Streets Jump (SDJ)",
+    "spatula": "Learn Sandy's Moves",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 49,
+    "name": "Swinger Grab",
+    "spatula": "Learn Sandy's Moves",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 50,
+    "name": "Cannon One-Frame",
+    "spatula": "Learn Sandy's Moves",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 51,
+    "name": "Fast Tikis",
+    "spatula": "Tikis Go Boom",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 52,
+    "name": "CB Tikis",
+    "spatula": "Tikis Go Boom",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 53,
+    "name": "CB Rooftops",
+    "spatula": "Across the Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 54,
+    "name": "Rooftops VMS",
+    "spatula": "Across the Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 55,
+    "name": "Rooftops Bowl Boost",
+    "spatula": "Across the Rooftops",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "Enabled",
+    "description": "Instead of jumping across the buildings, SpongeBob can perform a Hans Bowl Boost off of a certain checkpoint to reach the Lighthouse entrance and the rooftops spatula.",
+    "links": ["https://youtu.be/Kjs2IzN6myk"]
+  },
+  {
+    "id": 56,
+    "name": "Rooftops VMS",
+    "spatula": "Swingin' Sandy",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 57,
+    "name": "Dupe Bowls",
+    "spatula": "Ambush in the Lighthouse",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 58,
+    "name": "Lighthouse SAS",
+    "spatula": "Ambush in the Lighthouse",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 59,
+    "name": "Needle Cycle",
+    "spatula": "Extreme Bungee",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 60,
+    "name": "Cruise Boost Needle",
+    "spatula": "Extreme Bungee",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 61,
+    "name": "Cruise Boost Needle",
+    "spatula": "Come Back with the Cruise Bubble",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 62,
+    "name": "CBWTCB SAS",
+    "spatula": "Come Back with the Cruise Bubble",
+    "level": "Downtown Bikini Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 63,
+    "name": "TBA",
+    "spatula": "King of the Castle",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 64,
+    "name": "Tower Glide / Box Bash",
+    "spatula": "Connect the Towers",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 65,
+    "name": "Enter Pier Glide",
+    "spatula": "Connect the Towers",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 66,
+    "name": "CB Kids",
+    "spatula": "Save the Children",
+    "level": "Goo Lagoon",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using a cruise boost, SpongeBob can meet a cycle and quickly save all five of the children.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 67,
+    "name": "LCB Kids",
+    "spatula": "Save the Children",
+    "level": "Goo Lagoon",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using a ledge cruise boost, SpongeBob can meet a cycle and quickly save all five of the children.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 68,
+    "name": "Moat SAS",
+    "spatula": "Over the Moat",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 69,
+    "name": "Moat Bowl",
+    "spatula": "Over the Moat",
+    "level": "Goo Lagoon",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "N/A",
+    "description": "There is an invisible button that becomes visible upon paying the clam. Despite it being invisible, it can still be activated if pressed. Moat Bowl launched a bowl from the castle, hitting the button and revealing the spatula.",
+    "links": ["https://youtu.be/OCQLG-oj0i0?t=1114", "https://youtu.be/ZIVecWRT73w?t=1132", "https://youtu.be/A5LgCD18-_c?t=1239"]
+  },
+  {
+    "id": 70,
+    "name": "Under the Moat",
+    "spatula": "Over the Moat",
+    "level": "Goo Lagoon",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "The Over the Moat spatula is available by default underneath the goo, waiting to be brought above the goo. But here is an L-clip spot located just inside the door to the sand castle. Once out of bounds, SpongeBob can navigate towards the spatula and grab it early.",
+    "links": ["https://youtu.be/LcYcd8v1uaQ?t=2416"]
+  },
+  {
+    "id": 71,
+    "name": "Patrick Sea Caves",
+    "spatula": "Through the Sea Caves",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 72,
+    "name": "Sea Socks late",
+    "spatula": "Through the Sea Caves",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 73,
+    "name": "Booth Custscene Skip",
+    "spatula": "Clean Out the Bumper Boats",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 74,
+    "name": "Pier Slide Jump",
+    "spatula": "Slip n' Slide Under the Pier",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 75,
+    "name": "Pier SAS",
+    "spatula": "Slip n' Slide Under the Pier",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 76,
+    "name": "Pier Slide Slam",
+    "spatula": "Slip n' Slide Under the Pier",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 77,
+    "name": "Tower Climb",
+    "spatula": "Tower Bungee",
+    "level": "Goo Lagoon",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 78,
+    "name": "Robo-Sandy Manips",
+    "spatula": "Rumble at the Poseidome",
+    "level": "Poseidome",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 79,
+    "name": "Dome Clip",
+    "spatula": "Rumble at the Poseidome",
+    "level": "Poseidome",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "By bashing underneath Robo-Sandy as she slams the ground, SpongeBob can clip beneath the stage and collect the spatula. This does not unlock the bubble bowl.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 80,
+    "name": "Dome Lag Clip",
+    "spatula": "Rumble at the Poseidome",
+    "level": "Poseidome",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using pause lag, SpongeBob can clip beneath the stage and collect the spatula. This does not unlock the bubble bowl.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 81,
+    "name": "Tiki Bash",
+    "spatula": "Get to the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using cruise boost movement, SpongeBob can bash onto the shh-tikis to reach the museum.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 82,
+    "name": "Cliff Bash",
+    "spatula": "Get to the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using cruise boost movement, SpongeBob can bash onto a small ledge to reach the museum.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 83,
+    "name": "Early Box",
+    "spatula": "Get to the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 84,
+    "name": "CB Method",
+    "spatula": "Slip Sliding Away",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 85,
+    "name": "No CB Method",
+    "spatula": "Slip Sliding Away",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 86,
+    "name": "Misc. Box Strat",
+    "spatula": "Slip Sliding Away",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 87,
+    "name": "Art CCA",
+    "spatula": "Return the Museum's Art",
+    "level": "Rock Bottom",
+    "prerequisites": ["Cruise Bubble"],
+    "hans": "N/A",
+    "description": "By having EXACTLY six other collectibles from another level, SpongeBob can warp from there to Rock Bottom, press L on the first frame you load in, and trick Ms. Puff into thinking you have all six paintings.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 88,
+    "name": "Art Glide",
+    "spatula": "Return the Museum's Art",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using an LCB, SpongeBob can activate a Sponge-Glide underneath the map to collect the debug purple shiny object, completing the objective.",
+    "links": ["https://youtu.be/OCQLG-oj0i0?t=1715"]
+  },
+  {
+    "id": 89,
+    "name": "Art Bash",
+    "spatula": "Return the Museum's Art",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using an LCB, SpongeBob can store downward momentum and perform a precise bash to collect the debug purple shiny object, completing the objective.",
+    "links": ["https://youtu.be/NCAWJFduXQI"]
+  },
+  {
+    "id": 90,
+    "name": "Art Lag Clip",
+    "spatula": "Return the Museum's Art",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "By getting a cruise boost and using pause lag, Spongebob will fall under the road and can grab the debug purple shiny object, completing the objective.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 91,
+    "name": "Swingalong Skip",
+    "spatula": "Swingalong Spatula",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 92,
+    "name": "Bob Museum",
+    "spatula": "Plundering the Robots in the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 93,
+    "name": "Sandy Museum",
+    "spatula": "Plundering the Robots in the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 94,
+    "name": "Trash Bash",
+    "spatula": "Plundering the Robots in the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 95,
+    "name": "Misc. Bob Museum (Powerless)",
+    "spatula": "Plundering the Robots in the Museum",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 96,
+    "name": "Trench SAS",
+    "spatula": "Across the Trench of Darkness",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 97,
+    "name": "Sleepy Skip",
+    "spatula": "How In Tarnation Do You Get There?",
+    "level": "Rock Bottom",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "By using a slide bash damage boost, Spongbob can reach the platform where the spatula is located.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 98,
+    "name": "CB Tarnation (+Busstop variation)",
+    "spatula": "How In Tarnation Do You Get There?",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 99,
+    "name": "Sandy Tarnation",
+    "spatula": "How In Tarnation Do You Get There?",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 100,
+    "name": "LCB Cam Lock",
+    "spatula": "How In Tarnation Do You Get There?",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using the trench LCB spot near Gary, Spongebob has enough speed to grab the spatula and spin around during the animation without falling off. This is only fast if the LCB is useful elsewhere, e.g. getting trench art or lasers.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 101,
+    "name": "CB Segment",
+    "spatula": "Lasers Are Fun and Good For You",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 102,
+    "name": "Lasers Cutscene Skip",
+    "spatula": "Lasers Are Fun and Good For You",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "Enabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 103,
+    "name": "LCB Lasers",
+    "spatula": "Lasers Are Fun and Good For You",
+    "level": "Rock Bottom",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "On a rock near Gary, there is an LCB spot that gives 11-13 bowling speeds. This LCB makes reaching the lasers as Spongebob much faster than with a regular cruise boost. This segment combined with Tarnation Cam Lock saves over 24 seconds in hundo and 34 seconds in ALS.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 104,
+    "name": "Lasers Bowl Boost",
+    "spatula": "Lasers Are Fun and Good For You",
+    "level": "Rock Bottom",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 105,
+    "name": "Lobby Ledge Grab",
+    "spatula": "Top of the Entrance Area",
+    "level": "Mermalair",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "SpongeBob can grab the ledge of the upper area, skipping most of the level.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 106,
+    "name": "Lobby Bowl Boost",
+    "spatula": "Top of the Entrance Area",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 107,
+    "name": "Lobby Hammer Boost (sock)",
+    "spatula": "Top of the Entrance Area",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 108,
+    "name": "CB Clam Skip (Left/Right)",
+    "spatula": "Top of the Computer Area",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 109,
+    "name": "Main Chamber Skip",
+    "spatula": "Top of the Computer Area",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 110,
+    "name": "CB Tunnel (Left/Right)",
+    "spatula": "Shut Down the Security System",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 111,
+    "name": "Tunnel VMS",
+    "spatula": "Shut Down the Security System",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 112,
+    "name": "Main Segment",
+    "spatula": "The Funnel Machines",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 113,
+    "name": "Misc. Clam Overlap",
+    "spatula": "The Funnel Machines",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 114,
+    "name": "Clam Skip VMS",
+    "spatula": "The Spinning Towers of Power",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 115,
+    "name": "Buttons",
+    "spatula": "The Spinning Towers of Power",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 116,
+    "name": "Buttons",
+    "spatula": "The Spinning Towers of Power",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 117,
+    "name": "Security Tunnel Skip",
+    "spatula": "Top of the Security Tunnel",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "N/A",
+    "description": "There are two cliff to climb. The first one is climbed by jumping off of a small ledge on the wall. The second one is climbed by bashing into the electricity, giving SpongeBob his jump back soon enough to land on the turret. From the turret, you can reach the end and collect the spatula. Although the bowl is not required to perform this strat, you need it to press one of the four main buttons for Shut Down the Security System.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 118,
+    "name": "CB Tunnel",
+    "spatula": "Top of the Security Tunnel",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 119,
+    "name": "Security Tunnel VMS",
+    "spatula": "Top of the Security Tunnel",
+    "level": "Mermalair",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 120,
+    "name": "Ball Room Clip (L-Bowl)",
+    "spatula": "Complete the Rolling Ballroom",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using an L-Bowl between the cage and the wall, SpongeBob can clip inside the cage.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 121,
+    "name": "Ball Room Clip (L-Clip)",
+    "spatula": "Complete the Rolling Ballroom",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "SpongeBob can derail the rolling ball and guide it towards the cage. He can clip inside of it and guide it towards Mr. Krabs. At a specific position, SpongeBob can do an L-Clip when the ball and Mr. Krabs overlap, clipping inside the cage.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 122,
+    "name": "Prawn Skip",
+    "spatula": "Defeat Prawn",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "With a cruise boost, SpongeBob can L-clip out of bounds and climb the outside of the map. From there, SpongeBob can jump to the debug trigger to end the Prawn fight. NOTE: On GameCube, touching the trigger will NOT teleport you back into the map beside the spatula. Getting back inside can be done by reloading the level or ledge grabbing back into the map.",
+    "links": ["https://youtu.be/xEyu4KrlrGo?t=7792", "https://youtu.be/L0QT8_Fe2BM"]
+  },
+  {
+    "id": 123,
+    "name": "Prawn Early",
+    "spatula": "Defeat Prawn",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "Disabled",
+    "description": "Going to the same spot where SpongeBob L-Clips out for Prawn Skip, he can also clip out of bounds by reaching a specific spot either by bowling or spinning into it. Once this is done,0 SpongeBob can jump to clip out, and from there he has several options: a ledge bowl jump, a precise double-jump-spin-slam, or ramping a bowling ball and bashing on top of it. Either of these reach the trigger.",
+    "links": ["https://youtu.be/qkFsl4FiOrw?t=1227"]
+  },
+  {
+    "id": 124,
+    "name": "Prawn SAS",
+    "spatula": "Defeat Prawn",
+    "level": "Mermalair",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "The spatula animation for the Prawn spatula can be skipped by bowling into the spatula, quickly pressing R to enter the Main Chamber, and performing an L-Cancel the first frame you load in. This can be followed up by firing the cruise bubble at the security button near Barnacle Boy. The SAS can also be performed with a 1-frame R press.",
+    "links": ["https://youtu.be/NtqD3t_BCVA?t=1979"]
+  },
+  {
+    "id": 125,
+    "name": "Fence Bowl",
+    "spatula": "Frosty Bungee",
+    "level": "Sand Mountain",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "N/A",
+    "description": "By bowling into the fence, you can rebound the bowl and use it to reach the Frosty Bungee.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 126,
+    "name": "Frosty Clam Skip",
+    "spatula": "Frosty Bungee",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "SpongeBob bypasses the Hans trigger and collects Frosty Bungee.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 127,
+    "name": "Lodge Bash",
+    "spatula": "Top of the Lodge",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 128,
+    "name": "Lodge BBJ",
+    "spatula": "Top of the Lodge",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "Enabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 129,
+    "name": "Lodge L-Control",
+    "spatula": "Top of the Lodge",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 130,
+    "name": "Guppy LCB",
+    "spatula": "Defeat the Robots on Guppy Mound",
+    "level": "Sand Mountain",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "There are two LCB spots at the start of the slide that can be utilized to collect the Guppy Mound spatulas and socks.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 131,
+    "name": "Guppy Clip",
+    "spatula": "Defeat the Robots on Guppy Mound",
+    "level": "Sand Mountain",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "Using the high speed Guppy LCB, SpongeBob can clip out of bounds and skip the entire slide.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 132,
+    "name": "Guppy Casual/Billboard Skip",
+    "spatula": "Defeat the Robots on Guppy Mound",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 133,
+    "name": "Dupe Trickshot",
+    "spatula": "Defeat the Robots on Guppy Mound",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 134,
+    "name": "Dupe Damage Boost",
+    "spatula": "Defeat the Robots on Guppy Mound",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 135,
+    "name": "Guppy LCB",
+    "spatula": "Beat Mrs. Puff's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "There are two LCB spots at the start of the slide that can be utilized to collect the Guppy Mound spatulas and socks.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 136,
+    "name": "Guppy Clip",
+    "spatula": "Beat Mrs. Puff's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "Using the high speed Guppy LCB, SpongeBob can clip out of bounds and skip the entire slide.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 137,
+    "name": "Guppy Casual/Billboard Skip",
+    "spatula": "Beat Mrs. Puff's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 138,
+    "name": "Dupe Trickshot",
+    "spatula": "Beat Mrs. Puff's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 139,
+    "name": "Dupe Damage Boost",
+    "spatula": "Beat Mrs. Puff's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 140,
+    "name": "Flounder LCB",
+    "spatula": "Defeat Robots on Flounder Hill",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 141,
+    "name": "Sandman One-Cycle",
+    "spatula": "Defeat Robots on Flounder Hill",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 142,
+    "name": "Flounder Glide",
+    "spatula": "Defeat Robots on Flounder Hill",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 143,
+    "name": "Flounder Gate Skip (No CB)",
+    "spatula": "Defeat Robots on Flounder Hill",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 144,
+    "name": "Flounder LCB",
+    "spatula": "Beat Bubble Buddy's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 145,
+    "name": "Sandman One-Cycle",
+    "spatula": "Beat Bubble Buddy's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 146,
+    "name": "Flounder Glide",
+    "spatula": "Beat Bubble Buddy's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 147,
+    "name": "Flounder Gate Skip (No CB)",
+    "spatula": "Beat Bubble Buddy's Time",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 148,
+    "name": "Larry Slide Skip",
+    "spatula": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "Larry’s slide is the third and final slide in Sand Mountain. Larry challenges you to a time challenge, and there are robots at the end to defeat. Each objective rewards a spatula. Out of bounds near the top of the slide, SpongeBob can do an L-Bowl on a certain ledge. Due to Larry's Slide being U-shaped, this sends SpongeBob straight from the top to the bottom of the slide. SpongeBob can cruise boost to skip defeating the robots.",
+    "links": ["https://youtu.be/OCQLG-oj0i0?t=1653", "https://youtu.be/Oue7-elHsUs"]
+  },
+  {
+    "id": 149,
+    "name": "Larry LCB",
+    "spatula": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 150,
+    "name": "Pillar Bash",
+    "spatula": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 151,
+    "name": "Pillar Glide",
+    "spatula": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 152,
+    "name": "LSS Bowl Only",
+    "spatula": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 153,
+    "name": "Sliding Bash (No CB)",
+    "spatula": "Defeat Robots on Sand Mountain",
+    "level": "Sand Mountain",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 154,
+    "name": "Swing Stalling",
+    "spatula": "Robo-Patrick Ahoy!",
+    "level": "Industrial Park",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 155,
+    "name": "Manipulations",
+    "spatula": "Robo-Patrick Ahoy!",
+    "level": "Industrial Park",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 156,
+    "name": "Phase 3 Vomit Skip",
+    "spatula": "Robo-Patrick Ahoy!",
+    "level": "Industrial Park",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 157,
+    "name": "IP Lag Clip",
+    "spatula": "Robo-Patrick Ahoy!",
+    "level": "Industrial Park",
+    "prerequisites": ["TBA"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 158,
+    "name": "Woods LCB",
+    "spatula": "Through the Woods",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 159,
+    "name": "Woods SAS",
+    "spatula": "Through the Woods",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 160,
+    "name": "Campers CCA",
+    "spatula": "Find All the Lost Campers",
+    "level": "Kelp Forest",
+    "prerequisites": ["Cruise Bubble"],
+    "hans": "N/A",
+    "description": "By having six or more other collectibles from another level, SpongeBob can warp from there to Kelp Forest, press L on the first frame you load in, and trick Ms. Puff into thinking you have all six campers.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 161,
+    "name": "Misc. Tiki Stack",
+    "spatula": "Tiki Roundup",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 162,
+    "name": "Swamp Cage SAS",
+    "spatula": "Down in the Swamp",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 163,
+    "name": "Swamp Cage Clip (LCB)",
+    "spatula": "Down in the Swamp",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 164,
+    "name": "Swamp Cage Clip (Lag)",
+    "spatula": "Down in the Swamp",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 165,
+    "name": "TBA",
+    "spatula": "Through the Kelp Caves",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 166,
+    "name": "OOB Crystals",
+    "spatula": "Power Crystal Crisis",
+    "level": "Kelp Forest",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "By using a ledge grab on a rock to clip out of bounds, SpongeBob can use cruise boost movement to grab all six crystals and the caves camper much faster than lowering the gates and solving the puzzles.",
+    "links": ["https://www.youtube.com/watch?v=FFt9utzBOMY"]
+  },
+  {
+    "id": 167,
+    "name": "Vine Climb",
+    "spatula": "Power Crystal Crisis",
+    "level": "Kelp Forest",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "TBA",
+    "description": "The plate above the cliff near Barnacle Boy causes a tall vine with leaf trampolines to grow, allowing you to get to the top of the level to the highest crystal. Before the vine grows after activating it, a part of the vine is already sticking out of the ground, including a trampoline leaf. Using the leaf, SpongeBob can jump up to the top of the vine, performing a precise bash. From there, SpongeBob lands on a small ledge above. Spongebob can continue to bash up the wall to the top of the level, leading to one of the five crystals.",
+    "links": ["https://youtu.be/nLSoLlYzpd0", "https://youtu.be/LcYcd8v1uaQ?t=2633"]
+  },
+  {
+    "id": 168,
+    "name": "Cave Camper Early",
+    "spatula": "Power Crystal Crisis",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 169,
+    "name": "Kelp Backwards",
+    "spatula": "Kelp Vine Slide",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 170,
+    "name": "Kelp Slide Sock",
+    "spatula": "Kelp Vine Slide",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 171,
+    "name": "Kelp Slide Skip",
+    "spatula": "Beat Mermaid Man's Time",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 172,
+    "name": "CB vs. No CB",
+    "spatula": "Beat Mermaid Man's Time",
+    "level": "Kelp Forest",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 173,
+    "name": "Rock Climbs",
+    "spatula": "Top of the Entrance Area",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 174,
+    "name": "Lake Sock",
+    "spatula": "Top of the Entrance Area",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "SpongeBob can reach this sock using cruise boost jump spacing without the need for Sandy.",
+    "links": ["https://youtu.be/0bW5CTFT7Gk"]
+  },
+  {
+    "id": 175,
+    "name": "Trampoline Bounce",
+    "spatula": "Top of the Entrance Area",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 176,
+    "name": "Goo Cage Bash",
+    "spatula": "A Path Through the Goo",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "N/A",
+    "description": "Using the bubble bowl, SpongeBob can launch a bowl on top of the cage, run underneath it before it lands, and perform a bash when the ball lands on him. This causes SpongeBob to dip low enough to collect the spatula.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 177,
+    "name": "Goo Cage Clip",
+    "spatula": "A Path Through the Goo",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using the bubble bowl, SpongeBob can launch a bowl next to the cage, run in front of it before it lands, and perform an L-Bowl when the ball lands on him. This causes SpongeBob to clip inside the cage.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 178,
+    "name": "Goo Cage Lag Clip",
+    "spatula": "A Path Through the Goo",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "By getting a cruise boost and lag clipping, Spongebob can fall through the ceiling of the cage and collect the spatula.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 179,
+    "name": "Misc. Goo Clipping",
+    "spatula": "Goo Tanker Ahoy!",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 180,
+    "name": "Boat Bash",
+    "spatula": "Top of the Stack of Ships",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 181,
+    "name": "Window Bash",
+    "spatula": "Top of the Stack of Ships",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 182,
+    "name": "Wall Jump VMS",
+    "spatula": "Top of the Stack of Ships",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 183,
+    "name": "Misc. Hell Glide",
+    "spatula": "Top of the Stack of Ships",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 184,
+    "name": "Shipwreck Skip",
+    "spatula": "Shipwreck Bungee",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "Disabled",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 185,
+    "name": "Misc. Lamp Bash",
+    "spatula": "Shipwreck Bungee",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 186,
+    "name": "Pole Boost",
+    "spatula": "Destroy the Robot Ship",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 187,
+    "name": "Cannons Movement",
+    "spatula": "Destroy the Robot Ship",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 188,
+    "name": "Chest Bounce",
+    "spatula": "Destroy the Robot Ship",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 189,
+    "name": "Misc. No CB Cannons",
+    "spatula": "Destroy the Robot Ship",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 190,
+    "name": "Pole Boost",
+    "spatula": "Get Aloft There, Matey!",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 191,
+    "name": "Cannons Movement",
+    "spatula": "Get Aloft There, Matey!",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 192,
+    "name": "Chest Bounce",
+    "spatula": "Get Aloft There, Matey!",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 193,
+    "name": "Misc. No CB Cannons",
+    "spatula": "Get Aloft There, Matey!",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 194,
+    "name": "Dutchman Skip",
+    "spatula": "Defeat the Flying Dutchman",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 195,
+    "name": "Quad Bash",
+    "spatula": "Defeat the Flying Dutchman",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 196,
+    "name": "Dutchman VMS",
+    "spatula": "Defeat the Flying Dutchman",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 197,
+    "name": "Dutchman L-Control",
+    "spatula": "Defeat the Flying Dutchman",
+    "level": "Flying Dutchman's Graveyard",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 198,
+    "name": "Oil Skip",
+    "spatula": "Across the Dreamscape",
+    "level": "SpongeBob's Dream",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "Using the Slick’s oil shot, Spongebob can damage boost and perform a sliding bash to reach the Dreamscape spatula.",
+    "links": ["https://youtu.be/xEyu4KrlrGo?t=1201", "https://youtu.be/ifz7n_gAbD0"]
+  },
+  {
+    "id": 199,
+    "name": "Quick Slick",
+    "spatula": "Across the Dreamscape",
+    "level": "SpongeBob's Dream",
+    "prerequisites": [],
+    "hans": "N/A",
+    "description": "Instead of taking time to set up a sliding bash, SpongeBob can instead get a damage boost off the Slick's barrier and do a 1-Frame jump to reach the spatula's island. The traditional setup is to do this trick right after 1-Frame Forbidden Skip, in order to have the cycle for the Slick aligned.",
+    "links": ["https://youtu.be/OCQLG-oj0i0?t=1231"]
+  },
+  {
+    "id": 200,
+    "name": "CB Dreamscape",
+    "spatula": "Across the Dreamscape",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using cruise boost movement, SpongeBob can jump straight to the Dreamscape spatula.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 201,
+    "name": "Forbidden Skip",
+    "spatula": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "TBA",
+    "description": "By bowling on the spikes of a specific floating block, SpongeBob can damage boost over to the spatula quicker than walking down the planks.",
+    "links": ["https://youtu.be/xEyu4KrlrGo?t=3541"]
+  },
+  {
+    "id": 202,
+    "name": "Forbidden 1-Frame",
+    "spatula": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "TBA",
+    "description": "Using another spikebowl on a lower block, SpongeBob can perform a one frame double jump to reach the spatula quicker. This method is among the fastest strats as it can reach the proper cycle for another trick called Quick Slick.",
+    "links": ["https://youtu.be/OCQLG-oj0i0?t=1217"]
+  },
+  {
+    "id": 203,
+    "name": "Forbidden Early",
+    "spatula": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "prerequisites": [],
+    "hans": "TBA",
+    "description": "https://youtu.be/WB5fI7rv66Y?t=447",
+    "links": ["https://youtu.be/WB5fI7rv66Y?t=447"]
+  },
+  {
+    "id": 204,
+    "name": "Forbidden Late",
+    "spatula": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 205,
+    "name": "Frameless Forbidden 1-Frame",
+    "spatula": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["https://youtu.be/ZPSRgTsyLFo"]
+  },
+  {
+    "id": 206,
+    "name": "Misc. Strats",
+    "spatula": "Follow the Bouncing Ball",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["https://youtu.be/Jq-Cz_T0i7o?t=390", "https://youtu.be/Tcxo9vBiD8c"]
+  },
+  {
+    "id": 207,
+    "name": "Sandy Nut",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": [],
+    "hans": "Disabled",
+    "description": "Sandy can glide over to the edge of the giant acorn. By jumping into a small part of the invisible checkpoint, Sandy can proceed to die and respawn on top of the nut.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 208,
+    "name": "Fast Nut",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "Using a cruise boost and a one-frame slide bash, SpongeBob can reach the top of the giant acorn.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 209,
+    "name": "Turbo Nut",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "N/A",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 210,
+    "name": "Thunder Nut",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "Disabled",
+    "description": "Spongebob can get stuck in between the thunder tikis near the starting platform. From there, Spongebob must perform a precise DBB at the moment the tikis explode, so that the momentum gets transferred to a damage boost. Then, Spongebob can perform a 1-frame bash to reach the spatula.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 211,
+    "name": "Swingerless",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "Located at the Sandy’s Dream exit is a DCB spot. SpongeBob can activate this and reach the Sliding Texas Style. From here, Spongebob can either get a ledge grab and camera lock the spatula or open the box and get it later as Sandy.",
+    "links": ["TBA"]
+  },
+  {
+    "id": 212,
+    "name": "Nut VMS",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 213,
+    "name": "Texas Glide",
+    "spatula": "Slidin' Texas Style",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 214,
+    "name": "Swingerless",
+    "spatula": "Swingers Ahoy!",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Disabled",
+    "description": "Located at the Sandy’s Dream exit is a DCB spot. SpongeBob can activate this and traverse through the level collecting all the collectibles in Sandy’s Dream much faster than Sandy.",
+    "links": ["https://youtu.be/9m4XLYEFOog"]
+  },
+  {
+    "id": 215,
+    "name": "Damage Boost",
+    "spatula": "Swingers Ahoy!",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 216,
+    "name": "Swingers BBJ",
+    "spatula": "Swingers Ahoy!",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
+    "hans": "Enabled",
+    "description": "After collecting Sliding Texas Style, SpongeBob can jump up the slide with cruise boost momentum to reach a checkpoint. Then, Spongebob can get grabbed by Hans and perform a Bowl Boost Jump to reach Swingers Ahoy without paying the clam.",
+    "links": ["https://youtu.be/3DwD8Fiy8KE?t=118"]
+  },
+  {
+    "id": 217,
+    "name": "Trumpet Jump",
+    "spatula": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 218,
+    "name": "Squid's Dream Sock Cycle",
+    "spatula": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 219,
+    "name": "Squid's Dream LCB",
+    "spatula": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 220,
+    "name": "Turbo Squid's Dream",
+    "spatula": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 221,
+    "name": "Note Jump",
+    "spatula": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 222,
+    "name": "Squid's Dream VMS",
+    "spatula": "Music is in the Ear of the Beholder",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 223,
+    "name": "Cutscene Skip (Reload vs. No Reload)",
+    "spatula": "Krabby Patty Platforms",
+    "level": "SpongeBob's Dream",
+    "prerequisites": ["Bubble Bowl"],
+    "hans": "Enabled",
+    "description": "The initial cutscene in Krabs’ Dream showing the robots can be skipped by bowling off the ledge just before the cutscene plays and getting grabbed by Hans.",
+    "links": ["https://youtu.be/4vjSahorq_g"]
+  },
+  {
+    "id": 224,
+    "name": "Powerless Patties",
+    "spatula": "Krabby Patty Platforms",
+    "level": "SpongeBob's Dream",
+    "prerequisites": [],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 225,
+    "name": "Robo-Sponge Skip",
+    "spatula": "Kah-Rah-Tae!",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 226,
+    "name": "Button Bowl",
+    "spatula": "Kah-Rah-Tae!",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 227,
+    "name": "Robo-Sponge VMS",
+    "spatula": "Kah-Rah-Tae!",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 228,
+    "name": "Fast Brain",
+    "spatula": "The Small Shall Rule... Or Not",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 229,
+    "name": "Small Shall Rule Skip (Tar-Tar Skip)",
+    "spatula": "The Small Shall Rule... Or Not",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 230,
+    "name": "Brain LCB",
+    "spatula": "The Small Shall Rule... Or Not",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  },
+  {
+    "id": 231,
+    "name": "Commonly Known and Easily Recognizable Clip",
+    "spatula": "The Small Shall Rule... Or Not",
+    "level": "Chum Bucket Lab",
+    "prerequisites": ["TBA"],
+    "hans": "TBA",
+    "description": "TBA",
+    "links": ["TBA"]
+  }
+]
