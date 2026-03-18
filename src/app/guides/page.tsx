@@ -29,7 +29,7 @@ export default function Guides() {
                 </tr>
               </thead>
               <tbody>
-                {guidesData.map((guide: any, index: number) => (
+                {guidesData.map((guide: { name: string; link: string; difficulty: string }, index: number) => (
                   <React.Fragment key={index}>
                     <tr className="">
                       <td>

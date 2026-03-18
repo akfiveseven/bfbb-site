@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import Image from 'next/image';
 
 // Navigation links configuration
-const navLinks = [
+const navLinks: { name: string; path?: string; dropdown?: boolean; dropdownItems?: { name: string; path: string }[] }[] = [
   { name: "Home", path: "/" },
-  { 
-    name: "Speedrun", 
+  {
+    name: "Speedrun",
     dropdown: true,
     dropdownItems: [
       { name: "Guides", path: "/guides" },
@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
   }, [pathname]);
 
   // Determine if a nav item is active
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path?: string) => pathname === path;
 
   // Check if any dropdown item is active
   const isDropdownActive = (items: {name: string, path: string}[]) => {
@@ -151,7 +151,7 @@ const Navbar: React.FC = () => {
                   return (
                     <Link
                       key={index}
-                      href={link.path}
+                      href={link.path ?? "/"}
                       className={`px-3 py-2 rounded-md text-lg font-medium ${
                         isActive(link.path) ? "text-yellow" : "text-white"
                       }`}
@@ -276,7 +276,7 @@ const Navbar: React.FC = () => {
                 return (
                   <Link
                     key={index}
-                    href={link.path}
+                    href={link.path ?? "/"}
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
                       isActive(link.path)
                         ? "text-yellow"

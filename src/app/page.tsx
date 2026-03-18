@@ -1,7 +1,5 @@
-import { ContentContainer } from "@/components/layout/ContentContainer";
 import { CenteredContainer } from "@/components/layout/CenteredContainer";
 import Link from 'next/link'
-import Image from 'next/image'
 export default function Home() {
   const Header = ({ label, className }: { label: string, className: string }) => {
     return (

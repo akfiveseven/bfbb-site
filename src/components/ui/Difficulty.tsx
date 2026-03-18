@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 const Difficulty = ({ count, className }: { count: number, className?: string }) => {
     
   let message = "";

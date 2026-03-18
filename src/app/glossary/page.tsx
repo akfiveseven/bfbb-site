@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { ContentContainer } from "@/components/layout/ContentContainer";
 // import { CenteredContainer } from "@/components/layout/CenteredContainer";
 import axios from "axios";
-import { Difficulty } from "@/components/ui/Difficulty";
 
 
 export default function Glossary() {
@@ -32,7 +31,7 @@ export default function Glossary() {
                 </tr>
               </thead>
               <tbody>
-                {glossaryData.map((term: any, index: number) => (
+                {glossaryData.map((term: { name: string; description: string }, index: number) => (
                   <React.Fragment key={index}>
                     <tr className="">
                       <td>
