@@ -22,7 +22,7 @@ const navLinks: { name: string; path?: string; dropdown?: boolean; dropdownItems
     ]
   },
   // { name: "Modding", path: "/modding" },
-  { name: "Contribute", path: "/contribute" }
+  // { name: "Contribute", path: "/contribute" }
 ];
 
 const Navbar: React.FC = () => {
