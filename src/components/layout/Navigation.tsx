@@ -18,7 +18,7 @@ const navLinks: { name: string; path?: string; dropdown?: boolean; dropdownItems
       // { name: "Tricks", path: "/tricks" },
       // { name: "Levels", path: "/levels" },
       { name: "Glossary", path: "/glossary" },
-      { name: "Resources", path: "/resources" }
+      // { name: "Resources", path: "/resources" }
     ]
   },
   // { name: "Modding", path: "/modding" },
