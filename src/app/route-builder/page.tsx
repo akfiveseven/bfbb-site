@@ -305,14 +305,14 @@ export default function RouteBuilder() {
                 width={24}
                 height={24}
               />
-              <span className="text-xl sm:text-3xl font-bold text-yellow">{spatulaCount}</span>
+              <span className="text-xl pl-8 sm:text-3xl font-bold text-yellow">{spatulaCount}</span>
             </div>
             <div className="flex items-center gap-1 sm:gap-2">
               <Image
                 src="/assets/pat_sock.png"
                 alt="Sock count"
-                width={24}
-                height={24}
+                width={100}
+                height={100}
               />
               <span className="text-xl sm:text-3xl font-bold text-purple-300">{sockCount}</span>
             </div>
@@ -371,8 +371,8 @@ export default function RouteBuilder() {
                             <Image
                               src="/assets/pat_sock.png"
                               alt="Sock"
-                              width={22}
-                              height={22}
+                              width={100}
+                              height={100}
                             />
                           </span>
                         )}
@@ -489,7 +489,7 @@ export default function RouteBuilder() {
                   width={20}
                   height={20}
                 />
-                Add Spatula
+                <span className="pl-8">Add Spatula</span>
               </button>
               <button
                 onClick={() => {
@@ -506,8 +506,8 @@ export default function RouteBuilder() {
                 <Image
                   src="/assets/pat_sock.png"
                   alt=""
-                  width={20}
-                  height={20}
+                  width={100}
+                  height={100}
                 />
                 Add Sock
               </button>
