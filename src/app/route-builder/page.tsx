@@ -345,10 +345,10 @@ export default function RouteBuilder() {
                   return (
                     <div
                       key={index}
-                      className={`rounded-lg border p-2 sm:p-3 flex flex-col gap-2 ${
+                      className={`rounded-lg border flex flex-col gap-2 ${
                         entry.type === "sock"
-                          ? "bg-purple-900/60 border-purple-700"
-                          : "bg-blue-900/80 border-blue-700"
+                          ? "bg-purple-900/60 border-purple-700 p-2 sm:p-3"
+                          : "bg-blue-900/80 border-blue-700 py-1.5 px-2 sm:py-2 sm:px-3"
                       }`}
                     >
                       <div className="flex items-center gap-2 sm:gap-3">
