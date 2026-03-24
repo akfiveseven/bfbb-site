@@ -23,6 +23,14 @@ const LevelStrategies: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     axios
@@ -102,6 +110,8 @@ const LevelStrategies: React.FC = () => {
     }
   };
 
+  const effectiveLevel = isMobile ? "All Strats" : activeLevel;
+
   return (
     <>
       <div className="min-h-[calc(100vh-18rem)] flex flex-col">
@@ -110,15 +120,15 @@ const LevelStrategies: React.FC = () => {
 
           <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
             <h1 className="text-2xl sm:text-4xl font-bold text-yellow">Level Strats</h1>
-            <h2 className="text-xl sm:text-4xl font-bold text-yellow px-4 py-2 rounded-lg">
-            {activeLevel}
+            <h2 className="hidden lg:block text-4xl font-bold text-yellow px-4 py-2 rounded-lg">
+            {effectiveLevel}
             </h2>
           </div>
 
 
           <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 lg:h-[calc(100vh-16rem)]">
-            {/* Level Selection */}
-            <div className="container-bg rounded-lg p-3 sm:p-4 lg:w-1/3 w-full flex flex-col">
+            {/* Level Selection - hidden on mobile */}
+            <div className="container-bg rounded-lg p-3 sm:p-4 lg:w-1/3 w-full hidden lg:flex flex-col">
               <h3 className="text-xl sm:text-2xl font-bold text-yellow mb-3 sm:mb-4 text-center">Select Level</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2 gap-2 sm:gap-3 xl:gap-2 flex-1 auto-rows-fr content-start lg:overflow-y-scroll">
                 {levels.map((level) => (
@@ -150,7 +160,7 @@ const LevelStrategies: React.FC = () => {
             {/* Level Content */}
             <div className="container-bg rounded-lg p-4 sm:p-6 lg:w-2/3 w-full flex flex-col min-h-0">
 
-              {activeLevel !== "All Strats" && (
+              {effectiveLevel !== "All Strats" && (
                 <>
                   {/* Spatula Navigation */}
                   <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 mb-4 sm:mb-8 flex-shrink-0">
@@ -200,7 +210,7 @@ const LevelStrategies: React.FC = () => {
                 </>
               )}
               {/* Search Bar (All Strats only) */}
-              {activeLevel === "All Strats" && (
+              {effectiveLevel === "All Strats" && (
                 <div className="mb-4 flex-shrink-0">
                   <input
                     type="text"
@@ -214,14 +224,14 @@ const LevelStrategies: React.FC = () => {
               {/* Strategy Entries */}
               <div className="space-y-1 flex-1 lg:overflow-y-auto min-h-0">
                 {!loading && (() => {
-                  const filteredStrats = activeLevel === "All Strats"
+                  const filteredStrats = effectiveLevel === "All Strats"
                     ? stratsData.filter(strat => {
                         if (!searchQuery) return true;
                         const q = searchQuery.toLowerCase();
                         return strat.name.toLowerCase().includes(q);
                       })
                     : stratsData
-                      .filter(strat => strat.level == activeLevel)
+                      .filter(strat => strat.level == effectiveLevel)
                       .filter(strat => strat.spatula == getActiveSpatulaName());
 
                   return filteredStrats.length > 0 ? (
@@ -236,12 +246,12 @@ const LevelStrategies: React.FC = () => {
                               className="w-full p-2 flex justify-between items-center cursor-pointer"
                               onClick={() => setExpandedStrat(isExpanded ? null : stratKey)}
                             >
-                              <span className="text-xs font-semibold text-white">{strat.name} {activeLevel === "All Strats" && (
+                              <span className="text-xs font-semibold text-white">{strat.name} {effectiveLevel === "All Strats" && (
                                     <span className="text-xs text-gray-400 mx-2">{strat.spatula}</span>
                                   )}</span>
                               <div>
                                 <span>
-                                  {activeLevel === "All Strats" && (
+                                  {effectiveLevel === "All Strats" && (
                                     <span className="text-xs text-gray-400 mx-2">{strat.level}</span>
                                   )}
                                 </span>
