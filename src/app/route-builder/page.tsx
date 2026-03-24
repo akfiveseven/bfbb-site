@@ -339,8 +339,8 @@ export default function RouteBuilder() {
                 </div>
               ) : (
                 route.map((entry, index) => {
-                  const spatCountBefore = route.slice(0, index).filter((e) => e.type === "spatula").length;
-                  const spatNumber = entry.type === "spatula" ? spatCountBefore + 1 : null;
+                  {/* const spatCountBefore = route.slice(0, index).filter((e) => e.type === "spatula").length; */}
+                  {/* const spatNumber = entry.type === "spatula" ? spatCountBefore + 1 : null; */}
 
                   return (
                     <div
