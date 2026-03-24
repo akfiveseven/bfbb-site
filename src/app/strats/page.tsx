@@ -106,32 +106,32 @@ const LevelStrategies: React.FC = () => {
     <>
       <div className="min-h-[calc(100vh-18rem)] flex flex-col">
         {/* Main Content */}
-        <main className="flex-1 p-8 font-bob">
+        <main className="flex-1 p-4 sm:p-8 font-bob">
 
-          <div className="flex justify-between items-center mb-8">
-            <h1 className="text-4xl font-bold text-yellow">Level Strats</h1>
-            <h2 className="text-4xl font-bold text-yellow px-4 py-2 rounded-lg">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
+            <h1 className="text-2xl sm:text-4xl font-bold text-yellow">Level Strats</h1>
+            <h2 className="text-xl sm:text-4xl font-bold text-yellow px-4 py-2 rounded-lg">
             {activeLevel}
             </h2>
           </div>
 
 
-          <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-16rem)]">
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 lg:h-[calc(100vh-16rem)]">
             {/* Level Selection */}
-            <div className="container-bg rounded-lg p-4 lg:w-1/3 w-full flex flex-col">
-              <h3 className="text-2xl font-bold text-yellow mb-4 text-center">Select Level</h3>
-              <div className="grid grid-cols-1 xl:grid-cols-2 sm:gap-12 xl:gap-2 flex-1 auto-rows-fr content-start overflow-y-scroll">
+            <div className="container-bg rounded-lg p-3 sm:p-4 lg:w-1/3 w-full flex flex-col">
+              <h3 className="text-xl sm:text-2xl font-bold text-yellow mb-3 sm:mb-4 text-center">Select Level</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2 gap-2 sm:gap-3 xl:gap-2 flex-1 auto-rows-fr content-start lg:overflow-y-scroll">
                 {levels.map((level) => (
                   <button
                     key={`${level.id}-${level.label}`}
                     className={`
-                      border-2 rounded-lg p-3 flex items-center justify-center text-center
+                      border-2 rounded-lg p-2 sm:p-3 flex items-center justify-center text-center
                       transition-all duration-200 cursor-pointer
                       ${level.label === activeLevel
                         ? 'border-[#fff67b] bg-[#fff67b]/20 text-[#fff67b] shadow-lg'
                         : 'border-gray-400 hover:border-[#fff67b] hover:bg-blue-900/30'
                       }
-                      text-xs 2xl:text-lg leading-tight min-h-[2rem]
+                      text-xs sm:text-sm 2xl:text-lg leading-tight min-h-[2.5rem]
                     `}
                     style={{
                       backgroundImage: level.image ? `url(${level.image})` : 'none',
@@ -145,32 +145,24 @@ const LevelStrategies: React.FC = () => {
                     </span>
                   </button>
                 ))}
-                {/*
-                <Link
-                  href="/all-levels"
-                  className="border-2 border-gray-300 rounded-full flex items-center justify-center text-center hover:bg-gray-100"
-                >
-                  <span className="px-2 text-lg sm:text-xl md:text-2xl responsive-label">All Strats</span>
-                </Link>
-                */}
               </div>
             </div>
             {/* Level Content */}
-            <div className="container-bg rounded-lg p-6 lg:w-2/3 w-full flex flex-col min-h-0">
+            <div className="container-bg rounded-lg p-4 sm:p-6 lg:w-2/3 w-full flex flex-col min-h-0">
 
               {activeLevel !== "All Strats" && (
                 <>
                   {/* Spatula Navigation */}
-                  <div className="flex flex-col sm:flex-row max-h-48 items-center justify-center gap-6 mb-8 flex-shrink-0">
+                  <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 mb-4 sm:mb-8 flex-shrink-0">
                     <button
-                      className="text-4xl text-yellow hover:text-white transition-colors duration-200 hover:scale-110 transform order-1 sm:order-1"
+                      className="text-2xl sm:text-4xl text-yellow hover:text-white transition-colors duration-200 hover:scale-110 transform"
                       onClick={decrementSpatCounter}
                       aria-label="Previous spatula"
                     >
                       ←
                     </button>
 
-                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3 order-2 sm:order-2">
+                    <div className="flex flex-wrap justify-center gap-1 sm:gap-3">
                       {spatulaData
                         .filter(spatula => spatula.level == activeLevel)
                         .map((spatula, spatIdx) => (
@@ -180,14 +172,14 @@ const LevelStrategies: React.FC = () => {
                               alt={`Spatula ${spatIdx+1}`}
                               width={40}
                               height={40}
-                              className={`transition-all duration-200 ${spatIdx+1 === activeSpatula ? 'scale-110 drop-shadow-lg' : 'opacity-60 hover:opacity-80'}`}
+                              className={`w-6 h-6 sm:w-10 sm:h-10 transition-all duration-200 ${spatIdx+1 === activeSpatula ? 'scale-110 drop-shadow-lg' : 'opacity-60 hover:opacity-80'}`}
                             />
                           </div>
                         ))}
                     </div>
 
                     <button
-                      className="text-4xl text-yellow hover:text-white transition-colors duration-200 hover:scale-110 transform order-3 sm:order-3"
+                      className="text-2xl sm:text-4xl text-yellow hover:text-white transition-colors duration-200 hover:scale-110 transform"
                       onClick={incrementSpatCounter}
                       aria-label="Next spatula"
                     >
@@ -195,12 +187,12 @@ const LevelStrategies: React.FC = () => {
                     </button>
                   </div>
                   {/* Spatula Name */}
-                  <div className="text-center mb-6 flex-shrink-0">
+                  <div className="text-center mb-4 sm:mb-6 flex-shrink-0">
                     {spatulaData
                       .filter(spatula => spatula.level == activeLevel)
                       .filter(spatula => spatula.pos == activeSpatula)
                       .map((spatula) => (
-                        <h3 key={spatula.id} className="text-2xl font-bold text-yellow">
+                        <h3 key={spatula.id} className="text-lg sm:text-2xl font-bold text-yellow">
                           {spatula.name}
                         </h3>
                       ))}
@@ -220,7 +212,7 @@ const LevelStrategies: React.FC = () => {
                 </div>
               )}
               {/* Strategy Entries */}
-              <div className="space-y-1 flex-1 overflow-y-auto min-h-0">
+              <div className="space-y-1 flex-1 lg:overflow-y-auto min-h-0">
                 {!loading && (() => {
                   const filteredStrats = activeLevel === "All Strats"
                     ? stratsData.filter(strat => {
