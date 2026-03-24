@@ -348,7 +348,7 @@ export default function RouteBuilder() {
                       className={`rounded-lg border flex flex-col gap-2 ${
                         entry.type === "sock"
                           ? "bg-purple-900/60 border-purple-700 p-2 sm:p-3"
-                          : "bg-blue-900/80 border-blue-700 py-1.5 px-2 sm:py-2 sm:px-3"
+                          : "bg-blue-900/80 border-blue-700 py-1 px-2 sm:py-1.5 sm:px-3"
                       }`}
                     >
                       <div className="flex items-center gap-2 sm:gap-3">
@@ -357,9 +357,9 @@ export default function RouteBuilder() {
                           <Image
                             src="/assets/spatula_golden_straight.png"
                             alt="Spatula"
-                            width={32}
-                            height={32}
-                            className="flex-shrink-0"
+                            width={16}
+                            height={16}
+                            className="flex-shrink-0 mx-2"
                           />
                         ) : (
                           <Image
