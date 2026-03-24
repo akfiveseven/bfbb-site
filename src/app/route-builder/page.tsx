@@ -269,8 +269,8 @@ export default function RouteBuilder() {
                       <Image
                         src="/assets/pat_sock.png"
                         alt=""
-                        width={100}
-                        height={100}
+                        width={48}
+                        height={48}
                         className="flex-shrink-0"
                       />
                       <span className="flex-1">{sock.name}</span>
@@ -307,21 +307,21 @@ export default function RouteBuilder() {
               />
               <span className="text-xl pl-8 sm:text-3xl font-bold text-yellow">{spatulaCount}</span>
             </div>
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-4 sm:gap-8">
               <Image
                 src="/assets/pat_sock.png"
                 alt="Sock count"
-                width={100}
-                height={100}
+                width={48}
+                height={48}
               />
               <span className="text-xl sm:text-3xl font-bold text-purple-300">{sockCount}</span>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-3 sm:gap-4 flex-1 min-h-0">
+        <div className="flex flex-col lg:flex-row gap-8 flex-1 min-h-0">
           {/* Route List */}
-          <div className="container-bg rounded-lg p-3 sm:p-6 lg:w-2/3 w-full flex flex-col min-h-0">
+          <div className="container-bg rounded-lg p-6 lg:w-2/3 w-full flex flex-col min-h-0">
             <h3 className="text-lg sm:text-2xl font-bold text-yellow mb-2 sm:mb-4 text-center">Your Route</h3>
 
             <div className="flex-1 overflow-y-auto min-h-0 space-y-2">
@@ -371,8 +371,8 @@ export default function RouteBuilder() {
                             <Image
                               src="/assets/pat_sock.png"
                               alt="Sock"
-                              width={100}
-                              height={100}
+                              width={48}
+                              height={48}
                             />
                           </span>
                         )}
@@ -497,7 +497,7 @@ export default function RouteBuilder() {
                   setShowSpatulaPicker(false);
                   setStratPickerIndex(null);
                 }}
-                className={`flex-1 py-2 sm:py-3 rounded-lg border-2 border-dashed transition-colors duration-200 cursor-pointer flex items-center justify-center gap-2 text-sm sm:text-lg ${
+                className={`flex-1 rounded-lg border-2 border-dashed transition-colors duration-200 cursor-pointer flex items-center justify-center gap-8 text-sm sm:text-lg ${
                   showSockPicker
                     ? "border-purple-400 bg-purple-400/10 text-purple-300"
                     : "border-purple-400/50 text-purple-300 hover:bg-purple-400/10 hover:border-purple-400"
@@ -506,8 +506,8 @@ export default function RouteBuilder() {
                 <Image
                   src="/assets/pat_sock.png"
                   alt=""
-                  width={100}
-                  height={100}
+                  width={48}
+                  height={48}
                 />
                 Add Sock
               </button>
