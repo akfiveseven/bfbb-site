@@ -352,29 +352,23 @@ export default function RouteBuilder() {
                       }`}
                     >
                       <div className="flex items-center gap-2 sm:gap-3">
-                        {/* Order number / icon */}
+                        {/* Icon */}
                         {entry.type === "spatula" ? (
-                          <>
-                            <span className="text-yellow font-bold text-sm sm:text-lg w-6 sm:w-8 text-center flex-shrink-0">
-                              {spatNumber}.
-                            </span>
-                            <Image
-                              src="/assets/spatula_golden_straight.png"
-                              alt="Spatula"
-                              width={22}
-                              height={22}
-                              className="flex-shrink-0"
-                            />
-                          </>
+                          <Image
+                            src="/assets/spatula_golden_straight.png"
+                            alt="Spatula"
+                            width={32}
+                            height={32}
+                            className="flex-shrink-0"
+                          />
                         ) : (
-                          <span className="flex-shrink-0 w-6 sm:w-8 flex justify-center">
-                            <Image
-                              src="/assets/pat_sock.png"
-                              alt="Sock"
-                              width={48}
-                              height={48}
-                            />
-                          </span>
+                          <Image
+                            src="/assets/pat_sock.png"
+                            alt="Sock"
+                            width={32}
+                            height={32}
+                            className="flex-shrink-0"
+                          />
                         )}
 
                         {/* Info */}
