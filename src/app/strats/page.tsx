@@ -180,9 +180,9 @@ const LevelStrategies: React.FC = () => {
                             <Image
                               src={spatIdx+1 === activeSpatula ? "/assets/spatula_golden_straight.png" : "/assets/spatula_silver_straight.png"}
                               alt={`Spatula ${spatIdx+1}`}
-                              width={40}
-                              height={40}
-                              className={`w-6 h-6 sm:w-10 sm:h-10 transition-all duration-200 ${spatIdx+1 === activeSpatula ? 'scale-110 drop-shadow-lg' : 'opacity-60 hover:opacity-80'}`}
+                              width={97}
+                              height={340}
+                              className={`w-auto h-20 sm:h-32 transition-all duration-200 ${spatIdx+1 === activeSpatula ? 'scale-110 drop-shadow-lg' : 'opacity-60 hover:opacity-80'}`}
                             />
                           </div>
                         ))}
