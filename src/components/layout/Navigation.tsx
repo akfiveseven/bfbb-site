@@ -12,11 +12,11 @@ const navLinks: { name: string; path?: string; dropdown?: boolean; dropdownItems
     name: "Speedrun",
     dropdown: true,
     dropdownItems: [
-      { name: "Guides", path: "/guides" },
       { name: "Strats", path: "/strats" },
       { name: "Route Builder", path: "/route-builder" },
       // { name: "Tricks", path: "/tricks" },
       // { name: "Levels", path: "/levels" },
+      { name: "Guides", path: "/guides" },
       { name: "Glossary", path: "/glossary" },
       // { name: "Resources", path: "/resources" }
     ]
