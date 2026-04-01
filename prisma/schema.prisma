@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("user")
+  discordId     String?   @unique
+  accounts      Account[]
+  sessions      Session[]
+  submissions   Submission[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Submission {
+  id         String   @id @default(cuid())
+  userId     String
+  type       String   // "strategy" | "method"
+  data       String   // JSON string
+  status     String   @default("pending") // "pending" | "approved" | "denied"
+  reviewNote String?
+  reviewedBy String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Strategy {
+  id            Int      @id @default(autoincrement())
+  name          String
+  spatula       String
+  level         String
+  prerequisites String   // JSON string array
+  hans          String
+  description   String
+  links         String   // JSON string array
+}
+
+model Method {
+  id          Int    @id @default(autoincrement())
+  name        String
+  strat       String
+  difficulty  String
+  description String
+  videoURL    String
+}
+
+model Spatula {
+  id                    Int    @id @default(autoincrement())
+  pos                   Int
+  name                  String
+  level                 String
+  minSpatulaRequirement Int
+}
+
+model Sock {
+  id                 Int     @id @default(autoincrement())
+  name               String
+  area               String?
+  level              String
+  minSpatRequirement Int
+}
+
+model GlossaryEntry {
+  id          Int    @id @default(autoincrement())
+  name        String
+  difficulty  Int    @default(0)
+  description String
+  videoURL    String @default("")
+}
+
+model Guide {
+  id         Int    @id @default(autoincrement())
+  name       String
+  difficulty String
+  category   String @default("")
+  link       String
+}
