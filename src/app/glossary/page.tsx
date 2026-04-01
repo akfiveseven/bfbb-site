@@ -10,7 +10,7 @@ export default function Glossary() {
 
   useEffect(() => {
     axios
-      .get("/data/Glossary.json")
+      .get("/api/data/glossary")
       .then((res) => {
         setGlossaryData(res.data);
       })

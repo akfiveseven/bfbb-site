@@ -34,21 +34,19 @@ const LevelStrategies: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("/data/Strategies.json")
+      .get("/api/data/strategies")
       .then((res) => {
-        console.log(res.data);
         setStratsData(res.data);
       })
       .catch((err) => console.log(err));
     axios
-      .get("/data/Spatulas.json")
+      .get("/api/data/spatulas")
       .then((res) => {
-        console.log(res.data);
         setSpatulaData(res.data);
       })
       .catch((err) => console.log(err));
     axios
-      .get("/data/Methods.json")
+      .get("/api/data/methods")
       .then((res) => {
         setMethodsData(res.data);
       })

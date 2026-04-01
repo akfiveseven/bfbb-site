@@ -56,9 +56,9 @@ export default function RouteBuilder() {
   const [stratPickerIndex, setStratPickerIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    axios.get("/data/Spatulas.json").then((res) => setSpatulaData(res.data));
-    axios.get("/data/Strategies.json").then((res) => setStratsData(res.data));
-    axios.get("/data/Socks.json").then((res) => setSocksData(res.data));
+    axios.get("/api/data/spatulas").then((res) => setSpatulaData(res.data));
+    axios.get("/api/data/strategies").then((res) => setStratsData(res.data));
+    axios.get("/api/data/socks").then((res) => setSocksData(res.data));
   }, []);
 
   const levels = [

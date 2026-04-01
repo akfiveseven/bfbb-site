@@ -8,7 +8,7 @@ export default function Guides() {
 
   useEffect(() => {
     axios
-      .get("/data/Guides.json")
+      .get("/api/data/guides")
       .then((res) => {
         setGuidesData(res.data);
       })
