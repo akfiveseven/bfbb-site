@@ -3,7 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Image from 'next/image';
+import AuthButton from "@/components/ui/AuthButton";
 
 // Navigation links configuration
 const navLinks: { name: string; path?: string; dropdown?: boolean; dropdownItems?: { name: string; path: string }[] }[] = [
@@ -22,13 +24,14 @@ const navLinks: { name: string; path?: string; dropdown?: boolean; dropdownItems
     ]
   },
   // { name: "Modding", path: "/modding" },
-  // { name: "Contribute", path: "/contribute" }
+  { name: "Contribute", path: "/contribute" }
 ];
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const { data: session } = useSession();
 
   const pathname = usePathname();
   const desktopDropdownRef = useRef<HTMLDivElement>(null);
@@ -94,7 +97,7 @@ const Navbar: React.FC = () => {
 
           {/* Desktop navigation */}
           <div className="hidden md:block ml-auto">
-            <div className="flex items-baseline space-x-4">
+            <div className="flex items-center space-x-4">
               {navLinks.map((link, index) => {
                 if (link.dropdown) {
                   return (
@@ -161,6 +164,17 @@ const Navbar: React.FC = () => {
                   );
                 }
               })}
+              {session?.user?.role === "admin" && (
+                <Link
+                  href="/admin"
+                  className={`px-3 py-2 rounded-md text-lg font-medium ${
+                    pathname?.startsWith("/admin") ? "text-yellow" : "text-white"
+                  }`}
+                >
+                  Admin
+                </Link>
+              )}
+              <AuthButton />
             </div>
           </div>
 
@@ -288,6 +302,21 @@ const Navbar: React.FC = () => {
                 );
               }
             })}
+            {session?.user?.role === "admin" && (
+              <Link
+                href="/admin"
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  pathname?.startsWith("/admin")
+                    ? "text-yellow"
+                    : "text-white hover:text-white"
+                }`}
+              >
+                Admin
+              </Link>
+            )}
+            <div className="px-3 py-2">
+              <AuthButton />
+            </div>
           </div>
         </div>
       )}
