@@ -31,6 +31,19 @@ export async function GET(
     return NextResponse.json(methods);
   }
 
+  if (type === "socks") {
+    const socks = await prisma.sock.findMany();
+    return NextResponse.json(
+      socks.map((s) => ({
+        id: s.id,
+        name: s.name,
+        area: s.area,
+        level: s.level,
+        min_spat_requirement: s.minSpatRequirement,
+      }))
+    );
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }
 
@@ -71,6 +84,19 @@ export async function PUT(
         difficulty: String(body.difficulty),
         description: body.description,
         videoURL: body.videoURL,
+      },
+    });
+    return NextResponse.json(updated);
+  }
+
+  if (type === "socks") {
+    const updated = await prisma.sock.update({
+      where: { id: body.id },
+      data: {
+        name: body.name,
+        area: body.area || null,
+        level: body.level,
+        minSpatRequirement: body.min_spat_requirement,
       },
     });
     return NextResponse.json(updated);

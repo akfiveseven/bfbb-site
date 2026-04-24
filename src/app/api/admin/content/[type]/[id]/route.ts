@@ -30,5 +30,10 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   }
 
+  if (type === "socks") {
+    await prisma.sock.delete({ where: { id: numericId } });
+    return NextResponse.json({ success: true });
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }

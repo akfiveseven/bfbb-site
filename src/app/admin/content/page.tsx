@@ -23,17 +23,28 @@ interface Method {
   videoURL: string;
 }
 
+interface Sock {
+  id: number;
+  name: string;
+  area: string | null;
+  level: string;
+  min_spat_requirement: number;
+}
+
 export default function AdminContent() {
   const [strategies, setStrategies] = useState<Strategy[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
-  const [tab, setTab] = useState<"strategies" | "methods">("strategies");
+  const [socks, setSocks] = useState<Sock[]>([]);
+  const [tab, setTab] = useState<"strategies" | "methods" | "socks">("strategies");
   const [editingStrat, setEditingStrat] = useState<Strategy | null>(null);
   const [editingMethod, setEditingMethod] = useState<Method | null>(null);
+  const [editingSock, setEditingSock] = useState<Sock | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios.get("/api/admin/content/strategies").then((res) => setStrategies(res.data));
     axios.get("/api/admin/content/methods").then((res) => setMethods(res.data));
+    axios.get("/api/admin/content/socks").then((res) => setSocks(res.data));
   }, []);
 
   const saveStrategy = async () => {
@@ -64,6 +75,20 @@ export default function AdminContent() {
     setMethods((prev) => prev.filter((m) => m.id !== id));
   };
 
+  const saveSock = async () => {
+    if (!editingSock) return;
+    await axios.put("/api/admin/content/socks", editingSock);
+    setSocks((prev) =>
+      prev.map((s) => (s.id === editingSock.id ? editingSock : s))
+    );
+    setEditingSock(null);
+  };
+
+  const deleteSock = async (id: number) => {
+    await axios.delete(`/api/admin/content/socks/${id}`);
+    setSocks((prev) => prev.filter((s) => s.id !== id));
+  };
+
   const inputClass =
     "w-full px-2 py-1 rounded bg-blue-950/60 border border-blue-700 text-white text-xs focus:outline-none focus:border-[#fff67b]";
 
@@ -77,6 +102,13 @@ export default function AdminContent() {
     (m) =>
       m.name.toLowerCase().includes(search.toLowerCase()) ||
       m.strat.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const filteredSocks = socks.filter(
+    (s) =>
+      s.name.toLowerCase().includes(search.toLowerCase()) ||
+      s.level.toLowerCase().includes(search.toLowerCase()) ||
+      (s.area && s.area.toLowerCase().includes(search.toLowerCase()))
   );
 
   return (
@@ -107,6 +139,16 @@ export default function AdminContent() {
             }`}
           >
             Methods ({methods.length})
+          </button>
+          <button
+            onClick={() => setTab("socks")}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === "socks"
+                ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+                : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+            }`}
+          >
+            Socks ({socks.length})
           </button>
         </div>
 
@@ -306,6 +348,101 @@ export default function AdminContent() {
                     </button>
                     <button
                       onClick={() => deleteMethod(method.id)}
+                      className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {/* Socks */}
+        {tab === "socks" && (
+          <div className="space-y-2">
+            {filteredSocks.map((sock) =>
+              editingSock?.id === sock.id ? (
+                <div
+                  key={sock.id}
+                  className="container-bg rounded-lg p-4 border border-[#fff67b]/50 space-y-2"
+                >
+                  <input
+                    value={editingSock.name}
+                    onChange={(e) =>
+                      setEditingSock({ ...editingSock, name: e.target.value })
+                    }
+                    className={inputClass}
+                    placeholder="Name"
+                  />
+                  <div className="grid grid-cols-3 gap-2">
+                    <input
+                      value={editingSock.level}
+                      onChange={(e) =>
+                        setEditingSock({ ...editingSock, level: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Level"
+                    />
+                    <input
+                      value={editingSock.area ?? ""}
+                      onChange={(e) =>
+                        setEditingSock({ ...editingSock, area: e.target.value || null })
+                      }
+                      className={inputClass}
+                      placeholder="Area"
+                    />
+                    <input
+                      type="number"
+                      value={editingSock.min_spat_requirement}
+                      onChange={(e) =>
+                        setEditingSock({
+                          ...editingSock,
+                          min_spat_requirement: parseInt(e.target.value) || 0,
+                        })
+                      }
+                      className={inputClass}
+                      placeholder="Min spatulas"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={saveSock}
+                      className="px-3 py-1 rounded text-xs bg-green-600/20 text-green-400 border border-green-600/50 cursor-pointer"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditingSock(null)}
+                      className="px-3 py-1 rounded text-xs text-gray-400 border border-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={sock.id}
+                  className="container-bg rounded-lg p-3 flex items-center justify-between border border-transparent hover:border-blue-700"
+                >
+                  <div>
+                    <span className="text-sm font-semibold text-white">
+                      {sock.name}
+                    </span>
+                    <span className="text-xs text-gray-400 ml-2">
+                      {sock.level}{sock.area ? ` — ${sock.area}` : ""} — Min: {sock.min_spat_requirement}
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setEditingSock(sock)}
+                      className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => deleteSock(sock.id)}
                       className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
                     >
                       Delete
