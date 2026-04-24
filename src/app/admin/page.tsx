@@ -34,7 +34,7 @@ export default function AdminDashboard() {
           className="container-bg rounded-lg p-6 hover:border-[#fff67b] border border-transparent transition-colors"
         >
           <h2 className="text-xl font-bold text-yellow mb-2">Content</h2>
-          <p className="text-gray-300 text-sm">Manage strategies, methods, socks</p>
+          <p className="text-gray-300 text-sm">Manage strategies, methods, socks, spatulas</p>
         </Link>
         <Link
           href="/admin/users"
