@@ -47,6 +47,7 @@ type RouteEntry = SpatulaEntry | SockEntry;
 interface SavedRouteInfo {
   id: string;
   name: string;
+  category: string | null;
   updatedAt: string;
 }
 
@@ -62,6 +63,9 @@ export default function RouteBuilder() {
   const [pickerSearch, setPickerSearch] = useState("");
   const [sockPickerSearch, setSockPickerSearch] = useState("");
   const [stratPickerIndex, setStratPickerIndex] = useState<number | null>(null);
+
+  // Category state
+  const [category, setCategory] = useState<string | null>(null);
 
   // Save/Load state
   const [savedRoutes, setSavedRoutes] = useState<SavedRouteInfo[]>([]);
@@ -86,15 +90,16 @@ export default function RouteBuilder() {
   const saveRoute = async () => {
     if (!saveName.trim()) return;
     try {
+      const saveData = { category, entries: route };
       if (activeRouteId) {
-        await axios.put(`/api/routes/${activeRouteId}`, { name: saveName, data: route });
+        await axios.put(`/api/routes/${activeRouteId}`, { name: saveName, data: saveData });
         setSavedRoutes((prev) =>
-          prev.map((r) => (r.id === activeRouteId ? { ...r, name: saveName, updatedAt: new Date().toISOString() } : r))
+          prev.map((r) => (r.id === activeRouteId ? { ...r, name: saveName, category, updatedAt: new Date().toISOString() } : r))
         );
       } else {
-        const res = await axios.post("/api/routes", { name: saveName, data: route });
+        const res = await axios.post("/api/routes", { name: saveName, data: saveData });
         setActiveRouteId(res.data.id);
-        setSavedRoutes((prev) => [{ id: res.data.id, name: saveName, updatedAt: new Date().toISOString() }, ...prev]);
+        setSavedRoutes((prev) => [{ id: res.data.id, name: saveName, category, updatedAt: new Date().toISOString() }, ...prev]);
       }
       setSaveMessage("Route saved!");
       setTimeout(() => setSaveMessage(""), 2000);
@@ -108,7 +113,15 @@ export default function RouteBuilder() {
   const loadRoute = async (id: string) => {
     try {
       const res = await axios.get(`/api/routes/${id}`);
-      setRoute(res.data.data);
+      const loaded = res.data.data;
+      // Support both old format (array) and new format ({ category, entries })
+      if (Array.isArray(loaded)) {
+        setRoute(loaded);
+        setCategory(null);
+      } else {
+        setRoute(loaded.entries || []);
+        setCategory(loaded.category || null);
+      }
       setActiveRouteId(id);
       setSaveName(res.data.name);
       setShowLoadModal(false);
@@ -135,6 +148,7 @@ export default function RouteBuilder() {
 
   const newRoute = () => {
     setRoute([]);
+    setCategory(null);
     setActiveRouteId(null);
     setSaveName("");
     setStratPickerIndex(null);
@@ -372,6 +386,83 @@ export default function RouteBuilder() {
     </>
   );
 
+  const categories = ["Any%", "100%", "Custom"];
+
+  if (!category) {
+    return (
+      <div className="h-[calc(100vh-6rem)] flex flex-col">
+        <main className="flex-1 flex flex-col items-center justify-center p-4 font-bob">
+          <h1 className="text-2xl sm:text-4xl font-bold text-yellow mb-2">Route Builder</h1>
+          <p className="text-gray-300 text-sm mb-8">Select a category to get started</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-md">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setCategory(cat)}
+                className="py-4 px-6 rounded-lg container-bg border border-blue-700 hover:border-[#fff67b] text-white text-lg font-medium transition-colors cursor-pointer"
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          {session && savedRoutes.length > 0 && (
+            <div className="mt-8 w-full max-w-md">
+              <p className="text-gray-400 text-sm text-center mb-3">Or load a saved route</p>
+              <button
+                onClick={() => setShowLoadModal(true)}
+                className="w-full py-3 rounded-lg border-2 border-dashed border-[#fff67b]/50 text-[#fff67b] hover:bg-[#fff67b]/10 cursor-pointer text-sm"
+              >
+                Load Saved Route
+              </button>
+            </div>
+          )}
+
+          {/* Load Modal */}
+          {showLoadModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/60" onClick={() => setShowLoadModal(false)} />
+              <div className="relative container-bg rounded-lg p-6 w-full max-w-md max-h-[70vh] flex flex-col">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold text-yellow">Load Route</h3>
+                  <button
+                    onClick={() => setShowLoadModal(false)}
+                    className="text-gray-400 hover:text-white text-xl cursor-pointer"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div className="flex-1 overflow-y-auto space-y-2 min-h-0">
+                  {savedRoutes.map((r) => (
+                    <div
+                      key={r.id}
+                      className="rounded-lg p-3 flex items-center justify-between border border-blue-700 hover:border-[#fff67b]/30"
+                    >
+                      <button
+                        onClick={() => loadRoute(r.id)}
+                        className="flex-1 text-left cursor-pointer"
+                      >
+                        <div className="text-sm font-semibold text-white">{r.name}{r.category && <span className="ml-2 text-xs font-normal text-gray-400">{r.category}</span>}</div>
+                        <div className="text-xs text-gray-400">
+                          {new Date(r.updatedAt).toLocaleDateString()}
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => deleteRoute(r.id)}
+                        className="text-gray-500 hover:text-red-400 text-lg px-2 cursor-pointer"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="h-[calc(100vh-6rem)] flex flex-col">
       <main className="flex-1 flex flex-col p-3 sm:p-4 font-bob min-h-0">
@@ -379,6 +470,7 @@ export default function RouteBuilder() {
         <div className="flex justify-between items-center mb-2 flex-shrink-0">
           <div className="flex items-center gap-2 sm:gap-4">
             <h1 className="text-xl sm:text-2xl font-bold text-yellow">Route Builder</h1>
+            <span className="text-xs px-2 py-1 rounded-md border border-[#fff67b]/30 text-[#fff67b]">{category}</span>
             {session && (
               <div className="flex items-center gap-1 sm:gap-2">
                 <button
@@ -717,7 +809,7 @@ export default function RouteBuilder() {
                         onClick={() => loadRoute(r.id)}
                         className="flex-1 text-left cursor-pointer"
                       >
-                        <div className="text-sm font-semibold text-white">{r.name}</div>
+                        <div className="text-sm font-semibold text-white">{r.name}{r.category && <span className="ml-2 text-xs font-normal text-gray-400">{r.category}</span>}</div>
                         <div className="text-xs text-gray-400">
                           {new Date(r.updatedAt).toLocaleDateString()}
                         </div>
