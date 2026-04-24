@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import axios from "axios";
 
@@ -43,7 +44,14 @@ interface SockEntry {
 
 type RouteEntry = SpatulaEntry | SockEntry;
 
+interface SavedRouteInfo {
+  id: string;
+  name: string;
+  updatedAt: string;
+}
+
 export default function RouteBuilder() {
+  const { data: session } = useSession();
   const [spatulaData, setSpatulaData] = useState<Spatula[]>([]);
   const [stratsData, setStratsData] = useState<Strategy[]>([]);
   const [socksData, setSocksData] = useState<Sock[]>([]);
@@ -55,11 +63,84 @@ export default function RouteBuilder() {
   const [sockPickerSearch, setSockPickerSearch] = useState("");
   const [stratPickerIndex, setStratPickerIndex] = useState<number | null>(null);
 
+  // Save/Load state
+  const [savedRoutes, setSavedRoutes] = useState<SavedRouteInfo[]>([]);
+  const [showSaveModal, setShowSaveModal] = useState(false);
+  const [showLoadModal, setShowLoadModal] = useState(false);
+  const [saveName, setSaveName] = useState("");
+  const [activeRouteId, setActiveRouteId] = useState<string | null>(null);
+  const [saveMessage, setSaveMessage] = useState("");
+
   useEffect(() => {
     axios.get("/api/data/spatulas").then((res) => setSpatulaData(res.data));
     axios.get("/api/data/strategies").then((res) => setStratsData(res.data));
     axios.get("/api/data/socks").then((res) => setSocksData(res.data));
   }, []);
+
+  useEffect(() => {
+    if (session) {
+      axios.get("/api/routes").then((res) => setSavedRoutes(res.data)).catch(() => {});
+    }
+  }, [session]);
+
+  const saveRoute = async () => {
+    if (!saveName.trim()) return;
+    try {
+      if (activeRouteId) {
+        await axios.put(`/api/routes/${activeRouteId}`, { name: saveName, data: route });
+        setSavedRoutes((prev) =>
+          prev.map((r) => (r.id === activeRouteId ? { ...r, name: saveName, updatedAt: new Date().toISOString() } : r))
+        );
+      } else {
+        const res = await axios.post("/api/routes", { name: saveName, data: route });
+        setActiveRouteId(res.data.id);
+        setSavedRoutes((prev) => [{ id: res.data.id, name: saveName, updatedAt: new Date().toISOString() }, ...prev]);
+      }
+      setSaveMessage("Route saved!");
+      setTimeout(() => setSaveMessage(""), 2000);
+      setShowSaveModal(false);
+    } catch {
+      setSaveMessage("Failed to save.");
+      setTimeout(() => setSaveMessage(""), 2000);
+    }
+  };
+
+  const loadRoute = async (id: string) => {
+    try {
+      const res = await axios.get(`/api/routes/${id}`);
+      setRoute(res.data.data);
+      setActiveRouteId(id);
+      setSaveName(res.data.name);
+      setShowLoadModal(false);
+      setStratPickerIndex(null);
+      setShowSpatulaPicker(false);
+      setShowSockPicker(false);
+    } catch {
+      // handled
+    }
+  };
+
+  const deleteRoute = async (id: string) => {
+    try {
+      await axios.delete(`/api/routes/${id}`);
+      setSavedRoutes((prev) => prev.filter((r) => r.id !== id));
+      if (activeRouteId === id) {
+        setActiveRouteId(null);
+        setSaveName("");
+      }
+    } catch {
+      // handled
+    }
+  };
+
+  const newRoute = () => {
+    setRoute([]);
+    setActiveRouteId(null);
+    setSaveName("");
+    setStratPickerIndex(null);
+    setShowSpatulaPicker(false);
+    setShowSockPicker(false);
+  };
 
   const levels = [
     "Bikini Bottom", "Jellyfish Fields", "Downtown Bikini Bottom",
@@ -296,7 +377,34 @@ export default function RouteBuilder() {
       <main className="flex-1 flex flex-col p-3 sm:p-4 font-bob min-h-0">
         {/* Header */}
         <div className="flex justify-between items-center mb-2 flex-shrink-0">
-          <h1 className="text-xl sm:text-2xl font-bold text-yellow">Route Builder</h1>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <h1 className="text-xl sm:text-2xl font-bold text-yellow">Route Builder</h1>
+            {session && (
+              <div className="flex items-center gap-1 sm:gap-2">
+                <button
+                  onClick={() => { setSaveName(saveName || ""); setShowSaveModal(true); }}
+                  className="px-2 sm:px-3 py-1 rounded-md text-xs font-medium border border-[#fff67b]/30 text-[#fff67b] hover:bg-[#fff67b]/10 cursor-pointer"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setShowLoadModal(true)}
+                  className="px-2 sm:px-3 py-1 rounded-md text-xs font-medium border border-gray-600 text-gray-300 hover:border-[#fff67b] hover:text-[#fff67b] cursor-pointer"
+                >
+                  Load
+                </button>
+                <button
+                  onClick={newRoute}
+                  className="px-2 sm:px-3 py-1 rounded-md text-xs font-medium border border-gray-600 text-gray-300 hover:border-[#fff67b] hover:text-[#fff67b] cursor-pointer"
+                >
+                  New
+                </button>
+              </div>
+            )}
+            {saveMessage && (
+              <span className="text-xs text-green-400">{saveMessage}</span>
+            )}
+          </div>
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-1 sm:gap-2">
               <Image
@@ -322,7 +430,9 @@ export default function RouteBuilder() {
         <div className="flex flex-col lg:flex-row gap-8 flex-1 min-h-0">
           {/* Route List */}
           <div className="container-bg rounded-lg p-6 lg:w-2/3 w-full flex flex-col min-h-0">
-            <h3 className="text-lg sm:text-2xl font-bold text-yellow mb-2 sm:mb-4 text-center">Your Route</h3>
+            <h3 className="text-lg sm:text-2xl font-bold text-yellow mb-2 sm:mb-4 text-center">
+              {activeRouteId && saveName ? saveName : "Your Route"}
+            </h3>
 
             <div className="flex-1 overflow-y-auto min-h-0 space-y-2">
               {route.length === 0 ? (
@@ -531,6 +641,100 @@ export default function RouteBuilder() {
             </div>
           )}
         </div>
+
+        {/* Save Modal */}
+        {showSaveModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/60" onClick={() => setShowSaveModal(false)} />
+            <div className="relative container-bg rounded-lg p-6 w-full max-w-sm space-y-4">
+              <h3 className="text-lg font-bold text-yellow">
+                {activeRouteId ? "Update Route" : "Save Route"}
+              </h3>
+              <input
+                type="text"
+                value={saveName}
+                onChange={(e) => setSaveName(e.target.value)}
+                placeholder="Route name..."
+                className="w-full px-3 py-2 rounded-lg bg-blue-950/60 border border-blue-700 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-[#fff67b]"
+                autoFocus
+                onKeyDown={(e) => e.key === "Enter" && saveRoute()}
+              />
+              <div className="flex gap-2">
+                <button
+                  onClick={saveRoute}
+                  disabled={!saveName.trim()}
+                  className="flex-1 py-2 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 cursor-pointer disabled:opacity-50"
+                >
+                  {activeRouteId ? "Update" : "Save"}
+                </button>
+                {activeRouteId && (
+                  <button
+                    onClick={() => { setActiveRouteId(null); setSaveName(""); }}
+                    className="py-2 px-3 rounded-lg text-xs text-gray-400 border border-gray-600 hover:text-white cursor-pointer"
+                  >
+                    Save as New
+                  </button>
+                )}
+                <button
+                  onClick={() => setShowSaveModal(false)}
+                  className="py-2 px-4 rounded-lg text-gray-400 border border-gray-600 cursor-pointer"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Load Modal */}
+        {showLoadModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/60" onClick={() => setShowLoadModal(false)} />
+            <div className="relative container-bg rounded-lg p-6 w-full max-w-md max-h-[70vh] flex flex-col">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold text-yellow">Load Route</h3>
+                <button
+                  onClick={() => setShowLoadModal(false)}
+                  className="text-gray-400 hover:text-white text-xl cursor-pointer"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto space-y-2 min-h-0">
+                {savedRoutes.length === 0 ? (
+                  <p className="text-gray-400 text-sm text-center py-8">No saved routes.</p>
+                ) : (
+                  savedRoutes.map((r) => (
+                    <div
+                      key={r.id}
+                      className={`rounded-lg p-3 flex items-center justify-between border transition-colors ${
+                        activeRouteId === r.id
+                          ? "border-[#fff67b]/50 bg-[#fff67b]/5"
+                          : "border-blue-700 hover:border-[#fff67b]/30"
+                      }`}
+                    >
+                      <button
+                        onClick={() => loadRoute(r.id)}
+                        className="flex-1 text-left cursor-pointer"
+                      >
+                        <div className="text-sm font-semibold text-white">{r.name}</div>
+                        <div className="text-xs text-gray-400">
+                          {new Date(r.updatedAt).toLocaleDateString()}
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => deleteRoute(r.id)}
+                        className="text-gray-500 hover:text-red-400 text-lg px-2 cursor-pointer"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

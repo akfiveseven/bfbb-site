@@ -17,6 +17,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   submissions   Submission[]
+  savedRoutes   SavedRoute[]
 }
 
 model Account {
@@ -108,6 +109,16 @@ model GlossaryEntry {
   difficulty  Int    @default(0)
   description String
   videoURL    String @default("")
+}
+
+model SavedRoute {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  data      String   // JSON string of route entries
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Guide {
