@@ -48,7 +48,17 @@ interface SavedRouteInfo {
   id: string;
   name: string;
   category: string | null;
+  published: boolean;
   updatedAt: string;
+}
+
+interface PublishedRoute {
+  id: string;
+  name: string;
+  category: string | null;
+  data: { category: string | null; entries: RouteEntry[] } | RouteEntry[];
+  updatedAt: string;
+  author: { name: string | null; image: string | null };
 }
 
 export default function RouteBuilder() {
@@ -68,12 +78,14 @@ export default function RouteBuilder() {
   const [category, setCategory] = useState<string | null>(null);
 
   // Save/Load state
+  const [publishedRoutes, setPublishedRoutes] = useState<PublishedRoute[]>([]);
   const [savedRoutes, setSavedRoutes] = useState<SavedRouteInfo[]>([]);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [showLoadModal, setShowLoadModal] = useState(false);
   const [saveName, setSaveName] = useState("");
   const [activeRouteId, setActiveRouteId] = useState<string | null>(null);
   const [saveMessage, setSaveMessage] = useState("");
+  const [submitPending, setSubmitPending] = useState(false);
 
   useEffect(() => {
     axios.get("/api/data/spatulas").then((res) => setSpatulaData(res.data));
@@ -82,6 +94,7 @@ export default function RouteBuilder() {
   }, []);
 
   useEffect(() => {
+    axios.get("/api/routes/published").then((res) => setPublishedRoutes(res.data)).catch(() => {});
     if (session) {
       axios.get("/api/routes").then((res) => setSavedRoutes(res.data)).catch(() => {});
     }
@@ -99,7 +112,7 @@ export default function RouteBuilder() {
       } else {
         const res = await axios.post("/api/routes", { name: saveName, data: saveData });
         setActiveRouteId(res.data.id);
-        setSavedRoutes((prev) => [{ id: res.data.id, name: saveName, category, updatedAt: new Date().toISOString() }, ...prev]);
+        setSavedRoutes((prev) => [{ id: res.data.id, name: saveName, category, published: false, updatedAt: new Date().toISOString() }, ...prev]);
       }
       setSaveMessage("Route saved!");
       setTimeout(() => setSaveMessage(""), 2000);
@@ -144,6 +157,61 @@ export default function RouteBuilder() {
     } catch {
       // handled
     }
+  };
+
+  const togglePublish = async () => {
+    if (!activeRouteId) return;
+    try {
+      const res = await axios.patch(`/api/routes/${activeRouteId}/publish`);
+      setSavedRoutes((prev) =>
+        prev.map((r) => (r.id === activeRouteId ? { ...r, published: res.data.published } : r))
+      );
+      setSaveMessage(res.data.published ? "Route published!" : "Route unpublished");
+      setTimeout(() => setSaveMessage(""), 2000);
+      // Refresh published routes list
+      axios.get("/api/routes/published").then((r) => setPublishedRoutes(r.data)).catch(() => {});
+    } catch {
+      // handled
+    }
+  };
+
+  const submitForPublishing = async () => {
+    if (!activeRouteId || route.length === 0) return;
+    setSubmitPending(true);
+    try {
+      await axios.post("/api/submissions", {
+        type: "route",
+        data: {
+          name: saveName || "Untitled Route",
+          category,
+          routeId: activeRouteId,
+          entryCount: route.length,
+          routeData: { category, entries: route },
+        },
+      });
+      setSaveMessage("Submitted for review!");
+      setTimeout(() => setSaveMessage(""), 3000);
+    } catch {
+      setSaveMessage("Failed to submit.");
+      setTimeout(() => setSaveMessage(""), 2000);
+    }
+    setSubmitPending(false);
+  };
+
+  const loadPublishedRoute = (pub: PublishedRoute) => {
+    const data = pub.data;
+    if (Array.isArray(data)) {
+      setRoute(data);
+      setCategory(null);
+    } else {
+      setRoute(data.entries || []);
+      setCategory(data.category || null);
+    }
+    setActiveRouteId(null);
+    setSaveName("");
+    setStratPickerIndex(null);
+    setShowSpatulaPicker(false);
+    setShowSockPicker(false);
   };
 
   const newRoute = () => {
@@ -405,9 +473,41 @@ export default function RouteBuilder() {
               </button>
             ))}
           </div>
-          {session && savedRoutes.length > 0 && (
+          {publishedRoutes.length > 0 && (
             <div className="mt-8 w-full max-w-md">
-              <p className="text-gray-400 text-sm text-center mb-3">Or load a saved route</p>
+              <p className="text-gray-400 text-sm text-center mb-3">Community Presets</p>
+              <div className="space-y-2">
+                {publishedRoutes.map((pub) => (
+                  <button
+                    key={pub.id}
+                    onClick={() => loadPublishedRoute(pub)}
+                    className="w-full container-bg rounded-lg p-3 border border-blue-700 hover:border-[#fff67b] transition-colors cursor-pointer text-left flex items-center gap-3"
+                  >
+                    {pub.author.image && (
+                      <Image
+                        src={pub.author.image}
+                        alt={pub.author.name ?? ""}
+                        width={24}
+                        height={24}
+                        className="rounded-full flex-shrink-0"
+                      />
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-semibold text-white truncate">{pub.name}</div>
+                      <div className="text-xs text-gray-400">
+                        {pub.author.name}
+                        {pub.category && <span className="ml-2 text-gray-500">{pub.category}</span>}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {session && savedRoutes.length > 0 && (
+            <div className="mt-6 w-full max-w-md">
+              <p className="text-gray-400 text-sm text-center mb-3">Your Saved Routes</p>
               <button
                 onClick={() => setShowLoadModal(true)}
                 className="w-full py-3 rounded-lg border-2 border-dashed border-[#fff67b]/50 text-[#fff67b] hover:bg-[#fff67b]/10 cursor-pointer text-sm"
@@ -491,6 +591,27 @@ export default function RouteBuilder() {
                 >
                   New
                 </button>
+                {session.user?.role === "admin" && activeRouteId && (
+                  <button
+                    onClick={togglePublish}
+                    className={`px-2 sm:px-3 py-1 rounded-md text-xs font-medium border cursor-pointer ${
+                      savedRoutes.find((r) => r.id === activeRouteId)?.published
+                        ? "border-green-500/50 text-green-400 hover:bg-green-500/10"
+                        : "border-gray-600 text-gray-300 hover:border-green-500 hover:text-green-400"
+                    }`}
+                  >
+                    {savedRoutes.find((r) => r.id === activeRouteId)?.published ? "Published" : "Publish"}
+                  </button>
+                )}
+                {session.user?.role !== "admin" && activeRouteId && route.length > 0 && (
+                  <button
+                    onClick={submitForPublishing}
+                    disabled={submitPending}
+                    className="px-2 sm:px-3 py-1 rounded-md text-xs font-medium border border-gray-600 text-gray-300 hover:border-green-500 hover:text-green-400 cursor-pointer disabled:opacity-50"
+                  >
+                    {submitPending ? "Submitting..." : "Submit as Preset"}
+                  </button>
+                )}
               </div>
             )}
             {saveMessage && (

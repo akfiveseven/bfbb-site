@@ -111,6 +111,12 @@ export default function AdminSubmissions() {
                     <p>Video: {parsed.videoURL || "N/A"}</p>
                   </>
                 )}
+                {sub.type === "route" && (
+                  <>
+                    <p>Category: {parsed.category || "N/A"}</p>
+                    <p>Items in route: {parsed.entryCount || "Unknown"}</p>
+                  </>
+                )}
                 <p className="mt-2">{parsed.description}</p>
               </div>
               <div className="flex gap-2">

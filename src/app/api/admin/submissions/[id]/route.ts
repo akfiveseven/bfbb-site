@@ -69,6 +69,24 @@ export async function PATCH(
           videoURL: data.videoURL || "",
         },
       });
+    } else if (submission.type === "route") {
+      if (data.routeId) {
+        // Publish existing saved route
+        await prisma.savedRoute.update({
+          where: { id: data.routeId },
+          data: { published: true },
+        });
+      } else {
+        // Create a new published route from submission data
+        await prisma.savedRoute.create({
+          data: {
+            userId: submission.userId,
+            name: data.name,
+            data: JSON.stringify(data.routeData),
+            published: true,
+          },
+        });
+      }
     }
   }
 

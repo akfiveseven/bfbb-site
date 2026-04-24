@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import axios from "axios";
 
 interface Strategy {
@@ -55,6 +56,14 @@ interface GlossaryEntry {
   videoURL: string;
 }
 
+interface PublishedRoute {
+  id: string;
+  name: string;
+  category: string | null;
+  updatedAt: string;
+  author: { name: string | null; image: string | null };
+}
+
 export default function AdminContent() {
   const [strategies, setStrategies] = useState<Strategy[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
@@ -62,7 +71,8 @@ export default function AdminContent() {
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [guides, setGuides] = useState<Guide[]>([]);
   const [glossary, setGlossary] = useState<GlossaryEntry[]>([]);
-  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides" | "glossary">("strategies");
+  const [publishedRoutes, setPublishedRoutes] = useState<PublishedRoute[]>([]);
+  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides" | "glossary" | "routes">("strategies");
   const [editingStrat, setEditingStrat] = useState<Strategy | null>(null);
   const [editingMethod, setEditingMethod] = useState<Method | null>(null);
   const [editingSock, setEditingSock] = useState<Sock | null>(null);
@@ -78,6 +88,7 @@ export default function AdminContent() {
     axios.get("/api/admin/content/spatulas").then((res) => setSpatulas(res.data));
     axios.get("/api/admin/content/guides").then((res) => setGuides(res.data));
     axios.get("/api/admin/content/glossary").then((res) => setGlossary(res.data));
+    axios.get("/api/routes/published").then((res) => setPublishedRoutes(res.data));
   }, []);
 
   const saveStrategy = async () => {
@@ -162,6 +173,11 @@ export default function AdminContent() {
   const deleteGlossary = async (id: number) => {
     await axios.delete(`/api/admin/content/glossary/${id}`);
     setGlossary((prev) => prev.filter((g) => g.id !== id));
+  };
+
+  const unpublishRoute = async (id: string) => {
+    await axios.patch(`/api/routes/${id}/publish`);
+    setPublishedRoutes((prev) => prev.filter((r) => r.id !== id));
   };
 
   const inputClass =
@@ -272,6 +288,16 @@ export default function AdminContent() {
             }`}
           >
             Glossary ({glossary.length})
+          </button>
+          <button
+            onClick={() => setTab("routes")}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === "routes"
+                ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+                : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+            }`}
+          >
+            Routes ({publishedRoutes.length})
           </button>
         </div>
 
@@ -949,6 +975,49 @@ export default function AdminContent() {
                   </div>
                 </div>
               )
+            )}
+          </div>
+        )}
+
+        {/* Published Routes */}
+        {tab === "routes" && (
+          <div className="space-y-2">
+            {publishedRoutes.length === 0 ? (
+              <p className="text-gray-400 text-sm text-center py-8">No published routes.</p>
+            ) : (
+              publishedRoutes.map((route) => (
+                <div
+                  key={route.id}
+                  className="container-bg rounded-lg p-3 flex items-center justify-between border border-transparent hover:border-blue-700"
+                >
+                  <div className="flex items-center gap-3">
+                    {route.author.image && (
+                      <Image
+                        src={route.author.image}
+                        alt={route.author.name ?? "User"}
+                        width={24}
+                        height={24}
+                        className="rounded-full"
+                      />
+                    )}
+                    <div>
+                      <span className="text-sm font-semibold text-white">
+                        {route.name}
+                      </span>
+                      <span className="text-xs text-gray-400 ml-2">
+                        by {route.author.name ?? "Unknown"}
+                        {route.category && ` — ${route.category}`}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => unpublishRoute(route.id)}
+                    className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
+                  >
+                    Unpublish
+                  </button>
+                </div>
+              ))
             )}
           </div>
         )}

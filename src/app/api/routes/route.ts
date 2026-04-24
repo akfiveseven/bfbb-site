@@ -13,7 +13,7 @@ export async function GET() {
   const routes = await prisma.savedRoute.findMany({
     where: { userId: session.user.id },
     orderBy: { updatedAt: "desc" },
-    select: { id: true, name: true, data: true, updatedAt: true },
+    select: { id: true, name: true, data: true, published: true, updatedAt: true },
   });
 
   const result = routes.map((r) => {
@@ -24,7 +24,7 @@ export async function GET() {
         category = parsed.category || null;
       }
     } catch { /* ignore */ }
-    return { id: r.id, name: r.name, category, updatedAt: r.updatedAt };
+    return { id: r.id, name: r.name, category, published: r.published, updatedAt: r.updatedAt };
   });
 
   return NextResponse.json(result);
