@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing type or data" }, { status: 400 });
   }
 
-  if (type !== "strategy" && type !== "method" && type !== "guide" && type !== "glossary" && type !== "route") {
+  if (type !== "strategy" && type !== "method" && type !== "guide" && type !== "glossary" && type !== "route" && type !== "feedback") {
     return NextResponse.json({ error: "Invalid type" }, { status: 400 });
   }
 

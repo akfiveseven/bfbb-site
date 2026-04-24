@@ -10,11 +10,11 @@ export async function GET() {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const submissions = await prisma.submission.findMany({
-    where: { status: "pending", type: { not: "feedback" } },
-    include: { user: { select: { name: true, image: true } } },
+  const feedback = await prisma.submission.findMany({
+    where: { type: "feedback" },
+    include: { user: { select: { name: true, email: true, image: true } } },
     orderBy: { createdAt: "desc" },
   });
 
-  return NextResponse.json(submissions);
+  return NextResponse.json(feedback);
 }

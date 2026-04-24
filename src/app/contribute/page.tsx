@@ -15,7 +15,7 @@ interface Submission {
 
 export default function Contribute() {
   const { data: session, status: authStatus } = useSession();
-  const [tab, setTab] = useState<"strategy" | "method" | "guide" | "glossary">("strategy");
+  const [tab, setTab] = useState<"strategy" | "method" | "guide" | "glossary" | "feedback">("strategy");
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [strategies, setStrategies] = useState<Strategy[]>([]);
@@ -49,6 +49,10 @@ export default function Contribute() {
   const [glossaryDifficulty, setGlossaryDifficulty] = useState("0");
   const [glossaryDescription, setGlossaryDescription] = useState("");
   const [glossaryVideoURL, setGlossaryVideoURL] = useState("");
+
+  // Feedback form
+  const [feedbackSubject, setFeedbackSubject] = useState("");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   const levels = [
     "Bikini Bottom", "Jellyfish Fields", "Downtown Bikini Bottom",
@@ -191,6 +195,30 @@ export default function Contribute() {
     setSubmitting(false);
   };
 
+  const handleSubmitFeedback = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage("");
+    try {
+      await axios.post("/api/submissions", {
+        type: "feedback",
+        data: {
+          name: feedbackSubject || "Feedback",
+          subject: feedbackSubject,
+          message: feedbackMessage,
+        },
+      });
+      setMessage("Feedback submitted! Thank you.");
+      setFeedbackSubject("");
+      setFeedbackMessage("");
+      const res = await axios.get("/api/submissions");
+      setSubmissions(res.data);
+    } catch {
+      setMessage("Failed to submit. Please try again.");
+    }
+    setSubmitting(false);
+  };
+
   if (authStatus === "loading") {
     return (
       <div className="flex items-center justify-center min-h-[50vh] font-bob">
@@ -265,6 +293,16 @@ export default function Contribute() {
           }`}
         >
           Submit Glossary Entry
+        </button>
+        <button
+          onClick={() => setTab("feedback")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+            tab === "feedback"
+              ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+              : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+          }`}
+        >
+          Feedback
         </button>
       </div>
 
@@ -577,6 +615,43 @@ export default function Contribute() {
               className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
             >
               {submitting ? "Submitting..." : "Submit Glossary Entry"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Feedback Form */}
+      {tab === "feedback" && (
+        <form onSubmit={handleSubmitFeedback} className="max-w-2xl mx-auto space-y-4">
+          <div className="container-bg rounded-lg p-6 space-y-4">
+            <div>
+              <label className={labelClass}>Subject *</label>
+              <input
+                type="text"
+                value={feedbackSubject}
+                onChange={(e) => setFeedbackSubject(e.target.value)}
+                required
+                className={inputClass}
+                placeholder="e.g. Bug report, Feature request, General feedback"
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Message *</label>
+              <textarea
+                value={feedbackMessage}
+                onChange={(e) => setFeedbackMessage(e.target.value)}
+                required
+                rows={6}
+                className={inputClass}
+                placeholder="Tell us what's on your mind..."
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {submitting ? "Submitting..." : "Send Feedback"}
             </button>
           </div>
         </form>

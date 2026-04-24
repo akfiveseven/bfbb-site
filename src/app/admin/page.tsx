@@ -43,6 +43,13 @@ export default function AdminDashboard() {
           <h2 className="text-xl font-bold text-yellow mb-2">Users</h2>
           <p className="text-gray-300 text-sm">Manage user roles</p>
         </Link>
+        <Link
+          href="/admin/feedback"
+          className="container-bg rounded-lg p-6 hover:border-[#fff67b] border border-transparent transition-colors"
+        >
+          <h2 className="text-xl font-bold text-yellow mb-2">Feedback</h2>
+          <p className="text-gray-300 text-sm">View user messages</p>
+        </Link>
       </div>
     </div>
   );
