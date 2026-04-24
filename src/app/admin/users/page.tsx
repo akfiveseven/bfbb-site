@@ -68,14 +68,6 @@ export default function AdminUsers() {
               <div className="text-sm font-semibold text-white truncate">
                 {user.name ?? "Unknown"}
               </div>
-              <div className="text-xs text-gray-400 truncate">
-                {user.email ?? "No email"}
-                {user.discordId && (
-                  <span className="ml-2 text-gray-500">
-                    Discord: {user.discordId}
-                  </span>
-                )}
-              </div>
             </div>
             <button
               onClick={() => toggleRole(user)}
