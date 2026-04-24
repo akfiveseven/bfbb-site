@@ -13,7 +13,7 @@ ${className ? className : ''}`}
   };
   const PageLink = ({ label, route }: { label: string, route: string }) => {
     return (
-      <Link href={route}>
+      <Link href={route} target="_blank">
         <p
           className='
           text-yellow 
@@ -60,6 +60,7 @@ ${className ? className : ''}`}
           <div className='font-bob lg:!text-2xl lg:!mt-[0px] xl:!text-3xl'>
             <PageLink label='Leaderboards' route='https://www.speedrun.com/bfbb' />
             <PageLink label='Discord' route='https://discord.gg/8BKC3US' />
+            <PageLink label='Bingo' route='https://bingosync.com/' />
             {/* <PageLink label='Forums' route='#' /> */}
             {/* <PageLink label='Route Builder' route='#' /> */}
           </div>
