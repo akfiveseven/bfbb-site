@@ -47,18 +47,28 @@ interface Guide {
   link: string;
 }
 
+interface GlossaryEntry {
+  id: number;
+  name: string;
+  difficulty: number;
+  description: string;
+  videoURL: string;
+}
+
 export default function AdminContent() {
   const [strategies, setStrategies] = useState<Strategy[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
   const [socks, setSocks] = useState<Sock[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [guides, setGuides] = useState<Guide[]>([]);
-  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides">("strategies");
+  const [glossary, setGlossary] = useState<GlossaryEntry[]>([]);
+  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides" | "glossary">("strategies");
   const [editingStrat, setEditingStrat] = useState<Strategy | null>(null);
   const [editingMethod, setEditingMethod] = useState<Method | null>(null);
   const [editingSock, setEditingSock] = useState<Sock | null>(null);
   const [editingSpatula, setEditingSpatula] = useState<Spatula | null>(null);
   const [editingGuide, setEditingGuide] = useState<Guide | null>(null);
+  const [editingGlossary, setEditingGlossary] = useState<GlossaryEntry | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -67,6 +77,7 @@ export default function AdminContent() {
     axios.get("/api/admin/content/socks").then((res) => setSocks(res.data));
     axios.get("/api/admin/content/spatulas").then((res) => setSpatulas(res.data));
     axios.get("/api/admin/content/guides").then((res) => setGuides(res.data));
+    axios.get("/api/admin/content/glossary").then((res) => setGlossary(res.data));
   }, []);
 
   const saveStrategy = async () => {
@@ -139,6 +150,20 @@ export default function AdminContent() {
     setGuides((prev) => prev.filter((g) => g.id !== id));
   };
 
+  const saveGlossary = async () => {
+    if (!editingGlossary) return;
+    await axios.put("/api/admin/content/glossary", editingGlossary);
+    setGlossary((prev) =>
+      prev.map((g) => (g.id === editingGlossary.id ? editingGlossary : g))
+    );
+    setEditingGlossary(null);
+  };
+
+  const deleteGlossary = async (id: number) => {
+    await axios.delete(`/api/admin/content/glossary/${id}`);
+    setGlossary((prev) => prev.filter((g) => g.id !== id));
+  };
+
   const inputClass =
     "w-full px-2 py-1 rounded bg-blue-950/60 border border-blue-700 text-white text-xs focus:outline-none focus:border-[#fff67b]";
 
@@ -171,6 +196,12 @@ export default function AdminContent() {
     (g) =>
       g.name.toLowerCase().includes(search.toLowerCase()) ||
       g.category.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const filteredGlossary = glossary.filter(
+    (g) =>
+      g.name.toLowerCase().includes(search.toLowerCase()) ||
+      g.description.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -231,6 +262,16 @@ export default function AdminContent() {
             }`}
           >
             Guides ({guides.length})
+          </button>
+          <button
+            onClick={() => setTab("glossary")}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === "glossary"
+                ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+                : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+            }`}
+          >
+            Glossary ({glossary.length})
           </button>
         </div>
 
@@ -799,6 +840,108 @@ export default function AdminContent() {
                     </button>
                     <button
                       onClick={() => deleteGuide(guide.id)}
+                      className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {/* Glossary */}
+        {tab === "glossary" && (
+          <div className="space-y-2">
+            {filteredGlossary.map((entry) =>
+              editingGlossary?.id === entry.id ? (
+                <div
+                  key={entry.id}
+                  className="container-bg rounded-lg p-4 border border-[#fff67b]/50 space-y-2"
+                >
+                  <input
+                    value={editingGlossary.name}
+                    onChange={(e) =>
+                      setEditingGlossary({ ...editingGlossary, name: e.target.value })
+                    }
+                    className={inputClass}
+                    placeholder="Term name"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <select
+                      value={editingGlossary.difficulty}
+                      onChange={(e) =>
+                        setEditingGlossary({
+                          ...editingGlossary,
+                          difficulty: parseInt(e.target.value) || 0,
+                        })
+                      }
+                      className={inputClass}
+                    >
+                      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                        <option key={n} value={n}>
+                          Difficulty: {n}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      value={editingGlossary.videoURL}
+                      onChange={(e) =>
+                        setEditingGlossary({ ...editingGlossary, videoURL: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Video URL"
+                    />
+                  </div>
+                  <textarea
+                    value={editingGlossary.description}
+                    onChange={(e) =>
+                      setEditingGlossary({
+                        ...editingGlossary,
+                        description: e.target.value,
+                      })
+                    }
+                    className={inputClass}
+                    rows={3}
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      onClick={saveGlossary}
+                      className="px-3 py-1 rounded text-xs bg-green-600/20 text-green-400 border border-green-600/50 cursor-pointer"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditingGlossary(null)}
+                      className="px-3 py-1 rounded text-xs text-gray-400 border border-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={entry.id}
+                  className="container-bg rounded-lg p-3 flex items-center justify-between border border-transparent hover:border-blue-700"
+                >
+                  <div>
+                    <span className="text-sm font-semibold text-white">
+                      {entry.name}
+                    </span>
+                    <span className="text-xs text-gray-400 ml-2">
+                      Difficulty: {entry.difficulty}
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setEditingGlossary(entry)}
+                      className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => deleteGlossary(entry.id)}
                       className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
                     >
                       Delete

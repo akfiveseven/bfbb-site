@@ -62,6 +62,11 @@ export async function GET(
     return NextResponse.json(guides);
   }
 
+  if (type === "glossary") {
+    const glossary = await prisma.glossaryEntry.findMany();
+    return NextResponse.json(glossary);
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }
 
@@ -141,6 +146,19 @@ export async function PUT(
         difficulty: body.difficulty,
         category: body.category || "",
         link: body.link,
+      },
+    });
+    return NextResponse.json(updated);
+  }
+
+  if (type === "glossary") {
+    const updated = await prisma.glossaryEntry.update({
+      where: { id: body.id },
+      data: {
+        name: body.name,
+        difficulty: Number(body.difficulty) || 0,
+        description: body.description,
+        videoURL: body.videoURL || "",
       },
     });
     return NextResponse.json(updated);

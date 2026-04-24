@@ -105,6 +105,12 @@ export default function AdminSubmissions() {
                     <p>Link: {parsed.link}</p>
                   </>
                 )}
+                {sub.type === "glossary" && (
+                  <>
+                    <p>Difficulty: {parsed.difficulty}</p>
+                    <p>Video: {parsed.videoURL || "N/A"}</p>
+                  </>
+                )}
                 <p className="mt-2">{parsed.description}</p>
               </div>
               <div className="flex gap-2">

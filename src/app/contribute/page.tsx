@@ -15,7 +15,7 @@ interface Submission {
 
 export default function Contribute() {
   const { data: session, status: authStatus } = useSession();
-  const [tab, setTab] = useState<"strategy" | "method" | "guide">("strategy");
+  const [tab, setTab] = useState<"strategy" | "method" | "guide" | "glossary">("strategy");
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [strategies, setStrategies] = useState<Strategy[]>([]);
@@ -43,6 +43,12 @@ export default function Contribute() {
   const [guideDifficulty, setGuideDifficulty] = useState("Beginner");
   const [guideCategory, setGuideCategory] = useState("");
   const [guideLink, setGuideLink] = useState("");
+
+  // Glossary form
+  const [glossaryName, setGlossaryName] = useState("");
+  const [glossaryDifficulty, setGlossaryDifficulty] = useState("0");
+  const [glossaryDescription, setGlossaryDescription] = useState("");
+  const [glossaryVideoURL, setGlossaryVideoURL] = useState("");
 
   const levels = [
     "Bikini Bottom", "Jellyfish Fields", "Downtown Bikini Bottom",
@@ -158,6 +164,33 @@ export default function Contribute() {
     setSubmitting(false);
   };
 
+  const handleSubmitGlossary = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage("");
+    try {
+      await axios.post("/api/submissions", {
+        type: "glossary",
+        data: {
+          name: glossaryName,
+          difficulty: glossaryDifficulty,
+          description: glossaryDescription,
+          videoURL: glossaryVideoURL,
+        },
+      });
+      setMessage("Glossary entry submitted for review!");
+      setGlossaryName("");
+      setGlossaryDifficulty("0");
+      setGlossaryDescription("");
+      setGlossaryVideoURL("");
+      const res = await axios.get("/api/submissions");
+      setSubmissions(res.data);
+    } catch {
+      setMessage("Failed to submit. Please try again.");
+    }
+    setSubmitting(false);
+  };
+
   if (authStatus === "loading") {
     return (
       <div className="flex items-center justify-center min-h-[50vh] font-bob">
@@ -222,6 +255,16 @@ export default function Contribute() {
           }`}
         >
           Submit Guide
+        </button>
+        <button
+          onClick={() => setTab("glossary")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+            tab === "glossary"
+              ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+              : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+          }`}
+        >
+          Submit Glossary Entry
         </button>
       </div>
 
@@ -473,6 +516,67 @@ export default function Contribute() {
               className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
             >
               {submitting ? "Submitting..." : "Submit Guide"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Glossary Form */}
+      {tab === "glossary" && (
+        <form onSubmit={handleSubmitGlossary} className="max-w-2xl mx-auto space-y-4">
+          <div className="container-bg rounded-lg p-6 space-y-4">
+            <div>
+              <label className={labelClass}>Term Name *</label>
+              <input
+                type="text"
+                value={glossaryName}
+                onChange={(e) => setGlossaryName(e.target.value)}
+                required
+                className={inputClass}
+                placeholder="e.g. Cruise Boost (CB)"
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Difficulty (1-10)</label>
+              <select
+                value={glossaryDifficulty}
+                onChange={(e) => setGlossaryDifficulty(e.target.value)}
+                className={inputClass}
+              >
+                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                  <option key={n} value={String(n)}>
+                    {n}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Description *</label>
+              <textarea
+                value={glossaryDescription}
+                onChange={(e) => setGlossaryDescription(e.target.value)}
+                required
+                rows={4}
+                className={inputClass}
+                placeholder="Describe the term..."
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Video URL</label>
+              <input
+                type="text"
+                value={glossaryVideoURL}
+                onChange={(e) => setGlossaryVideoURL(e.target.value)}
+                className={inputClass}
+                placeholder="https://youtu.be/..."
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {submitting ? "Submitting..." : "Submit Glossary Entry"}
             </button>
           </div>
         </form>

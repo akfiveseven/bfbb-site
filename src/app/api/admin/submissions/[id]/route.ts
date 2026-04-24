@@ -60,6 +60,15 @@ export async function PATCH(
           link: data.link,
         },
       });
+    } else if (submission.type === "glossary") {
+      await prisma.glossaryEntry.create({
+        data: {
+          name: data.name,
+          difficulty: Number(data.difficulty) || 0,
+          description: data.description,
+          videoURL: data.videoURL || "",
+        },
+      });
     }
   }
 
