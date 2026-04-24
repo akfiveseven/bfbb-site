@@ -236,6 +236,53 @@ export default function AdminContent() {
                       placeholder="Spatula"
                     />
                   </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-1">
+                      <label className="text-xs text-gray-400">Prerequisites</label>
+                      {editingStrat.prerequisites.map((prereq, i) => (
+                        <div key={i} className="flex gap-1">
+                          <input
+                            value={prereq}
+                            onChange={(e) => {
+                              const updated = [...editingStrat.prerequisites];
+                              updated[i] = e.target.value;
+                              setEditingStrat({ ...editingStrat, prerequisites: updated });
+                            }}
+                            className={inputClass}
+                            placeholder="e.g. Bubble Bowl"
+                          />
+                          <button
+                            onClick={() => {
+                              const updated = editingStrat.prerequisites.filter((_, j) => j !== i);
+                              setEditingStrat({ ...editingStrat, prerequisites: updated });
+                            }}
+                            className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        onClick={() =>
+                          setEditingStrat({ ...editingStrat, prerequisites: [...editingStrat.prerequisites, ""] })
+                        }
+                        className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+                      >
+                        + Add prerequisite
+                      </button>
+                    </div>
+                    <select
+                      value={editingStrat.hans}
+                      onChange={(e) =>
+                        setEditingStrat({ ...editingStrat, hans: e.target.value })
+                      }
+                      className={inputClass}
+                    >
+                      <option value="N/A">Hans: N/A</option>
+                      <option value="Enabled">Hans: Enabled</option>
+                      <option value="Disabled">Hans: Disabled</option>
+                    </select>
+                  </div>
                   <textarea
                     value={editingStrat.description}
                     onChange={(e) =>
@@ -247,6 +294,40 @@ export default function AdminContent() {
                     className={inputClass}
                     rows={3}
                   />
+                  <div className="space-y-1">
+                    <label className="text-xs text-gray-400">Links</label>
+                    {editingStrat.links.map((link, i) => (
+                      <div key={i} className="flex gap-1">
+                        <input
+                          value={link}
+                          onChange={(e) => {
+                            const updated = [...editingStrat.links];
+                            updated[i] = e.target.value;
+                            setEditingStrat({ ...editingStrat, links: updated });
+                          }}
+                          className={inputClass}
+                          placeholder="https://..."
+                        />
+                        <button
+                          onClick={() => {
+                            const updated = editingStrat.links.filter((_, j) => j !== i);
+                            setEditingStrat({ ...editingStrat, links: updated });
+                          }}
+                          className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      onClick={() =>
+                        setEditingStrat({ ...editingStrat, links: [...editingStrat.links, ""] })
+                      }
+                      className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+                    >
+                      + Add link
+                    </button>
+                  </div>
                   <div className="flex gap-2">
                     <button
                       onClick={saveStrategy}
