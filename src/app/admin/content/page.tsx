@@ -31,20 +31,31 @@ interface Sock {
   min_spat_requirement: number;
 }
 
+interface Spatula {
+  id: number;
+  pos: number;
+  name: string;
+  level: string;
+  min_spatula_requirement: number;
+}
+
 export default function AdminContent() {
   const [strategies, setStrategies] = useState<Strategy[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
   const [socks, setSocks] = useState<Sock[]>([]);
-  const [tab, setTab] = useState<"strategies" | "methods" | "socks">("strategies");
+  const [spatulas, setSpatulas] = useState<Spatula[]>([]);
+  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas">("strategies");
   const [editingStrat, setEditingStrat] = useState<Strategy | null>(null);
   const [editingMethod, setEditingMethod] = useState<Method | null>(null);
   const [editingSock, setEditingSock] = useState<Sock | null>(null);
+  const [editingSpatula, setEditingSpatula] = useState<Spatula | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     axios.get("/api/admin/content/strategies").then((res) => setStrategies(res.data));
     axios.get("/api/admin/content/methods").then((res) => setMethods(res.data));
     axios.get("/api/admin/content/socks").then((res) => setSocks(res.data));
+    axios.get("/api/admin/content/spatulas").then((res) => setSpatulas(res.data));
   }, []);
 
   const saveStrategy = async () => {
@@ -89,6 +100,20 @@ export default function AdminContent() {
     setSocks((prev) => prev.filter((s) => s.id !== id));
   };
 
+  const saveSpatula = async () => {
+    if (!editingSpatula) return;
+    await axios.put("/api/admin/content/spatulas", editingSpatula);
+    setSpatulas((prev) =>
+      prev.map((s) => (s.id === editingSpatula.id ? editingSpatula : s))
+    );
+    setEditingSpatula(null);
+  };
+
+  const deleteSpatula = async (id: number) => {
+    await axios.delete(`/api/admin/content/spatulas/${id}`);
+    setSpatulas((prev) => prev.filter((s) => s.id !== id));
+  };
+
   const inputClass =
     "w-full px-2 py-1 rounded bg-blue-950/60 border border-blue-700 text-white text-xs focus:outline-none focus:border-[#fff67b]";
 
@@ -109,6 +134,12 @@ export default function AdminContent() {
       s.name.toLowerCase().includes(search.toLowerCase()) ||
       s.level.toLowerCase().includes(search.toLowerCase()) ||
       (s.area && s.area.toLowerCase().includes(search.toLowerCase()))
+  );
+
+  const filteredSpatulas = spatulas.filter(
+    (s) =>
+      s.name.toLowerCase().includes(search.toLowerCase()) ||
+      s.level.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -149,6 +180,16 @@ export default function AdminContent() {
             }`}
           >
             Socks ({socks.length})
+          </button>
+          <button
+            onClick={() => setTab("spatulas")}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === "spatulas"
+                ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+                : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+            }`}
+          >
+            Spatulas ({spatulas.length})
           </button>
         </div>
 
@@ -348,6 +389,105 @@ export default function AdminContent() {
                     </button>
                     <button
                       onClick={() => deleteMethod(method.id)}
+                      className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {/* Spatulas */}
+        {tab === "spatulas" && (
+          <div className="space-y-2">
+            {filteredSpatulas.map((spatula) =>
+              editingSpatula?.id === spatula.id ? (
+                <div
+                  key={spatula.id}
+                  className="container-bg rounded-lg p-4 border border-[#fff67b]/50 space-y-2"
+                >
+                  <input
+                    value={editingSpatula.name}
+                    onChange={(e) =>
+                      setEditingSpatula({ ...editingSpatula, name: e.target.value })
+                    }
+                    className={inputClass}
+                    placeholder="Name"
+                  />
+                  <div className="grid grid-cols-3 gap-2">
+                    <input
+                      value={editingSpatula.level}
+                      onChange={(e) =>
+                        setEditingSpatula({ ...editingSpatula, level: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Level"
+                    />
+                    <input
+                      type="number"
+                      value={editingSpatula.pos}
+                      onChange={(e) =>
+                        setEditingSpatula({
+                          ...editingSpatula,
+                          pos: parseInt(e.target.value) || 0,
+                        })
+                      }
+                      className={inputClass}
+                      placeholder="Position"
+                    />
+                    <input
+                      type="number"
+                      value={editingSpatula.min_spatula_requirement}
+                      onChange={(e) =>
+                        setEditingSpatula({
+                          ...editingSpatula,
+                          min_spatula_requirement: parseInt(e.target.value) || 0,
+                        })
+                      }
+                      className={inputClass}
+                      placeholder="Min spatulas"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={saveSpatula}
+                      className="px-3 py-1 rounded text-xs bg-green-600/20 text-green-400 border border-green-600/50 cursor-pointer"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditingSpatula(null)}
+                      className="px-3 py-1 rounded text-xs text-gray-400 border border-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={spatula.id}
+                  className="container-bg rounded-lg p-3 flex items-center justify-between border border-transparent hover:border-blue-700"
+                >
+                  <div>
+                    <span className="text-sm font-semibold text-white">
+                      {spatula.name}
+                    </span>
+                    <span className="text-xs text-gray-400 ml-2">
+                      {spatula.level} — Pos: {spatula.pos} — Min: {spatula.min_spatula_requirement}
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setEditingSpatula(spatula)}
+                      className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => deleteSpatula(spatula.id)}
                       className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
                     >
                       Delete

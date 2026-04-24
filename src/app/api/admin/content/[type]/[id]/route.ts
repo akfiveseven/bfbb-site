@@ -35,5 +35,10 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   }
 
+  if (type === "spatulas") {
+    await prisma.spatula.delete({ where: { id: numericId } });
+    return NextResponse.json({ success: true });
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }

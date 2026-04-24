@@ -44,6 +44,19 @@ export async function GET(
     );
   }
 
+  if (type === "spatulas") {
+    const spatulas = await prisma.spatula.findMany();
+    return NextResponse.json(
+      spatulas.map((s) => ({
+        id: s.id,
+        pos: s.pos,
+        name: s.name,
+        level: s.level,
+        min_spatula_requirement: s.minSpatulaRequirement,
+      }))
+    );
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }
 
@@ -97,6 +110,19 @@ export async function PUT(
         area: body.area || null,
         level: body.level,
         minSpatRequirement: body.min_spat_requirement,
+      },
+    });
+    return NextResponse.json(updated);
+  }
+
+  if (type === "spatulas") {
+    const updated = await prisma.spatula.update({
+      where: { id: body.id },
+      data: {
+        pos: body.pos,
+        name: body.name,
+        level: body.level,
+        minSpatulaRequirement: body.min_spatula_requirement,
       },
     });
     return NextResponse.json(updated);
