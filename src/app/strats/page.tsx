@@ -200,9 +200,11 @@ const LevelStrategies: React.FC = () => {
                       .filter(spatula => spatula.level == activeLevel)
                       .filter(spatula => spatula.pos == activeSpatula)
                       .map((spatula) => (
-                        <h3 key={spatula.id} className="text-lg sm:text-2xl font-bold text-yellow">
-                          {spatula.name}
-                        </h3>
+                        <div key={spatula.id}>
+                          <h3 key={spatula.id} className="text-lg sm:text-2xl font-bold text-yellow">
+                            {spatula.name}
+                          </h3>
+                        </div>
                       ))}
                   </div>
                 </>
@@ -260,6 +262,7 @@ const LevelStrategies: React.FC = () => {
                             </button>
                             {isExpanded && (
                               <div className="px-3 pb-3 space-y-2">
+                                <span className="font-mono">{strat.description}</span>
                                 {methods.length === 0 ? (
                                   <p className="text-xs text-gray-400 py-2">No methods added for this strat.</p>
                                 ) : methods.map((method, mIndex) => (
