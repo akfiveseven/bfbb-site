@@ -98,6 +98,13 @@ export default function AdminSubmissions() {
                     <p>Video: {parsed.videoURL || "N/A"}</p>
                   </>
                 )}
+                {sub.type === "guide" && (
+                  <>
+                    <p>Difficulty: {parsed.difficulty}</p>
+                    <p>Category: {parsed.category || "N/A"}</p>
+                    <p>Link: {parsed.link}</p>
+                  </>
+                )}
                 <p className="mt-2">{parsed.description}</p>
               </div>
               <div className="flex gap-2">

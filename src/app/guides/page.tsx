@@ -25,11 +25,12 @@ export default function Guides() {
               <thead>
                 <tr>
                   <th className="font-bob">Guide</th>
+                  <th className="font-bob">Category</th>
                   <th className="font-bob">Difficulty</th>
                 </tr>
               </thead>
               <tbody>
-                {guidesData.map((guide: { name: string; link: string; difficulty: string }, index: number) => (
+                {guidesData.map((guide: { name: string; link: string; difficulty: string; category: string }, index: number) => (
                   <React.Fragment key={index}>
                     <tr className="">
                       <td>
@@ -45,6 +46,7 @@ export default function Guides() {
                           </svg>
                         </a>
                       </td>
+                      <td className="ext-cols">{guide.category || "—"}</td>
                       <td className="ext-cols">{guide.difficulty}</td>
                     </tr>
                   </React.Fragment>

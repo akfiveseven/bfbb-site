@@ -57,6 +57,11 @@ export async function GET(
     );
   }
 
+  if (type === "guides") {
+    const guides = await prisma.guide.findMany();
+    return NextResponse.json(guides);
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }
 
@@ -123,6 +128,19 @@ export async function PUT(
         name: body.name,
         level: body.level,
         minSpatulaRequirement: body.min_spatula_requirement,
+      },
+    });
+    return NextResponse.json(updated);
+  }
+
+  if (type === "guides") {
+    const updated = await prisma.guide.update({
+      where: { id: body.id },
+      data: {
+        name: body.name,
+        difficulty: body.difficulty,
+        category: body.category || "",
+        link: body.link,
       },
     });
     return NextResponse.json(updated);

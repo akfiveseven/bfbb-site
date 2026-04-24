@@ -40,5 +40,10 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   }
 
+  if (type === "guides") {
+    await prisma.guide.delete({ where: { id: numericId } });
+    return NextResponse.json({ success: true });
+  }
+
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
 }

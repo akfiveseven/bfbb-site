@@ -15,7 +15,7 @@ interface Submission {
 
 export default function Contribute() {
   const { data: session, status: authStatus } = useSession();
-  const [tab, setTab] = useState<"strategy" | "method">("strategy");
+  const [tab, setTab] = useState<"strategy" | "method" | "guide">("strategy");
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [strategies, setStrategies] = useState<Strategy[]>([]);
@@ -37,6 +37,12 @@ export default function Contribute() {
   const [methodDifficulty, setMethodDifficulty] = useState("1");
   const [methodDescription, setMethodDescription] = useState("");
   const [methodVideoURL, setMethodVideoURL] = useState("");
+
+  // Guide form
+  const [guideName, setGuideName] = useState("");
+  const [guideDifficulty, setGuideDifficulty] = useState("Beginner");
+  const [guideCategory, setGuideCategory] = useState("");
+  const [guideLink, setGuideLink] = useState("");
 
   const levels = [
     "Bikini Bottom", "Jellyfish Fields", "Downtown Bikini Bottom",
@@ -125,6 +131,33 @@ export default function Contribute() {
     setSubmitting(false);
   };
 
+  const handleSubmitGuide = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage("");
+    try {
+      await axios.post("/api/submissions", {
+        type: "guide",
+        data: {
+          name: guideName,
+          difficulty: guideDifficulty,
+          category: guideCategory,
+          link: guideLink,
+        },
+      });
+      setMessage("Guide submitted for review!");
+      setGuideName("");
+      setGuideDifficulty("Beginner");
+      setGuideCategory("");
+      setGuideLink("");
+      const res = await axios.get("/api/submissions");
+      setSubmissions(res.data);
+    } catch {
+      setMessage("Failed to submit. Please try again.");
+    }
+    setSubmitting(false);
+  };
+
   if (authStatus === "loading") {
     return (
       <div className="flex items-center justify-center min-h-[50vh] font-bob">
@@ -179,6 +212,16 @@ export default function Contribute() {
           }`}
         >
           Submit Method
+        </button>
+        <button
+          onClick={() => setTab("guide")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+            tab === "guide"
+              ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+              : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+          }`}
+        >
+          Submit Guide
         </button>
       </div>
 
@@ -368,6 +411,68 @@ export default function Contribute() {
               className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
             >
               {submitting ? "Submitting..." : "Submit Method"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Guide Form */}
+      {tab === "guide" && (
+        <form onSubmit={handleSubmitGuide} className="max-w-2xl mx-auto space-y-4">
+          <div className="container-bg rounded-lg p-6 space-y-4">
+            <div>
+              <label className={labelClass}>Guide Name *</label>
+              <input
+                type="text"
+                value={guideName}
+                onChange={(e) => setGuideName(e.target.value)}
+                required
+                className={inputClass}
+                placeholder="e.g. SHiFT Any% Tutorial"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>Difficulty *</label>
+                <select
+                  value={guideDifficulty}
+                  onChange={(e) => setGuideDifficulty(e.target.value)}
+                  required
+                  className={inputClass}
+                >
+                  <option value="Beginner">Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Category</label>
+                <input
+                  type="text"
+                  value={guideCategory}
+                  onChange={(e) => setGuideCategory(e.target.value)}
+                  className={inputClass}
+                  placeholder="e.g. Any%"
+                />
+              </div>
+            </div>
+            <div>
+              <label className={labelClass}>Link *</label>
+              <input
+                type="url"
+                value={guideLink}
+                onChange={(e) => setGuideLink(e.target.value)}
+                required
+                className={inputClass}
+                placeholder="https://youtu.be/..."
+              />
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {submitting ? "Submitting..." : "Submit Guide"}
             </button>
           </div>
         </form>

@@ -39,16 +39,26 @@ interface Spatula {
   min_spatula_requirement: number;
 }
 
+interface Guide {
+  id: number;
+  name: string;
+  difficulty: string;
+  category: string;
+  link: string;
+}
+
 export default function AdminContent() {
   const [strategies, setStrategies] = useState<Strategy[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
   const [socks, setSocks] = useState<Sock[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
-  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas">("strategies");
+  const [guides, setGuides] = useState<Guide[]>([]);
+  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides">("strategies");
   const [editingStrat, setEditingStrat] = useState<Strategy | null>(null);
   const [editingMethod, setEditingMethod] = useState<Method | null>(null);
   const [editingSock, setEditingSock] = useState<Sock | null>(null);
   const [editingSpatula, setEditingSpatula] = useState<Spatula | null>(null);
+  const [editingGuide, setEditingGuide] = useState<Guide | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -56,6 +66,7 @@ export default function AdminContent() {
     axios.get("/api/admin/content/methods").then((res) => setMethods(res.data));
     axios.get("/api/admin/content/socks").then((res) => setSocks(res.data));
     axios.get("/api/admin/content/spatulas").then((res) => setSpatulas(res.data));
+    axios.get("/api/admin/content/guides").then((res) => setGuides(res.data));
   }, []);
 
   const saveStrategy = async () => {
@@ -114,6 +125,20 @@ export default function AdminContent() {
     setSpatulas((prev) => prev.filter((s) => s.id !== id));
   };
 
+  const saveGuide = async () => {
+    if (!editingGuide) return;
+    await axios.put("/api/admin/content/guides", editingGuide);
+    setGuides((prev) =>
+      prev.map((g) => (g.id === editingGuide.id ? editingGuide : g))
+    );
+    setEditingGuide(null);
+  };
+
+  const deleteGuide = async (id: number) => {
+    await axios.delete(`/api/admin/content/guides/${id}`);
+    setGuides((prev) => prev.filter((g) => g.id !== id));
+  };
+
   const inputClass =
     "w-full px-2 py-1 rounded bg-blue-950/60 border border-blue-700 text-white text-xs focus:outline-none focus:border-[#fff67b]";
 
@@ -140,6 +165,12 @@ export default function AdminContent() {
     (s) =>
       s.name.toLowerCase().includes(search.toLowerCase()) ||
       s.level.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const filteredGuides = guides.filter(
+    (g) =>
+      g.name.toLowerCase().includes(search.toLowerCase()) ||
+      g.category.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -190,6 +221,16 @@ export default function AdminContent() {
             }`}
           >
             Spatulas ({spatulas.length})
+          </button>
+          <button
+            onClick={() => setTab("guides")}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === "guides"
+                ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+                : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+            }`}
+          >
+            Guides ({guides.length})
           </button>
         </div>
 
@@ -664,6 +705,100 @@ export default function AdminContent() {
                     </button>
                     <button
                       onClick={() => deleteSock(sock.id)}
+                      className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {/* Guides */}
+        {tab === "guides" && (
+          <div className="space-y-2">
+            {filteredGuides.map((guide) =>
+              editingGuide?.id === guide.id ? (
+                <div
+                  key={guide.id}
+                  className="container-bg rounded-lg p-4 border border-[#fff67b]/50 space-y-2"
+                >
+                  <input
+                    value={editingGuide.name}
+                    onChange={(e) =>
+                      setEditingGuide({ ...editingGuide, name: e.target.value })
+                    }
+                    className={inputClass}
+                    placeholder="Name"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <select
+                      value={editingGuide.difficulty}
+                      onChange={(e) =>
+                        setEditingGuide({ ...editingGuide, difficulty: e.target.value })
+                      }
+                      className={inputClass}
+                    >
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                    </select>
+                    <input
+                      value={editingGuide.category}
+                      onChange={(e) =>
+                        setEditingGuide({ ...editingGuide, category: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Category"
+                    />
+                  </div>
+                  <input
+                    value={editingGuide.link}
+                    onChange={(e) =>
+                      setEditingGuide({ ...editingGuide, link: e.target.value })
+                    }
+                    className={inputClass}
+                    placeholder="Link URL"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      onClick={saveGuide}
+                      className="px-3 py-1 rounded text-xs bg-green-600/20 text-green-400 border border-green-600/50 cursor-pointer"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditingGuide(null)}
+                      className="px-3 py-1 rounded text-xs text-gray-400 border border-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={guide.id}
+                  className="container-bg rounded-lg p-3 flex items-center justify-between border border-transparent hover:border-blue-700"
+                >
+                  <div>
+                    <span className="text-sm font-semibold text-white">
+                      {guide.name}
+                    </span>
+                    <span className="text-xs text-gray-400 ml-2">
+                      {guide.category || "No category"} — {guide.difficulty}
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setEditingGuide(guide)}
+                      className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => deleteGuide(guide.id)}
                       className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
                     >
                       Delete

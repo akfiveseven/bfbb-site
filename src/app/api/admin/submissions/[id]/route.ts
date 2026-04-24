@@ -51,6 +51,15 @@ export async function PATCH(
           videoURL: data.videoURL || "N/A",
         },
       });
+    } else if (submission.type === "guide") {
+      await prisma.guide.create({
+        data: {
+          name: data.name,
+          difficulty: data.difficulty || "Beginner",
+          category: data.category || "",
+          link: data.link,
+        },
+      });
     }
   }
 
