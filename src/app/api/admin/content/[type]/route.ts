@@ -28,7 +28,12 @@ export async function GET(
 
   if (type === "methods") {
     const methods = await prisma.method.findMany();
-    return NextResponse.json(methods);
+    return NextResponse.json(
+      methods.map((m) => ({
+        ...m,
+        videoURLs: JSON.parse(m.videoURLs),
+      }))
+    );
   }
 
   if (type === "socks") {
@@ -106,7 +111,7 @@ export async function PUT(
         strat: body.strat,
         difficulty: String(body.difficulty),
         description: body.description,
-        videoURL: body.videoURL,
+        videoURLs: JSON.stringify(body.videoURLs || []),
       },
     });
     return NextResponse.json(updated);

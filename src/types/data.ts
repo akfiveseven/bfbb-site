@@ -15,7 +15,7 @@ export interface Method {
   strat: string;
   difficulty: string;
   description: string;
-  videoURL: string;
+  videoURLs: string[];
 }
 
 export interface Spatula {

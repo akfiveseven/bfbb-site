@@ -95,7 +95,7 @@ export default function AdminSubmissions() {
                   <>
                     <p>Strategy: {parsed.strat}</p>
                     <p>Difficulty: {parsed.difficulty}</p>
-                    <p>Video: {parsed.videoURL || "N/A"}</p>
+                    <p>Videos: {(parsed.videoURLs || []).join(", ") || "N/A"}</p>
                   </>
                 )}
                 {sub.type === "guide" && (

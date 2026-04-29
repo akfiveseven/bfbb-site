@@ -22,7 +22,12 @@ export async function GET(
     }
     case "methods": {
       const methods = await prisma.method.findMany();
-      return NextResponse.json(methods);
+      return NextResponse.json(
+        methods.map((m) => ({
+          ...m,
+          videoURLs: JSON.parse(m.videoURLs),
+        }))
+      );
     }
     case "spatulas": {
       const spatulas = await prisma.spatula.findMany();

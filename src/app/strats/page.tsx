@@ -260,15 +260,20 @@ const LevelStrategies: React.FC = () => {
                                     {method.description && method.description !== "N/A" && (
                                       <p className="text-xs text-gray-300 mt-1">{method.description}</p>
                                     )}
-                                    {method.videoURL && method.videoURL !== "N/A" && (
-                                      <a
-                                        href={method.videoURL}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-xs text-[#fff67b] hover:underline mt-2 inline-block"
-                                      >
-                                        Watch Video →
-                                      </a>
+                                    {method.videoURLs && method.videoURLs.length > 0 && (
+                                      <div className="mt-2 space-y-1">
+                                        {method.videoURLs.map((url: string, vi: number) => (
+                                          <a
+                                            key={vi}
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs text-[#fff67b] hover:underline block truncate"
+                                          >
+                                            {url}
+                                          </a>
+                                        ))}
+                                      </div>
                                     )}
                                   </div>
                                 ))}

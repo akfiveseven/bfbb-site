@@ -48,7 +48,7 @@ export async function PATCH(
           strat: data.strat,
           difficulty: String(data.difficulty),
           description: data.description,
-          videoURL: data.videoURL || "N/A",
+          videoURLs: JSON.stringify(data.videoURLs || (data.videoURL ? [data.videoURL] : [])),
         },
       });
     } else if (submission.type === "guide") {
@@ -113,7 +113,7 @@ export async function PATCH(
             strat: changes.strat,
             difficulty: String(changes.difficulty),
             description: changes.description,
-            videoURL: changes.videoURL || "N/A",
+            videoURLs: JSON.stringify(changes.videoURLs || []),
           },
         });
       } else if (entityType === "guide") {

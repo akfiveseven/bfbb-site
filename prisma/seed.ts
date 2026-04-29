@@ -67,7 +67,7 @@ async function main() {
         strat: m.strat,
         difficulty: String(m.difficulty),
         description: m.description,
-        videoURL: m.videoURL,
+        videoURLs: JSON.stringify(m.videoURL && m.videoURL !== "N/A" ? [m.videoURL] : []),
       },
     });
   }

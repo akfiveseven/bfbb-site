@@ -21,7 +21,7 @@ interface Method {
   strat: string;
   difficulty: string;
   description: string;
-  videoURL: string;
+  videoURLs: string[];
 }
 
 interface Sock {
@@ -533,14 +533,40 @@ export default function AdminContent() {
                     className={inputClass}
                     rows={3}
                   />
-                  <input
-                    value={editingMethod.videoURL}
-                    onChange={(e) =>
-                      setEditingMethod({ ...editingMethod, videoURL: e.target.value })
-                    }
-                    className={inputClass}
-                    placeholder="Video URL"
-                  />
+                  <div className="space-y-1">
+                    <label className="text-xs text-gray-400">Video URLs</label>
+                    {editingMethod.videoURLs.map((url, i) => (
+                      <div key={i} className="flex gap-1">
+                        <input
+                          value={url}
+                          onChange={(e) => {
+                            const updated = [...editingMethod.videoURLs];
+                            updated[i] = e.target.value;
+                            setEditingMethod({ ...editingMethod, videoURLs: updated });
+                          }}
+                          className={inputClass}
+                          placeholder="https://..."
+                        />
+                        <button
+                          onClick={() => {
+                            const updated = editingMethod.videoURLs.filter((_, j) => j !== i);
+                            setEditingMethod({ ...editingMethod, videoURLs: updated });
+                          }}
+                          className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    ))}
+                    <button
+                      onClick={() =>
+                        setEditingMethod({ ...editingMethod, videoURLs: [...editingMethod.videoURLs, ""] })
+                      }
+                      className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+                    >
+                      + Add video URL
+                    </button>
+                  </div>
                   <div className="flex gap-2">
                     <button
                       onClick={saveMethod}

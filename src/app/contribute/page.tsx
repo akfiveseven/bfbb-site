@@ -36,7 +36,7 @@ export default function Contribute() {
   const [methodStrat, setMethodStrat] = useState("");
   const [methodDifficulty, setMethodDifficulty] = useState("1");
   const [methodDescription, setMethodDescription] = useState("");
-  const [methodVideoURL, setMethodVideoURL] = useState("");
+  const [methodVideoURLs, setMethodVideoURLs] = useState<string[]>([""]);
 
   // Guide form
   const [guideName, setGuideName] = useState("");
@@ -137,7 +137,7 @@ export default function Contribute() {
           strat: methodStrat,
           difficulty: methodDifficulty,
           description: methodDescription,
-          videoURL: methodVideoURL,
+          videoURLs: methodVideoURLs.filter(Boolean),
         },
       });
       setMessage("Method submitted for review!");
@@ -145,7 +145,7 @@ export default function Contribute() {
       setMethodStrat("");
       setMethodDifficulty("1");
       setMethodDescription("");
-      setMethodVideoURL("");
+      setMethodVideoURLs([""]);
       const res = await axios.get("/api/submissions");
       setSubmissions(res.data);
     } catch {
@@ -552,14 +552,38 @@ export default function Contribute() {
               />
             </div>
             <div>
-              <label className={labelClass}>Video URL</label>
-              <input
-                type="text"
-                value={methodVideoURL}
-                onChange={(e) => setMethodVideoURL(e.target.value)}
-                className={inputClass}
-                placeholder="https://youtu.be/..."
-              />
+              <label className={labelClass}>Video URLs</label>
+              {methodVideoURLs.map((url, i) => (
+                <div key={i} className="flex gap-1 mb-1">
+                  <input
+                    type="text"
+                    value={url}
+                    onChange={(e) => {
+                      const updated = [...methodVideoURLs];
+                      updated[i] = e.target.value;
+                      setMethodVideoURLs(updated);
+                    }}
+                    className={inputClass}
+                    placeholder="https://youtu.be/..."
+                  />
+                  {methodVideoURLs.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => setMethodVideoURLs(methodVideoURLs.filter((_, j) => j !== i))}
+                      className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => setMethodVideoURLs([...methodVideoURLs, ""])}
+                className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+              >
+                + Add video URL
+              </button>
             </div>
             <button
               type="submit"
@@ -870,8 +894,35 @@ export default function Contribute() {
                       <textarea value={editingEntry.description} onChange={(e) => setEditingEntry({ ...editingEntry, description: e.target.value })} rows={4} className={inputClass} />
                     </div>
                     <div>
-                      <label className={labelClass}>Video URL</label>
-                      <input value={editingEntry.videoURL} onChange={(e) => setEditingEntry({ ...editingEntry, videoURL: e.target.value })} className={inputClass} />
+                      <label className={labelClass}>Video URLs</label>
+                      {(editingEntry.videoURLs || []).map((url: string, i: number) => (
+                        <div key={i} className="flex gap-1 mb-1">
+                          <input
+                            value={url}
+                            onChange={(e) => {
+                              const updated = [...editingEntry.videoURLs];
+                              updated[i] = e.target.value;
+                              setEditingEntry({ ...editingEntry, videoURLs: updated });
+                            }}
+                            className={inputClass}
+                            placeholder="https://..."
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setEditingEntry({ ...editingEntry, videoURLs: editingEntry.videoURLs.filter((_: string, j: number) => j !== i) })}
+                            className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        onClick={() => setEditingEntry({ ...editingEntry, videoURLs: [...(editingEntry.videoURLs || []), ""] })}
+                        className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+                      >
+                        + Add video URL
+                      </button>
                     </div>
                   </>
                 )}

@@ -84,7 +84,7 @@ model Method {
   strat       String
   difficulty  String
   description String
-  videoURL    String
+  videoURLs   String // JSON string array
 }
 
 model Spatula {
