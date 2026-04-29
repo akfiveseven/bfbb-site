@@ -225,7 +225,7 @@ const LevelStrategies: React.FC = () => {
                       {filteredStrats.map((strat) => {
                         const stratKey = `${strat.id}`;
                         const isExpanded = expandedStrat === stratKey;
-                        const methods = methodsData.filter(m => m.strat === strat.name);
+                        const methods = methodsData.filter(m => m.strat === strat.name).sort((a, b) => Number(a.difficulty) - Number(b.difficulty));
                         return (
                           <div key={strat.id} className="bg-blue-900/80 rounded-lg border border-blue-700 hover:border-[#fff67b] transition-colors duration-200">
                             <button
