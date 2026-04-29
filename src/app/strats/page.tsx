@@ -220,7 +220,9 @@ const LevelStrategies: React.FC = () => {
                       .filter(strat => strat.level == effectiveLevel)
                       .filter(strat => strat.spatula == getActiveSpatulaName());
 
-                  const naStrats = effectiveLevel === "All Strats" ? allFiltered.filter(s => s.spatula === "N/A") : [];
+                  const naStrats = effectiveLevel === "All Strats"
+                    ? allFiltered.filter(s => s.spatula === "N/A")
+                    : stratsData.filter(s => s.level === effectiveLevel && s.spatula === "N/A");
                   const filteredStrats = effectiveLevel === "All Strats" ? allFiltered.filter(s => s.spatula !== "N/A") : allFiltered;
 
                   const renderStrat = (strat: typeof stratsData[0]) => {
@@ -256,10 +258,10 @@ const LevelStrategies: React.FC = () => {
                               <div key={mIndex} className="bg-blue-950/60 rounded-md p-3 border border-blue-800">
                                 <div className="flex justify-between items-center mb-1">
                                   <span className="text-sm font-semibold text-yellow">{method.name}</span>
-                                  <Difficulty count={Number(method.difficulty)} />
+                                  <Difficulty className="text-sm" count={Number(method.difficulty)} />
                                 </div>
                                 {method.description && method.description !== "N/A" && (
-                                  <p className="text-xs text-gray-300 mt-1">{method.description}</p>
+                                  <p className="font-mono text-sm text-gray-300 mt-1">{method.description}</p>
                                 )}
                                 {method.videoURLs && method.videoURLs.length > 0 && (
                                   <div className="mt-2 space-y-1">
@@ -286,16 +288,18 @@ const LevelStrategies: React.FC = () => {
 
                   return (naStrats.length > 0 || filteredStrats.length > 0) ? (
                     <>
-                      {naStrats.length > 0 && (
-                        <>
-                          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">General Strats</h4>
-                          {naStrats.map(renderStrat)}
-                          {filteredStrats.length > 0 && (
-                            <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-3 mb-1">All Strats</h4>
-                          )}
-                        </>
+                      {filteredStrats.length > 0 && naStrats.length > 0 && (
+                        <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                          {effectiveLevel === "All Strats" ? "All Strats" : "Spatula Strats"}
+                        </h4>
                       )}
                       {filteredStrats.map(renderStrat)}
+                      {naStrats.length > 0 && (
+                        <>
+                          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-3 mb-1">General Strats</h4>
+                          {naStrats.map(renderStrat)}
+                        </>
+                      )}
                     </>
                   ) : (
                       <div className="text-center py-12">
