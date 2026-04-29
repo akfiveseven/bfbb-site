@@ -210,7 +210,7 @@ const LevelStrategies: React.FC = () => {
               {/* Strategy Entries */}
               <div className="space-y-1 flex-1 lg:overflow-y-auto min-h-0">
                 {!loading && (() => {
-                  const filteredStrats = effectiveLevel === "All Strats"
+                  const allFiltered = effectiveLevel === "All Strats"
                     ? stratsData.filter(strat => {
                         if (!searchQuery) return true;
                         const q = searchQuery.toLowerCase();
@@ -220,68 +220,82 @@ const LevelStrategies: React.FC = () => {
                       .filter(strat => strat.level == effectiveLevel)
                       .filter(strat => strat.spatula == getActiveSpatulaName());
 
-                  return filteredStrats.length > 0 ? (
-                    <>
-                      {filteredStrats.map((strat) => {
-                        const stratKey = `${strat.id}`;
-                        const isExpanded = expandedStrat === stratKey;
-                        const methods = methodsData.filter(m => m.strat === strat.name).sort((a, b) => Number(a.difficulty) - Number(b.difficulty));
-                        return (
-                          <div key={strat.id} className="bg-blue-900/80 rounded-lg border border-blue-700 hover:border-[#fff67b] transition-colors duration-200">
-                            <button
-                              className="w-full p-2 flex justify-between items-center cursor-pointer"
-                              onClick={() => setExpandedStrat(isExpanded ? null : stratKey)}
-                            >
-                              <span className="text-xs font-semibold text-white">{strat.name} {effectiveLevel === "All Strats" && (
-                                    <span className="text-xs text-gray-400 mx-2">{strat.spatula}</span>
-                                  )}</span>
-                              <div>
-                                <span>
-                                  {effectiveLevel === "All Strats" && (
-                                    <span className="text-xs text-gray-400 mx-2">{strat.level}</span>
-                                  )}
-                                </span>
-                                <span className={`text-yellow text-xl transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
-                                  ▼
-                                </span>
-                              </div>
-                            </button>
-                            {isExpanded && (
-                              <div className="px-3 pb-3 space-y-2">
-                                <p className="font-mono">{strat.description}</p>
-                                {methods.length === 0 ? (
-                                  <p className="text-xs text-gray-400 py-2">No methods added for this strat.</p>
-                                ) : methods.map((method, mIndex) => (
-                                  <div key={mIndex} className="bg-blue-950/60 rounded-md p-3 border border-blue-800">
-                                    <div className="flex justify-between items-center mb-1">
-                                      <span className="text-sm font-semibold text-yellow">{method.name}</span>
-                                      <Difficulty count={Number(method.difficulty)} />
-                                    </div>
-                                    {method.description && method.description !== "N/A" && (
-                                      <p className="text-xs text-gray-300 mt-1">{method.description}</p>
-                                    )}
-                                    {method.videoURLs && method.videoURLs.length > 0 && (
-                                      <div className="mt-2 space-y-1">
-                                        {method.videoURLs.map((url: string, vi: number) => (
-                                          <a
-                                            key={vi}
-                                            href={url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-xs text-[#fff67b] hover:underline block truncate"
-                                          >
-                                            {url}
-                                          </a>
-                                        ))}
-                                      </div>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-                            )}
+                  const naStrats = effectiveLevel === "All Strats" ? allFiltered.filter(s => s.spatula === "N/A") : [];
+                  const filteredStrats = effectiveLevel === "All Strats" ? allFiltered.filter(s => s.spatula !== "N/A") : allFiltered;
+
+                  const renderStrat = (strat: typeof stratsData[0]) => {
+                    const stratKey = `${strat.id}`;
+                    const isExpanded = expandedStrat === stratKey;
+                    const methods = methodsData.filter(m => m.strat === strat.name).sort((a, b) => Number(a.difficulty) - Number(b.difficulty));
+                    return (
+                      <div key={strat.id} className="bg-blue-900/80 rounded-lg border border-blue-700 hover:border-[#fff67b] transition-colors duration-200">
+                        <button
+                          className="w-full p-2 flex justify-between items-center cursor-pointer"
+                          onClick={() => setExpandedStrat(isExpanded ? null : stratKey)}
+                        >
+                          <span className="text-xs font-semibold text-white">{strat.name} {effectiveLevel === "All Strats" && (
+                                <span className="text-xs text-gray-400 mx-2">{strat.spatula}</span>
+                              )}</span>
+                          <div>
+                            <span>
+                              {effectiveLevel === "All Strats" && (
+                                <span className="text-xs text-gray-400 mx-2">{strat.level}</span>
+                              )}
+                            </span>
+                            <span className={`text-yellow text-xl transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}>
+                              ▼
+                            </span>
                           </div>
-                        );
-                      })}
+                        </button>
+                        {isExpanded && (
+                          <div className="px-3 pb-3 space-y-2">
+                            <p className="font-mono">{strat.description}</p>
+                            {methods.length === 0 ? (
+                              <p className="text-xs text-gray-400 py-2">No methods added for this strat.</p>
+                            ) : methods.map((method, mIndex) => (
+                              <div key={mIndex} className="bg-blue-950/60 rounded-md p-3 border border-blue-800">
+                                <div className="flex justify-between items-center mb-1">
+                                  <span className="text-sm font-semibold text-yellow">{method.name}</span>
+                                  <Difficulty count={Number(method.difficulty)} />
+                                </div>
+                                {method.description && method.description !== "N/A" && (
+                                  <p className="text-xs text-gray-300 mt-1">{method.description}</p>
+                                )}
+                                {method.videoURLs && method.videoURLs.length > 0 && (
+                                  <div className="mt-2 space-y-1">
+                                    {method.videoURLs.map((url: string, vi: number) => (
+                                      <a
+                                        key={vi}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-[#fff67b] hover:underline block truncate"
+                                      >
+                                        {url}
+                                      </a>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  };
+
+                  return (naStrats.length > 0 || filteredStrats.length > 0) ? (
+                    <>
+                      {naStrats.length > 0 && (
+                        <>
+                          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">General Strats</h4>
+                          {naStrats.map(renderStrat)}
+                          {filteredStrats.length > 0 && (
+                            <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-3 mb-1">All Strats</h4>
+                          )}
+                        </>
+                      )}
+                      {filteredStrats.map(renderStrat)}
                     </>
                   ) : (
                       <div className="text-center py-12">
