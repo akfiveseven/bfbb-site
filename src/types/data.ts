@@ -35,6 +35,7 @@ export interface Sock {
 }
 
 export interface GlossaryEntry {
+  id: number;
   name: string;
   difficulty: number;
   description: string;
@@ -42,6 +43,7 @@ export interface GlossaryEntry {
 }
 
 export interface Guide {
+  id: number;
   name: string;
   difficulty: string;
   category: string;

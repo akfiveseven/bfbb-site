@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import axios from "axios";
-import type { Spatula, Strategy } from "@/types/data";
+import type { Spatula, Strategy, Method, Guide, GlossaryEntry } from "@/types/data";
 
 interface Submission {
   id: string;
@@ -15,7 +15,7 @@ interface Submission {
 
 export default function Contribute() {
   const { data: session, status: authStatus } = useSession();
-  const [tab, setTab] = useState<"strategy" | "method" | "guide" | "glossary" | "feedback">("strategy");
+  const [tab, setTab] = useState<"strategy" | "method" | "guide" | "glossary" | "feedback" | "edit">("strategy");
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [strategies, setStrategies] = useState<Strategy[]>([]);
@@ -54,6 +54,16 @@ export default function Contribute() {
   const [feedbackSubject, setFeedbackSubject] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
+  // Edit existing state
+  const [editEntityType, setEditEntityType] = useState<"strategy" | "method" | "guide" | "glossary">("strategy");
+  const [editSearch, setEditSearch] = useState("");
+  const [methods, setMethods] = useState<Method[]>([]);
+  const [guides, setGuides] = useState<Guide[]>([]);
+  const [glossary, setGlossary] = useState<GlossaryEntry[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [editingEntry, setEditingEntry] = useState<any>(null);
+  const [editEntityId, setEditEntityId] = useState<number | null>(null);
+
   const levels = [
     "Bikini Bottom", "Jellyfish Fields", "Downtown Bikini Bottom",
     "Goo Lagoon", "Poseidome", "Rock Bottom", "Mermalair",
@@ -66,6 +76,9 @@ export default function Contribute() {
       axios.get("/api/submissions").then((res) => setSubmissions(res.data));
       axios.get("/api/data/spatulas").then((res) => setSpatulas(res.data));
       axios.get("/api/data/strategies").then((res) => setStrategies(res.data));
+      axios.get("/api/data/methods").then((res) => setMethods(res.data));
+      axios.get("/api/data/guides").then((res) => setGuides(res.data));
+      axios.get("/api/data/glossary").then((res) => setGlossary(res.data));
     }
   }, [session]);
 
@@ -219,6 +232,58 @@ export default function Contribute() {
     setSubmitting(false);
   };
 
+  const handleSubmitEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingEntry || editEntityId === null) return;
+    setSubmitting(true);
+    setMessage("");
+    try {
+      await axios.post("/api/submissions", {
+        type: "edit",
+        data: {
+          name: `Edit ${editEntityType}: ${editingEntry.name}`,
+          entityType: editEntityType,
+          entityId: editEntityId,
+          changes: editingEntry,
+        },
+      });
+      setMessage("Edit submitted for review!");
+      setEditingEntry(null);
+      setEditEntityId(null);
+      const res = await axios.get("/api/submissions");
+      setSubmissions(res.data);
+    } catch {
+      setMessage("Failed to submit. Please try again.");
+    }
+    setSubmitting(false);
+  };
+
+  const selectEntryToEdit = (entityType: string, entry: Record<string, unknown>) => {
+    setEditEntityId(entry.id as number);
+    if (entityType === "strategy") {
+      setEditingEntry({ ...entry });
+    } else if (entityType === "method") {
+      setEditingEntry({ ...entry });
+    } else if (entityType === "guide") {
+      setEditingEntry({ ...entry });
+    } else if (entityType === "glossary") {
+      setEditingEntry({ ...entry });
+    }
+  };
+
+  const getFilteredEntries = () => {
+    const q = editSearch.toLowerCase();
+    if (editEntityType === "strategy") {
+      return strategies.filter((s) => s.name.toLowerCase().includes(q) || s.level.toLowerCase().includes(q));
+    } else if (editEntityType === "method") {
+      return methods.filter((m) => m.name.toLowerCase().includes(q) || m.strat.toLowerCase().includes(q));
+    } else if (editEntityType === "guide") {
+      return guides.filter((g) => g.name.toLowerCase().includes(q) || g.category.toLowerCase().includes(q));
+    } else {
+      return glossary.filter((g) => g.name.toLowerCase().includes(q) || g.description.toLowerCase().includes(q));
+    }
+  };
+
   if (authStatus === "loading") {
     return (
       <div className="flex items-center justify-center min-h-[50vh] font-bob">
@@ -303,6 +368,16 @@ export default function Contribute() {
           }`}
         >
           Feedback
+        </button>
+        <button
+          onClick={() => setTab("edit")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+            tab === "edit"
+              ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+              : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+          }`}
+        >
+          Edit Existing
         </button>
       </div>
 
@@ -655,6 +730,215 @@ export default function Contribute() {
             </button>
           </div>
         </form>
+      )}
+
+      {/* Edit Existing */}
+      {tab === "edit" && (
+        <div className="max-w-2xl mx-auto space-y-4">
+          {/* Entity type selector */}
+          <div className="flex justify-center gap-2 flex-wrap">
+            {(["strategy", "method", "guide", "glossary"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => { setEditEntityType(t); setEditingEntry(null); setEditEntityId(null); setEditSearch(""); }}
+                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                  editEntityType === t
+                    ? "bg-blue-600/20 text-blue-400 border border-blue-600/50"
+                    : "text-gray-400 border border-gray-600 hover:border-blue-500"
+                }`}
+              >
+                {t.charAt(0).toUpperCase() + t.slice(1)}
+              </button>
+            ))}
+          </div>
+
+          {!editingEntry ? (
+            <>
+              {/* Search */}
+              <input
+                type="text"
+                value={editSearch}
+                onChange={(e) => setEditSearch(e.target.value)}
+                placeholder={`Search ${editEntityType === "glossary" ? "glossary entries" : editEntityType + "s"}...`}
+                className={inputClass}
+              />
+              {/* Results */}
+              <div className="container-bg rounded-lg p-4 max-h-80 overflow-y-auto space-y-1">
+                {getFilteredEntries().slice(0, 50).map((entry) => {
+                  const e = entry as unknown as Record<string, unknown>;
+                  return (
+                  <button
+                    key={e.id as number}
+                    onClick={() => selectEntryToEdit(editEntityType, e)}
+                    className="w-full text-left px-3 py-2 rounded-md text-sm text-white hover:bg-blue-900/60 border border-transparent hover:border-[#fff67b] transition-colors cursor-pointer"
+                  >
+                    <span className="font-semibold">{e.name as string}</span>
+                    {editEntityType === "strategy" && (
+                      <span className="text-xs text-gray-400 ml-2">{e.level as string}</span>
+                    )}
+                    {editEntityType === "method" && (
+                      <span className="text-xs text-gray-400 ml-2">{e.strat as string}</span>
+                    )}
+                    {editEntityType === "guide" && (
+                      <span className="text-xs text-gray-400 ml-2">{e.category as string}</span>
+                    )}
+                  </button>
+                  );
+                })}
+                {getFilteredEntries().length === 0 && (
+                  <p className="text-gray-500 text-sm text-center py-4">No results found.</p>
+                )}
+              </div>
+            </>
+          ) : (
+            <form onSubmit={handleSubmitEdit}>
+              <div className="container-bg rounded-lg p-6 space-y-4">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-sm font-bold text-yellow">
+                    Editing {editEntityType}: {editingEntry.name}
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => { setEditingEntry(null); setEditEntityId(null); }}
+                    className="text-xs text-gray-400 hover:text-white cursor-pointer"
+                  >
+                    ← Back to search
+                  </button>
+                </div>
+
+                {/* Strategy edit fields */}
+                {editEntityType === "strategy" && (
+                  <>
+                    <div>
+                      <label className={labelClass}>Name</label>
+                      <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={labelClass}>Level</label>
+                        <select value={editingEntry.level} onChange={(e) => setEditingEntry({ ...editingEntry, level: e.target.value })} className={inputClass}>
+                          {levels.map((l) => <option key={l} value={l}>{l}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className={labelClass}>Spatula</label>
+                        <input value={editingEntry.spatula} onChange={(e) => setEditingEntry({ ...editingEntry, spatula: e.target.value })} className={inputClass} />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={labelClass}>Prerequisites (comma-separated)</label>
+                        <input value={(editingEntry.prerequisites || []).join(", ")} onChange={(e) => setEditingEntry({ ...editingEntry, prerequisites: e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean) })} className={inputClass} />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Hans</label>
+                        <select value={editingEntry.hans} onChange={(e) => setEditingEntry({ ...editingEntry, hans: e.target.value })} className={inputClass}>
+                          <option value="N/A">N/A</option>
+                          <option value="Enabled">Enabled</option>
+                          <option value="Disabled">Disabled</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Description</label>
+                      <textarea value={editingEntry.description} onChange={(e) => setEditingEntry({ ...editingEntry, description: e.target.value })} rows={4} className={inputClass} />
+                    </div>
+                  </>
+                )}
+
+                {/* Method edit fields */}
+                {editEntityType === "method" && (
+                  <>
+                    <div>
+                      <label className={labelClass}>Name</label>
+                      <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Strategy</label>
+                      <select value={editingEntry.strat} onChange={(e) => setEditingEntry({ ...editingEntry, strat: e.target.value })} className={inputClass}>
+                        {strategies.map((s) => <option key={s.id} value={s.name}>{s.name}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Difficulty (1-10)</label>
+                      <select value={editingEntry.difficulty} onChange={(e) => setEditingEntry({ ...editingEntry, difficulty: e.target.value })} className={inputClass}>
+                        {[1,2,3,4,5,6,7,8,9,10].map((n) => <option key={n} value={String(n)}>{n}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Description</label>
+                      <textarea value={editingEntry.description} onChange={(e) => setEditingEntry({ ...editingEntry, description: e.target.value })} rows={4} className={inputClass} />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Video URL</label>
+                      <input value={editingEntry.videoURL} onChange={(e) => setEditingEntry({ ...editingEntry, videoURL: e.target.value })} className={inputClass} />
+                    </div>
+                  </>
+                )}
+
+                {/* Guide edit fields */}
+                {editEntityType === "guide" && (
+                  <>
+                    <div>
+                      <label className={labelClass}>Name</label>
+                      <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={labelClass}>Difficulty</label>
+                        <select value={editingEntry.difficulty} onChange={(e) => setEditingEntry({ ...editingEntry, difficulty: e.target.value })} className={inputClass}>
+                          <option value="Beginner">Beginner</option>
+                          <option value="Intermediate">Intermediate</option>
+                          <option value="Advanced">Advanced</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className={labelClass}>Category</label>
+                        <input value={editingEntry.category} onChange={(e) => setEditingEntry({ ...editingEntry, category: e.target.value })} className={inputClass} />
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Link</label>
+                      <input value={editingEntry.link} onChange={(e) => setEditingEntry({ ...editingEntry, link: e.target.value })} className={inputClass} />
+                    </div>
+                  </>
+                )}
+
+                {/* Glossary edit fields */}
+                {editEntityType === "glossary" && (
+                  <>
+                    <div>
+                      <label className={labelClass}>Term Name</label>
+                      <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Difficulty (0-10)</label>
+                      <select value={editingEntry.difficulty} onChange={(e) => setEditingEntry({ ...editingEntry, difficulty: parseInt(e.target.value) })} className={inputClass}>
+                        {[0,1,2,3,4,5,6,7,8,9,10].map((n) => <option key={n} value={n}>{n}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Description</label>
+                      <textarea value={editingEntry.description} onChange={(e) => setEditingEntry({ ...editingEntry, description: e.target.value })} rows={4} className={inputClass} />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Video URL</label>
+                      <input value={editingEntry.videoURL} onChange={(e) => setEditingEntry({ ...editingEntry, videoURL: e.target.value })} className={inputClass} />
+                    </div>
+                  </>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
+                >
+                  {submitting ? "Submitting..." : "Submit Edit for Review"}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       )}
 
       {/* Past Submissions */}

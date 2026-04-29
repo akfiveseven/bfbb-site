@@ -117,6 +117,15 @@ export default function AdminSubmissions() {
                     <p>Items in route: {parsed.entryCount || "Unknown"}</p>
                   </>
                 )}
+                {sub.type === "edit" && (
+                  <>
+                    <p>Editing: {parsed.entityType} (ID: {parsed.entityId})</p>
+                    <p className="font-semibold mt-1">Proposed changes:</p>
+                    {Object.entries(parsed.changes || {}).map(([key, value]) => (
+                      <p key={key}>{key}: {Array.isArray(value) ? (value as string[]).join(", ") : String(value)}</p>
+                    ))}
+                  </>
+                )}
                 <p className="mt-2">{parsed.description}</p>
               </div>
               <div className="flex gap-2">

@@ -87,6 +87,56 @@ export async function PATCH(
           },
         });
       }
+    } else if (submission.type === "edit") {
+      const entityType = data.entityType;
+      const entityId = data.entityId;
+      const changes = data.changes;
+
+      if (entityType === "strategy") {
+        await prisma.strategy.update({
+          where: { id: entityId },
+          data: {
+            name: changes.name,
+            spatula: changes.spatula,
+            level: changes.level,
+            prerequisites: JSON.stringify(changes.prerequisites || []),
+            hans: changes.hans,
+            description: changes.description,
+            links: JSON.stringify(changes.links || []),
+          },
+        });
+      } else if (entityType === "method") {
+        await prisma.method.update({
+          where: { id: entityId },
+          data: {
+            name: changes.name,
+            strat: changes.strat,
+            difficulty: String(changes.difficulty),
+            description: changes.description,
+            videoURL: changes.videoURL || "N/A",
+          },
+        });
+      } else if (entityType === "guide") {
+        await prisma.guide.update({
+          where: { id: entityId },
+          data: {
+            name: changes.name,
+            difficulty: changes.difficulty,
+            category: changes.category || "",
+            link: changes.link,
+          },
+        });
+      } else if (entityType === "glossary") {
+        await prisma.glossaryEntry.update({
+          where: { id: entityId },
+          data: {
+            name: changes.name,
+            difficulty: Number(changes.difficulty) || 0,
+            description: changes.description,
+            videoURL: changes.videoURL || "",
+          },
+        });
+      }
     }
   }
 
