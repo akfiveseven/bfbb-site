@@ -5,15 +5,15 @@ const Difficulty = ({ count, className }: { count: number, className?: string })
   let message = "";
 
   if (count <= 3) {
-    message = "Easy - " + count;
+    message = "Easy";
   } else if (count <= 6) {
-    message = "Medium - " + count;
+    message = "Medium";
   } else if (count <= 8) {
-    message = "Hard - " + count;
+    message = "Hard";
   } else if (count <= 99) {
-    message = "Very Hard - " + count;
+    message = "Very Hard";
   } else {
-    message = "Very Easy - " + count;
+    message = "Very Easy";
   }
 
   return (
