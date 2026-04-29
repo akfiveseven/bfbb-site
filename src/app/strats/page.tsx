@@ -57,47 +57,33 @@ const LevelStrategies: React.FC = () => {
   // Array of all levels for mapping
   const levels = [
     { id: 0, label: 'All Strats', image: '' },
-    { id: 1, label: 'Bikini Bottom', image: '' },
-    { id: 2, label: 'Jellyfish Fields', image: '' },
-    { id: 3, label: 'Downtown Bikini Bottom', image: '' },
-    { id: 4, label: 'Goo Lagoon', image: '' },
-    { id: 5, label: 'Poseidome', image: '' },
-    { id: 6, label: 'Rock Bottom', image: '' },
-    { id: 7, label: 'Mermalair', image: '' },
-    { id: 8, label: 'Sand Mountain', image: '' },
-    { id: 9, label: 'Industrial Park', image: '' },
-    { id: 10, label: 'Kelp Forest', image: '' },
-    { id: 11, label: "Flying Dutchman's Graveyard", image: '' },
-    { id: 12, label: "SpongeBob's Dream", image: '' },
-    { id: 13, label: 'Chum Bucket Lab', image: '' },
+    { id: 1, label: 'Bikini Bottom', image: '', totalSpats: 8 },
+    { id: 2, label: 'Jellyfish Fields', image: '', totalSpats: 8 },
+    { id: 3, label: 'Downtown Bikini Bottom', image: '', totalSpats: 8 },
+    { id: 4, label: 'Goo Lagoon', image: '', totalSpats: 8 },
+    { id: 5, label: 'Poseidome', image: '', totalSpats: 1 },
+    { id: 6, label: 'Rock Bottom', image: '', totalSpats: 8 },
+    { id: 7, label: 'Mermalair', image: '', totalSpats: 8 },
+    { id: 8, label: 'Sand Mountain', image: '', totalSpats: 8 },
+    { id: 9, label: 'Industrial Park', image: '', totalSpats: 1 },
+    { id: 10, label: 'Kelp Forest', image: '', totalSpats: 8 },
+    { id: 11, label: "Flying Dutchman's Graveyard", image: '', totalSpats: 8 },
+    { id: 12, label: "SpongeBob's Dream", image: '', totalSpats: 8 },
+    { id: 13, label: 'Chum Bucket Lab', image: '', totalSpats: 2 },
   ];
 
+  const getActiveLevel = () => levels.find((l) => l.label === activeLevel);
+
   const incrementSpatCounter = () => {
-
-    const spat = activeSpatula + 1;
-
+    const total = getActiveLevel()?.totalSpats ?? 8;
     setExpandedStrat(null);
-    if (activeSpatula < 8) {
-      setActiveSpatula(spat);
-      return
-    }
-
-    setActiveSpatula(1);
-
+    setActiveSpatula(activeSpatula < total ? activeSpatula + 1 : 1);
   };
 
   const decrementSpatCounter = () => {
-
-    const spat = activeSpatula - 1;
-
+    const total = getActiveLevel()?.totalSpats ?? 8;
     setExpandedStrat(null);
-    if (activeSpatula == 1) {
-      setActiveSpatula(8);
-      return
-    }
-
-    setActiveSpatula(spat);
-
+    setActiveSpatula(activeSpatula > 1 ? activeSpatula - 1 : total);
   };
 
   const getActiveSpatulaName = () => {
@@ -146,7 +132,7 @@ const LevelStrategies: React.FC = () => {
                       backgroundSize: `${level.label === "Flying Dutchman's Graveyard" || level.label === "Downtown Bikini Bottom" ? "contain" : "cover"}`,
                       backgroundPosition: "center"
                     }}
-                    onClick={() => { setActiveLevel(level.label); setExpandedStrat(null); setSearchQuery(""); }}
+                    onClick={() => { setActiveLevel(level.label); setActiveSpatula(1); setExpandedStrat(null); setSearchQuery(""); }}
                   >
                     <span className="drop-shadow-lg font-semibold">
                       {level.label}
@@ -262,7 +248,7 @@ const LevelStrategies: React.FC = () => {
                             </button>
                             {isExpanded && (
                               <div className="px-3 pb-3 space-y-2">
-                                <span className="font-mono">{strat.description}</span>
+                                <p className="font-mono">{strat.description}</p>
                                 {methods.length === 0 ? (
                                   <p className="text-xs text-gray-400 py-2">No methods added for this strat.</p>
                                 ) : methods.map((method, mIndex) => (
