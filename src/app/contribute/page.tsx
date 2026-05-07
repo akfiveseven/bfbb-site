@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 import axios from "axios";
-import type { Spatula, Strategy, Method, Guide, GlossaryEntry } from "@/types/data";
+import type { Spatula, Strategy, Method, Guide, GlossaryEntry, SockStrategy, Sock } from "@/types/data";
 
 interface Submission {
   id: string;
@@ -15,7 +15,7 @@ interface Submission {
 
 export default function Contribute() {
   const { data: session, status: authStatus } = useSession();
-  const [tab, setTab] = useState<"strategy" | "method" | "guide" | "glossary" | "feedback" | "edit">("strategy");
+  const [tab, setTab] = useState<"strategy" | "method" | "sockStrategy" | "guide" | "glossary" | "feedback" | "edit">("strategy");
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [strategies, setStrategies] = useState<Strategy[]>([]);
@@ -31,12 +31,13 @@ export default function Contribute() {
   // Method form
   const [methodName, setMethodName] = useState("");
   const [methodStrat, setMethodStrat] = useState("");
-  const [methodDifficulty, setMethodDifficulty] = useState("1");
+  const [methodStratSearch, setMethodStratSearch] = useState("");
+  const [methodStratOpen, setMethodStratOpen] = useState(false);
+  const [methodDifficulty, setMethodDifficulty] = useState("Beginner");
   const [methodDescription, setMethodDescription] = useState("");
   const [methodVideoURLs, setMethodVideoURLs] = useState<string[]>([""]);
   const [methodPrereqs, setMethodPrereqs] = useState("");
   const [methodHans, setMethodHans] = useState("N/A");
-  const [methodLinks, setMethodLinks] = useState("");
 
   // Guide form
   const [guideName, setGuideName] = useState("");
@@ -50,14 +51,21 @@ export default function Contribute() {
   const [glossaryDescription, setGlossaryDescription] = useState("");
   const [glossaryVideoURL, setGlossaryVideoURL] = useState("");
 
+  // Sock strategy form
+  const [sockStratName, setSockStratName] = useState("");
+  const [sockStratLevel, setSockStratLevel] = useState("");
+  const [sockStratSock, setSockStratSock] = useState("");
+
   // Feedback form
   const [feedbackSubject, setFeedbackSubject] = useState("");
   const [feedbackMessage, setFeedbackMessage] = useState("");
 
   // Edit existing state
-  const [editEntityType, setEditEntityType] = useState<"strategy" | "method" | "guide" | "glossary">("strategy");
+  const [editEntityType, setEditEntityType] = useState<"strategy" | "method" | "sockStrategy" | "guide" | "glossary">("strategy");
   const [editSearch, setEditSearch] = useState("");
   const [methods, setMethods] = useState<Method[]>([]);
+  const [socksData, setSocksData] = useState<Sock[]>([]);
+  const [sockStrategiesData, setSockStrategiesData] = useState<SockStrategy[]>([]);
   const [guides, setGuides] = useState<Guide[]>([]);
   const [glossary, setGlossary] = useState<GlossaryEntry[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,6 +85,8 @@ export default function Contribute() {
       axios.get("/api/data/spatulas").then((res) => setSpatulas(res.data));
       axios.get("/api/data/strategies").then((res) => setStrategies(res.data));
       axios.get("/api/data/methods").then((res) => setMethods(res.data));
+      axios.get("/api/data/socks").then((res) => setSocksData(res.data));
+      axios.get("/api/data/sockStrategies").then((res) => setSockStrategiesData(res.data));
       axios.get("/api/data/guides").then((res) => setGuides(res.data));
       axios.get("/api/data/glossary").then((res) => setGlossary(res.data));
     }
@@ -85,6 +95,35 @@ export default function Contribute() {
   const filteredSpatulas = stratLevel
     ? spatulas.filter((s) => s.level === stratLevel)
     : spatulas;
+
+  const filteredSocks = sockStratLevel
+    ? socksData.filter((s) => s.level === sockStratLevel)
+    : socksData;
+
+  const handleSubmitSockStrategy = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setMessage("");
+    try {
+      await axios.post("/api/submissions", {
+        type: "sockStrategy",
+        data: {
+          name: sockStratName,
+          sock: sockStratSock,
+          level: sockStratLevel,
+        },
+      });
+      setMessage("Sock strategy submitted for review!");
+      setSockStratName("");
+      setSockStratLevel("");
+      setSockStratSock("");
+      const res = await axios.get("/api/submissions");
+      setSubmissions(res.data);
+    } catch {
+      setMessage("Failed to submit. Please try again.");
+    }
+    setSubmitting(false);
+  };
 
   const handleSubmitStrategy = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -131,21 +170,18 @@ export default function Contribute() {
             .map((s) => s.trim())
             .filter(Boolean),
           hans: methodHans,
-          links: methodLinks
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean),
         },
       });
       setMessage("Method submitted for review!");
       setMethodName("");
       setMethodStrat("");
-      setMethodDifficulty("1");
+      setMethodStratSearch("");
+      setMethodStratOpen(false);
+      setMethodDifficulty("Beginner");
       setMethodDescription("");
       setMethodVideoURLs([""]);
       setMethodPrereqs("");
       setMethodHans("N/A");
-      setMethodLinks("");
       const res = await axios.get("/api/submissions");
       setSubmissions(res.data);
     } catch {
@@ -266,6 +302,8 @@ export default function Contribute() {
       setEditingEntry({ ...entry });
     } else if (entityType === "guide") {
       setEditingEntry({ ...entry });
+    } else if (entityType === "sockStrategy") {
+      setEditingEntry({ ...entry });
     } else if (entityType === "glossary") {
       setEditingEntry({ ...entry });
     }
@@ -277,6 +315,8 @@ export default function Contribute() {
       return strategies.filter((s) => s.name.toLowerCase().includes(q) || s.level.toLowerCase().includes(q));
     } else if (editEntityType === "method") {
       return methods.filter((m) => m.name.toLowerCase().includes(q) || m.strat.toLowerCase().includes(q));
+    } else if (editEntityType === "sockStrategy") {
+      return sockStrategiesData.filter((s) => s.name.toLowerCase().includes(q) || s.sock.toLowerCase().includes(q) || s.level.toLowerCase().includes(q));
     } else if (editEntityType === "guide") {
       return guides.filter((g) => g.name.toLowerCase().includes(q) || g.category.toLowerCase().includes(q));
     } else {
@@ -348,6 +388,16 @@ export default function Contribute() {
           }`}
         >
           Submit Guide
+        </button>
+        <button
+          onClick={() => setTab("sockStrategy")}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+            tab === "sockStrategy"
+              ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+              : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+          }`}
+        >
+          Submit Sock Strat
         </button>
         <button
           onClick={() => setTab("glossary")}
@@ -487,33 +537,82 @@ export default function Contribute() {
                 placeholder="e.g. Original Disable"
               />
             </div>
-            <div>
+            <div className="relative">
               <label className={labelClass}>Strategy *</label>
-              <select
-                value={methodStrat}
-                onChange={(e) => setMethodStrat(e.target.value)}
-                required
+              <input
+                type="text"
+                value={methodStratOpen ? methodStratSearch : methodStrat}
+                onChange={(e) => { setMethodStratSearch(e.target.value); setMethodStratOpen(true); }}
+                onFocus={() => { setMethodStratOpen(true); setMethodStratSearch(""); }}
+                onBlur={() => { setTimeout(() => setMethodStratOpen(false), 150); }}
                 className={inputClass}
-              >
-                <option value="">Select strategy</option>
-                {strategies.map((s) => (
-                  <option key={s.id} value={s.name}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
+                placeholder="Search strategies..."
+                required={!methodStrat}
+              />
+              {methodStrat && !methodStratOpen && (
+                <button
+                  type="button"
+                  onClick={() => { setMethodStrat(""); setMethodStratSearch(""); setMethodStratOpen(true); }}
+                  className="absolute right-2 top-7 text-gray-400 hover:text-white text-sm cursor-pointer"
+                >
+                  ×
+                </button>
+              )}
+              {methodStratOpen && (() => {
+                const q = methodStratSearch.toLowerCase();
+                const filteredSpat = strategies.filter(s => s.name.toLowerCase().includes(q));
+                const filteredSock = sockStrategiesData.filter(s => s.name.toLowerCase().includes(q));
+                return (filteredSpat.length > 0 || filteredSock.length > 0) ? (
+                  <div className="absolute z-10 w-full mt-1 max-h-48 overflow-y-auto rounded-lg bg-blue-950 border border-blue-700 shadow-lg">
+                    {filteredSpat.length > 0 && (
+                      <>
+                        <div className="px-3 py-1 text-xs text-gray-500 uppercase">Spatula Strategies</div>
+                        {filteredSpat.map((s) => (
+                          <button
+                            key={`strat-${s.id}`}
+                            type="button"
+                            onClick={() => { setMethodStrat(s.name); setMethodStratOpen(false); setMethodStratSearch(""); }}
+                            className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
+                          >
+                            {s.name}
+                          </button>
+                        ))}
+                      </>
+                    )}
+                    {filteredSock.length > 0 && (
+                      <>
+                        <div className="px-3 py-1 text-xs text-gray-500 uppercase">Sock Strategies</div>
+                        {filteredSock.map((s) => (
+                          <button
+                            key={`sock-${s.id}`}
+                            type="button"
+                            onClick={() => { setMethodStrat(s.name); setMethodStratOpen(false); setMethodStratSearch(""); }}
+                            className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
+                          >
+                            {s.name}
+                          </button>
+                        ))}
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  <div className="absolute z-10 w-full mt-1 rounded-lg bg-blue-950 border border-blue-700 shadow-lg px-3 py-3">
+                    <p className="text-sm text-gray-500">No strategies found</p>
+                  </div>
+                );
+              })()}
             </div>
             <div>
-              <label className={labelClass}>Difficulty (1-10) *</label>
+              <label className={labelClass}>Difficulty *</label>
               <select
                 value={methodDifficulty}
                 onChange={(e) => setMethodDifficulty(e.target.value)}
                 required
                 className={inputClass}
               >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                  <option key={n} value={String(n)}>
-                    {n}
+                {["Beginner", "Intermediate", "Advanced", "Expert", "Experimental"].map((d) => (
+                  <option key={d} value={d}>
+                    {d}
                   </option>
                 ))}
               </select>
@@ -587,16 +686,6 @@ export default function Contribute() {
                 </select>
               </div>
             </div>
-            <div>
-              <label className={labelClass}>Links (comma-separated URLs)</label>
-              <input
-                type="text"
-                value={methodLinks}
-                onChange={(e) => setMethodLinks(e.target.value)}
-                className={inputClass}
-                placeholder="https://..."
-              />
-            </div>
             <button
               type="submit"
               disabled={submitting}
@@ -665,6 +754,69 @@ export default function Contribute() {
               className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
             >
               {submitting ? "Submitting..." : "Submit Guide"}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {/* Sock Strategy Form */}
+      {tab === "sockStrategy" && (
+        <form onSubmit={handleSubmitSockStrategy} className="max-w-2xl mx-auto space-y-4">
+          <div className="container-bg rounded-lg p-6 space-y-4">
+            <div>
+              <label className={labelClass}>Strategy Name *</label>
+              <input
+                type="text"
+                value={sockStratName}
+                onChange={(e) => setSockStratName(e.target.value)}
+                required
+                className={inputClass}
+                placeholder="e.g. Sock Skip"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>Level *</label>
+                <select
+                  value={sockStratLevel}
+                  onChange={(e) => {
+                    setSockStratLevel(e.target.value);
+                    setSockStratSock("");
+                  }}
+                  required
+                  className={inputClass}
+                >
+                  <option value="">Select level</option>
+                  {levels.map((l) => (
+                    <option key={l} value={l}>
+                      {l}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className={labelClass}>Sock *</label>
+                <select
+                  value={sockStratSock}
+                  onChange={(e) => setSockStratSock(e.target.value)}
+                  required
+                  className={inputClass}
+                >
+                  <option value="">Select sock</option>
+                  {filteredSocks.map((s) => (
+                    <option key={s.id} value={s.name}>
+                      {s.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="w-full py-3 rounded-lg bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50 font-medium hover:bg-[#fff67b]/30 transition-colors cursor-pointer disabled:opacity-50"
+            >
+              {submitting ? "Submitting..." : "Submit Sock Strategy"}
             </button>
           </div>
         </form>
@@ -773,7 +925,7 @@ export default function Contribute() {
         <div className="max-w-2xl mx-auto space-y-4">
           {/* Entity type selector */}
           <div className="flex justify-center gap-2 flex-wrap">
-            {(["strategy", "method", "guide", "glossary"] as const).map((t) => (
+            {(["strategy", "method", "sockStrategy", "guide", "glossary"] as const).map((t) => (
               <button
                 key={t}
                 onClick={() => { setEditEntityType(t); setEditingEntry(null); setEditEntityId(null); setEditSearch(""); }}
@@ -814,6 +966,9 @@ export default function Contribute() {
                     )}
                     {editEntityType === "method" && (
                       <span className="text-xs text-gray-400 ml-2">{e.strat as string}</span>
+                    )}
+                    {editEntityType === "sockStrategy" && (
+                      <span className="text-xs text-gray-400 ml-2">{e.level as string} — {e.sock as string}</span>
                     )}
                     {editEntityType === "guide" && (
                       <span className="text-xs text-gray-400 ml-2">{e.category as string}</span>
@@ -906,13 +1061,18 @@ export default function Contribute() {
                     <div>
                       <label className={labelClass}>Strategy</label>
                       <select value={editingEntry.strat} onChange={(e) => setEditingEntry({ ...editingEntry, strat: e.target.value })} className={inputClass}>
-                        {strategies.map((s) => <option key={s.id} value={s.name}>{s.name}</option>)}
+                        <optgroup label="Spatula Strategies">
+                          {strategies.map((s) => <option key={`strat-${s.id}`} value={s.name}>{s.name}</option>)}
+                        </optgroup>
+                        <optgroup label="Sock Strategies">
+                          {sockStrategiesData.map((s) => <option key={`sock-${s.id}`} value={s.name}>{s.name}</option>)}
+                        </optgroup>
                       </select>
                     </div>
                     <div>
-                      <label className={labelClass}>Difficulty (1-10)</label>
+                      <label className={labelClass}>Difficulty</label>
                       <select value={editingEntry.difficulty} onChange={(e) => setEditingEntry({ ...editingEntry, difficulty: e.target.value })} className={inputClass}>
-                        {[1,2,3,4,5,6,7,8,9,10].map((n) => <option key={n} value={String(n)}>{n}</option>)}
+                        {["Beginner", "Intermediate", "Advanced", "Expert", "Experimental"].map((d) => <option key={d} value={d}>{d}</option>)}
                       </select>
                     </div>
                     <div>
@@ -964,10 +1124,6 @@ export default function Contribute() {
                         </select>
                       </div>
                     </div>
-                    <div>
-                      <label className={labelClass}>Links (comma-separated URLs)</label>
-                      <input value={(editingEntry.links || []).join(", ")} onChange={(e) => setEditingEntry({ ...editingEntry, links: e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean) })} className={inputClass} placeholder="https://..." />
-                    </div>
                   </>
                 )}
 
@@ -995,6 +1151,28 @@ export default function Contribute() {
                     <div>
                       <label className={labelClass}>Link</label>
                       <input value={editingEntry.link} onChange={(e) => setEditingEntry({ ...editingEntry, link: e.target.value })} className={inputClass} />
+                    </div>
+                  </>
+                )}
+
+                {/* Sock Strategy edit fields */}
+                {editEntityType === "sockStrategy" && (
+                  <>
+                    <div>
+                      <label className={labelClass}>Name</label>
+                      <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={labelClass}>Level</label>
+                        <select value={editingEntry.level} onChange={(e) => setEditingEntry({ ...editingEntry, level: e.target.value })} className={inputClass}>
+                          {levels.map((l) => <option key={l} value={l}>{l}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label className={labelClass}>Sock</label>
+                        <input value={editingEntry.sock} onChange={(e) => setEditingEntry({ ...editingEntry, sock: e.target.value })} className={inputClass} />
+                      </div>
                     </div>
                   </>
                 )}
