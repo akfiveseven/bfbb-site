@@ -18,11 +18,21 @@ export async function GET(
   if (type === "strategies") {
     const strategies = await prisma.strategy.findMany();
     return NextResponse.json(
-      strategies.map((s) => ({
-        ...s,
-        prerequisites: JSON.parse(s.prerequisites),
-        links: JSON.parse(s.links),
-      }))
+      strategies.map((s) => {
+        let spatulas: string[];
+        try {
+          spatulas = JSON.parse(s.spatula);
+          if (!Array.isArray(spatulas)) spatulas = [s.spatula];
+        } catch {
+          spatulas = s.spatula ? [s.spatula] : ["N/A"];
+        }
+        return {
+          ...s,
+          spatulas,
+          prerequisites: JSON.parse(s.prerequisites),
+          links: JSON.parse(s.links),
+        };
+      })
     );
   }
 
@@ -92,7 +102,7 @@ export async function PUT(
       where: { id: body.id },
       data: {
         name: body.name,
-        spatula: body.spatula,
+        spatula: JSON.stringify(body.spatulas || []),
         level: body.level,
         prerequisites: JSON.stringify(body.prerequisites || []),
         hans: body.hans,

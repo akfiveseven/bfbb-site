@@ -30,10 +30,11 @@ export async function PATCH(
     const data = JSON.parse(submission.data);
 
     if (submission.type === "strategy") {
+      const spatulas = data.spatulas || (data.spatula ? [data.spatula] : ["N/A"]);
       await prisma.strategy.create({
         data: {
           name: data.name,
-          spatula: data.spatula || "N/A",
+          spatula: JSON.stringify(spatulas),
           level: data.level,
           prerequisites: JSON.stringify(data.prerequisites || []),
           hans: data.hans || "N/A",
@@ -93,11 +94,12 @@ export async function PATCH(
       const changes = data.changes;
 
       if (entityType === "strategy") {
+        const spatulas = changes.spatulas || (changes.spatula ? [changes.spatula] : ["N/A"]);
         await prisma.strategy.update({
           where: { id: entityId },
           data: {
             name: changes.name,
-            spatula: changes.spatula,
+            spatula: JSON.stringify(spatulas),
             level: changes.level,
             prerequisites: JSON.stringify(changes.prerequisites || []),
             hans: changes.hans,

@@ -1,7 +1,7 @@
 export interface Strategy {
   id: number;
   name: string;
-  spatula: string;
+  spatulas: string[];
   level: string;
   prerequisites: string[];
   hans: string;

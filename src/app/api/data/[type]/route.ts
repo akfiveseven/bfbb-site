@@ -13,11 +13,21 @@ export async function GET(
     case "strategies": {
       const strategies = await prisma.strategy.findMany();
       return NextResponse.json(
-        strategies.map((s) => ({
-          ...s,
-          prerequisites: JSON.parse(s.prerequisites),
-          links: JSON.parse(s.links),
-        }))
+        strategies.map((s) => {
+          let spatulas: string[];
+          try {
+            spatulas = JSON.parse(s.spatula);
+            if (!Array.isArray(spatulas)) spatulas = [s.spatula];
+          } catch {
+            spatulas = s.spatula ? [s.spatula] : ["N/A"];
+          }
+          return {
+            ...s,
+            spatulas,
+            prerequisites: JSON.parse(s.prerequisites),
+            links: JSON.parse(s.links),
+          };
+        })
       );
     }
     case "methods": {
