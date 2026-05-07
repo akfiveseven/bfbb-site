@@ -44,7 +44,7 @@ export default function Tricks() {
                           <span className="">{trick.name}</span>
                         </a>
                       </td>
-                      <td className="ext-cols"><Difficulty count={trick.difficulty} /></td>
+                      <td className="ext-cols"><Difficulty level={String(trick.difficulty)} /></td>
                     </tr>
                   </React.Fragment>
                 ))}
