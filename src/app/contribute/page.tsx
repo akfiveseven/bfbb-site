@@ -25,7 +25,7 @@ export default function Contribute() {
   // Strategy form
   const [stratName, setStratName] = useState("");
   const [stratLevel, setStratLevel] = useState("");
-  const [stratSpatula, setStratSpatula] = useState("");
+  const [stratSpatulas, setStratSpatulas] = useState<string[]>([]);
   const [stratPrereqs, setStratPrereqs] = useState("");
   const [stratHans, setStratHans] = useState("N/A");
   const [stratDescription, setStratDescription] = useState("");
@@ -96,7 +96,7 @@ export default function Contribute() {
         data: {
           name: stratName,
           level: stratLevel,
-          spatula: stratSpatula,
+          spatulas: stratSpatulas.length > 0 ? stratSpatulas : ["N/A"],
           prerequisites: stratPrereqs
             .split(",")
             .map((s) => s.trim())
@@ -112,7 +112,7 @@ export default function Contribute() {
       setMessage("Strategy submitted for review!");
       setStratName("");
       setStratLevel("");
-      setStratSpatula("");
+      setStratSpatulas([]);
       setStratPrereqs("");
       setStratHans("N/A");
       setStratDescription("");
@@ -409,7 +409,7 @@ export default function Contribute() {
                   value={stratLevel}
                   onChange={(e) => {
                     setStratLevel(e.target.value);
-                    setStratSpatula("");
+                    setStratSpatulas([]);
                   }}
                   required
                   className={inputClass}
@@ -423,19 +423,31 @@ export default function Contribute() {
                 </select>
               </div>
               <div>
-                <label className={labelClass}>Spatula</label>
-                <select
-                  value={stratSpatula}
-                  onChange={(e) => setStratSpatula(e.target.value)}
-                  className={inputClass}
-                >
-                  <option value="">N/A</option>
-                  {filteredSpatulas.map((s) => (
-                    <option key={s.id} value={s.name}>
-                      {s.name}
-                    </option>
-                  ))}
-                </select>
+                <label className={labelClass}>Spatulas</label>
+                <div className="max-h-40 overflow-y-auto rounded-lg bg-blue-950/60 border border-blue-700 p-2 space-y-1">
+                  {filteredSpatulas.length === 0 ? (
+                    <p className="text-xs text-gray-500">Select a level first</p>
+                  ) : (
+                    filteredSpatulas.map((s) => (
+                      <label key={s.id} className="flex items-center gap-2 text-sm text-white cursor-pointer hover:bg-blue-900/40 rounded px-1 py-0.5">
+                        <input
+                          type="checkbox"
+                          checked={stratSpatulas.includes(s.name)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setStratSpatulas([...stratSpatulas, s.name]);
+                            } else {
+                              setStratSpatulas(stratSpatulas.filter((n) => n !== s.name));
+                            }
+                          }}
+                          className="accent-[#fff67b]"
+                        />
+                        {s.name}
+                      </label>
+                    ))
+                  )}
+                </div>
+                <p className="text-xs text-gray-500 mt-1">Leave empty for general strats</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -845,8 +857,36 @@ export default function Contribute() {
                         </select>
                       </div>
                       <div>
-                        <label className={labelClass}>Spatula</label>
-                        <input value={editingEntry.spatula} onChange={(e) => setEditingEntry({ ...editingEntry, spatula: e.target.value })} className={inputClass} />
+                        <label className={labelClass}>Spatulas</label>
+                        <div className="space-y-1">
+                          {(editingEntry.spatulas || []).map((spat: string, i: number) => (
+                            <div key={i} className="flex gap-1">
+                              <input
+                                value={spat}
+                                onChange={(e) => {
+                                  const updated = [...editingEntry.spatulas];
+                                  updated[i] = e.target.value;
+                                  setEditingEntry({ ...editingEntry, spatulas: updated });
+                                }}
+                                className={inputClass}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => setEditingEntry({ ...editingEntry, spatulas: editingEntry.spatulas.filter((_: string, j: number) => j !== i) })}
+                                className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                              >
+                                ×
+                              </button>
+                            </div>
+                          ))}
+                          <button
+                            type="button"
+                            onClick={() => setEditingEntry({ ...editingEntry, spatulas: [...(editingEntry.spatulas || []), ""] })}
+                            className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+                          >
+                            + Add spatula
+                          </button>
+                        </div>
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">

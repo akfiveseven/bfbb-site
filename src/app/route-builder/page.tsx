@@ -274,7 +274,7 @@ export default function RouteBuilder() {
 
   const getStratsForSpatula = (spatula: Spatula) => {
     return stratsData.filter(
-      (s) => s.spatula === spatula.name && s.level === spatula.level
+      (s) => s.spatulas && s.spatulas.includes(spatula.name) && s.level === spatula.level
     );
   };
 

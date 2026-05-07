@@ -7,7 +7,7 @@ import axios from "axios";
 interface Strategy {
   id: number;
   name: string;
-  spatula: string;
+  spatulas: string[];
   level: string;
   prerequisites: string[];
   hans: string;
@@ -326,7 +326,7 @@ export default function AdminContent() {
                     className={inputClass}
                     placeholder="Name"
                   />
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-2">
                     <input
                       value={editingStrat.level}
                       onChange={(e) =>
@@ -335,14 +335,40 @@ export default function AdminContent() {
                       className={inputClass}
                       placeholder="Level"
                     />
-                    <input
-                      value={editingStrat.spatula}
-                      onChange={(e) =>
-                        setEditingStrat({ ...editingStrat, spatula: e.target.value })
-                      }
-                      className={inputClass}
-                      placeholder="Spatula"
-                    />
+                    <div className="space-y-1">
+                      <label className="text-xs text-gray-400">Spatulas</label>
+                      {editingStrat.spatulas.map((spat, i) => (
+                        <div key={i} className="flex gap-1">
+                          <input
+                            value={spat}
+                            onChange={(e) => {
+                              const updated = [...editingStrat.spatulas];
+                              updated[i] = e.target.value;
+                              setEditingStrat({ ...editingStrat, spatulas: updated });
+                            }}
+                            className={inputClass}
+                            placeholder="e.g. On Top of the Pineapple"
+                          />
+                          <button
+                            onClick={() => {
+                              const updated = editingStrat.spatulas.filter((_, j) => j !== i);
+                              setEditingStrat({ ...editingStrat, spatulas: updated });
+                            }}
+                            className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        onClick={() =>
+                          setEditingStrat({ ...editingStrat, spatulas: [...editingStrat.spatulas, ""] })
+                        }
+                        className="text-xs text-[#fff67b] hover:underline cursor-pointer"
+                      >
+                        + Add spatula
+                      </button>
+                    </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-1">
@@ -461,7 +487,7 @@ export default function AdminContent() {
                       {strat.name}
                     </span>
                     <span className="text-xs text-gray-400 ml-2">
-                      {strat.level} — {strat.spatula}
+                      {strat.level} — {strat.spatulas.filter(s => s !== "N/A").join(", ") || "General"}
                     </span>
                   </div>
                   <div className="flex gap-1">
