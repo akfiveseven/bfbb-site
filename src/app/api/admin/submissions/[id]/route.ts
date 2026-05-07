@@ -36,10 +36,7 @@ export async function PATCH(
           name: data.name,
           spatula: JSON.stringify(spatulas),
           level: data.level,
-          prerequisites: JSON.stringify(data.prerequisites || []),
-          hans: data.hans || "N/A",
           description: data.description,
-          links: JSON.stringify(data.links || []),
         },
       });
     } else if (submission.type === "method") {
@@ -50,6 +47,9 @@ export async function PATCH(
           difficulty: String(data.difficulty),
           description: data.description,
           videoURLs: JSON.stringify(data.videoURLs || (data.videoURL ? [data.videoURL] : [])),
+          prerequisites: JSON.stringify(data.prerequisites || []),
+          hans: data.hans || "N/A",
+          links: JSON.stringify(data.links || []),
         },
       });
     } else if (submission.type === "guide") {
@@ -101,10 +101,7 @@ export async function PATCH(
             name: changes.name,
             spatula: JSON.stringify(spatulas),
             level: changes.level,
-            prerequisites: JSON.stringify(changes.prerequisites || []),
-            hans: changes.hans,
             description: changes.description,
-            links: JSON.stringify(changes.links || []),
           },
         });
       } else if (entityType === "method") {
@@ -116,6 +113,9 @@ export async function PATCH(
             difficulty: String(changes.difficulty),
             description: changes.description,
             videoURLs: JSON.stringify(changes.videoURLs || []),
+            prerequisites: JSON.stringify(changes.prerequisites || []),
+            hans: changes.hans || "N/A",
+            links: JSON.stringify(changes.links || []),
           },
         });
       } else if (entityType === "guide") {

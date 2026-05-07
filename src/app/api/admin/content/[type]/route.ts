@@ -29,8 +29,6 @@ export async function GET(
         return {
           ...s,
           spatulas,
-          prerequisites: JSON.parse(s.prerequisites),
-          links: JSON.parse(s.links),
         };
       })
     );
@@ -42,6 +40,8 @@ export async function GET(
       methods.map((m) => ({
         ...m,
         videoURLs: JSON.parse(m.videoURLs),
+        prerequisites: JSON.parse(m.prerequisites),
+        links: JSON.parse(m.links),
       }))
     );
   }
@@ -104,10 +104,7 @@ export async function PUT(
         name: body.name,
         spatula: JSON.stringify(body.spatulas || []),
         level: body.level,
-        prerequisites: JSON.stringify(body.prerequisites || []),
-        hans: body.hans,
         description: body.description,
-        links: JSON.stringify(body.links || []),
       },
     });
     return NextResponse.json(updated);
@@ -122,6 +119,9 @@ export async function PUT(
         difficulty: String(body.difficulty),
         description: body.description,
         videoURLs: JSON.stringify(body.videoURLs || []),
+        prerequisites: JSON.stringify(body.prerequisites || []),
+        hans: body.hans || "N/A",
+        links: JSON.stringify(body.links || []),
       },
     });
     return NextResponse.json(updated);

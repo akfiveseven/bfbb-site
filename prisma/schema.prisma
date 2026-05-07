@@ -68,23 +68,23 @@ model Submission {
 }
 
 model Strategy {
-  id            Int      @id @default(autoincrement())
-  name          String
-  spatula       String
-  level         String
-  prerequisites String   // JSON string array
-  hans          String
-  description   String
-  links         String   // JSON string array
+  id          Int    @id @default(autoincrement())
+  name        String
+  spatula     String
+  level       String
+  description String
 }
 
 model Method {
-  id          Int    @id @default(autoincrement())
-  name        String
-  strat       String
-  difficulty  String
-  description String
-  videoURLs   String // JSON string array
+  id            Int    @id @default(autoincrement())
+  name          String
+  strat         String
+  difficulty    String
+  description   String
+  videoURLs     String // JSON string array
+  prerequisites String @default("[]") // JSON string array
+  hans          String @default("N/A")
+  links         String @default("[]") // JSON string array
 }
 
 model Spatula {

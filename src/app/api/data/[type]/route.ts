@@ -24,8 +24,6 @@ export async function GET(
           return {
             ...s,
             spatulas,
-            prerequisites: JSON.parse(s.prerequisites),
-            links: JSON.parse(s.links),
           };
         })
       );
@@ -36,6 +34,8 @@ export async function GET(
         methods.map((m) => ({
           ...m,
           videoURLs: JSON.parse(m.videoURLs),
+          prerequisites: JSON.parse(m.prerequisites),
+          links: JSON.parse(m.links),
         }))
       );
     }

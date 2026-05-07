@@ -3,10 +3,7 @@ export interface Strategy {
   name: string;
   spatulas: string[];
   level: string;
-  prerequisites: string[];
-  hans: string;
   description: string;
-  links: string[];
 }
 
 export interface Method {
@@ -16,6 +13,9 @@ export interface Method {
   difficulty: string;
   description: string;
   videoURLs: string[];
+  prerequisites: string[];
+  hans: string;
+  links: string[];
 }
 
 export interface Spatula {
