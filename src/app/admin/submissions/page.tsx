@@ -87,14 +87,14 @@ export default function AdminSubmissions() {
                   <>
                     <p>Level: {parsed.level}</p>
                     <p>Spatulas: {(parsed.spatulas || (parsed.spatula ? [parsed.spatula] : [])).filter((s: string) => s !== "N/A").join(", ") || "N/A"}</p>
-                    <p>Hans: {parsed.hans}</p>
-                    <p>Prerequisites: {(parsed.prerequisites || []).join(", ") || "None"}</p>
                   </>
                 )}
                 {sub.type === "method" && (
                   <>
                     <p>Strategy: {parsed.strat}</p>
                     <p>Difficulty: {parsed.difficulty}</p>
+                    <p>Hans: {parsed.hans || "N/A"}</p>
+                    <p>Prerequisites: {(parsed.prerequisites || []).join(", ") || "None"}</p>
                     <p>Videos: {(parsed.videoURLs || []).join(", ") || "N/A"}</p>
                   </>
                 )}

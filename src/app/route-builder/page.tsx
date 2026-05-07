@@ -770,11 +770,6 @@ export default function RouteBuilder() {
                                 }`}
                               >
                                 <span className="font-semibold">{strat.name}</span>
-                                {strat.prerequisites.length > 0 && strat.prerequisites[0] !== "TBA" && (
-                                  <span className="text-gray-400 ml-1 sm:ml-2 hidden sm:inline">
-                                    (requires: {strat.prerequisites.join(", ")})
-                                  </span>
-                                )}
                               </button>
                             ))
                           )}

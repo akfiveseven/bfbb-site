@@ -26,10 +26,7 @@ export default function Contribute() {
   const [stratName, setStratName] = useState("");
   const [stratLevel, setStratLevel] = useState("");
   const [stratSpatulas, setStratSpatulas] = useState<string[]>([]);
-  const [stratPrereqs, setStratPrereqs] = useState("");
-  const [stratHans, setStratHans] = useState("N/A");
   const [stratDescription, setStratDescription] = useState("");
-  const [stratLinks, setStratLinks] = useState("");
 
   // Method form
   const [methodName, setMethodName] = useState("");
@@ -37,6 +34,9 @@ export default function Contribute() {
   const [methodDifficulty, setMethodDifficulty] = useState("1");
   const [methodDescription, setMethodDescription] = useState("");
   const [methodVideoURLs, setMethodVideoURLs] = useState<string[]>([""]);
+  const [methodPrereqs, setMethodPrereqs] = useState("");
+  const [methodHans, setMethodHans] = useState("N/A");
+  const [methodLinks, setMethodLinks] = useState("");
 
   // Guide form
   const [guideName, setGuideName] = useState("");
@@ -97,26 +97,14 @@ export default function Contribute() {
           name: stratName,
           level: stratLevel,
           spatulas: stratSpatulas.length > 0 ? stratSpatulas : ["N/A"],
-          prerequisites: stratPrereqs
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean),
-          hans: stratHans,
           description: stratDescription,
-          links: stratLinks
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean),
         },
       });
       setMessage("Strategy submitted for review!");
       setStratName("");
       setStratLevel("");
       setStratSpatulas([]);
-      setStratPrereqs("");
-      setStratHans("N/A");
       setStratDescription("");
-      setStratLinks("");
       const res = await axios.get("/api/submissions");
       setSubmissions(res.data);
     } catch {
@@ -138,6 +126,15 @@ export default function Contribute() {
           difficulty: methodDifficulty,
           description: methodDescription,
           videoURLs: methodVideoURLs.filter(Boolean),
+          prerequisites: methodPrereqs
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean),
+          hans: methodHans,
+          links: methodLinks
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean),
         },
       });
       setMessage("Method submitted for review!");
@@ -146,6 +143,9 @@ export default function Contribute() {
       setMethodDifficulty("1");
       setMethodDescription("");
       setMethodVideoURLs([""]);
+      setMethodPrereqs("");
+      setMethodHans("N/A");
+      setMethodLinks("");
       const res = await axios.get("/api/submissions");
       setSubmissions(res.data);
     } catch {
@@ -450,30 +450,6 @@ export default function Contribute() {
                 <p className="text-xs text-gray-500 mt-1">Leave empty for general strats</p>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className={labelClass}>Prerequisites (comma-separated)</label>
-                <input
-                  type="text"
-                  value={stratPrereqs}
-                  onChange={(e) => setStratPrereqs(e.target.value)}
-                  className={inputClass}
-                  placeholder="e.g. Bubble Bowl, Cruise Bubble"
-                />
-              </div>
-              <div>
-                <label className={labelClass}>Hans</label>
-                <select
-                  value={stratHans}
-                  onChange={(e) => setStratHans(e.target.value)}
-                  className={inputClass}
-                >
-                  <option value="N/A">N/A</option>
-                  <option value="Enabled">Enabled</option>
-                  <option value="Disabled">Disabled</option>
-                </select>
-              </div>
-            </div>
             <div>
               <label className={labelClass}>Description *</label>
               <textarea
@@ -483,16 +459,6 @@ export default function Contribute() {
                 rows={4}
                 className={inputClass}
                 placeholder="Describe the strategy..."
-              />
-            </div>
-            <div>
-              <label className={labelClass}>Links (comma-separated URLs)</label>
-              <input
-                type="text"
-                value={stratLinks}
-                onChange={(e) => setStratLinks(e.target.value)}
-                className={inputClass}
-                placeholder="https://..."
               />
             </div>
             <button
@@ -596,6 +562,40 @@ export default function Contribute() {
               >
                 + Add video URL
               </button>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelClass}>Prerequisites (comma-separated)</label>
+                <input
+                  type="text"
+                  value={methodPrereqs}
+                  onChange={(e) => setMethodPrereqs(e.target.value)}
+                  className={inputClass}
+                  placeholder="e.g. Bubble Bowl, Cruise Bubble"
+                />
+              </div>
+              <div>
+                <label className={labelClass}>Hans</label>
+                <select
+                  value={methodHans}
+                  onChange={(e) => setMethodHans(e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="N/A">N/A</option>
+                  <option value="Enabled">Enabled</option>
+                  <option value="Disabled">Disabled</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label className={labelClass}>Links (comma-separated URLs)</label>
+              <input
+                type="text"
+                value={methodLinks}
+                onChange={(e) => setMethodLinks(e.target.value)}
+                className={inputClass}
+                placeholder="https://..."
+              />
             </div>
             <button
               type="submit"
@@ -889,20 +889,6 @@ export default function Contribute() {
                         </div>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className={labelClass}>Prerequisites (comma-separated)</label>
-                        <input value={(editingEntry.prerequisites || []).join(", ")} onChange={(e) => setEditingEntry({ ...editingEntry, prerequisites: e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean) })} className={inputClass} />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Hans</label>
-                        <select value={editingEntry.hans} onChange={(e) => setEditingEntry({ ...editingEntry, hans: e.target.value })} className={inputClass}>
-                          <option value="N/A">N/A</option>
-                          <option value="Enabled">Enabled</option>
-                          <option value="Disabled">Disabled</option>
-                        </select>
-                      </div>
-                    </div>
                     <div>
                       <label className={labelClass}>Description</label>
                       <textarea value={editingEntry.description} onChange={(e) => setEditingEntry({ ...editingEntry, description: e.target.value })} rows={4} className={inputClass} />
@@ -963,6 +949,24 @@ export default function Contribute() {
                       >
                         + Add video URL
                       </button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={labelClass}>Prerequisites (comma-separated)</label>
+                        <input value={(editingEntry.prerequisites || []).join(", ")} onChange={(e) => setEditingEntry({ ...editingEntry, prerequisites: e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean) })} className={inputClass} />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Hans</label>
+                        <select value={editingEntry.hans} onChange={(e) => setEditingEntry({ ...editingEntry, hans: e.target.value })} className={inputClass}>
+                          <option value="N/A">N/A</option>
+                          <option value="Enabled">Enabled</option>
+                          <option value="Disabled">Disabled</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label className={labelClass}>Links (comma-separated URLs)</label>
+                      <input value={(editingEntry.links || []).join(", ")} onChange={(e) => setEditingEntry({ ...editingEntry, links: e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean) })} className={inputClass} placeholder="https://..." />
                     </div>
                   </>
                 )}
