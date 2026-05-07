@@ -155,7 +155,7 @@ const LevelStrategies: React.FC = () => {
                 <div className="mb-4 flex-shrink-0">
                   <input
                     type="text"
-                    placeholder="Search strats or methods..."
+                    placeholder="Search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-4 py-2 rounded-lg bg-blue-950/60 border border-blue-700 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-[#fff67b] transition-colors duration-200"
