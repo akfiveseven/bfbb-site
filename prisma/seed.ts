@@ -48,10 +48,7 @@ async function main() {
         name: s.name,
         spatula: s.spatula,
         level: s.level,
-        prerequisites: JSON.stringify(s.prerequisites),
-        hans: s.hans,
         description: s.description,
-        links: JSON.stringify(s.links),
       },
     });
   }
