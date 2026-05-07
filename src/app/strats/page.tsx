@@ -11,7 +11,8 @@ import { Difficulty } from "@/components/ui/Difficulty";
 
 const LevelStrategies: React.FC = () => {
   // Current active level
-  const [activeLevel, setActiveLevel] = useState("All Strats")
+  const [activeTab, setActiveTab] = useState<"all" | "levels" | "general">("all");
+  const [activeLevel, setActiveLevel] = useState("Bikini Bottom")
   const [activeSpatula, setActiveSpatula] = useState(1)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stratsData, setStratsData] = useState<any[]>([]);
@@ -56,7 +57,6 @@ const LevelStrategies: React.FC = () => {
 
   // Array of all levels for mapping
   const levels = [
-    { id: 0, label: 'All Strats', image: '' },
     { id: 1, label: 'Bikini Bottom', image: '', totalSpats: 8 },
     { id: 2, label: 'Jellyfish Fields', image: '', totalSpats: 8 },
     { id: 3, label: 'Downtown Bikini Bottom', image: '', totalSpats: 8 },
@@ -94,7 +94,7 @@ const LevelStrategies: React.FC = () => {
     }
   };
 
-  const effectiveLevel = isMobile ? "All Strats" : activeLevel;
+  const effectiveLevel = activeTab === "general" ? "General" : activeTab === "all" ? "All Strats" : (isMobile ? "All Strats" : activeLevel);
 
   return (
     <>
@@ -103,48 +103,85 @@ const LevelStrategies: React.FC = () => {
         <main className="flex-1 p-4 sm:p-8 font-bob">
 
           <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-8 gap-2">
-            <h1 className="text-2xl sm:text-4xl font-bold text-yellow">Level Strats</h1>
-            <h2 className="hidden lg:block text-4xl font-bold text-yellow px-4 py-2 rounded-lg">
-            {effectiveLevel}
-            </h2>
+            <h1 className="text-2xl sm:text-4xl font-bold text-yellow">Strats</h1>
+            {activeTab === "levels" && !isMobile && (
+              <h2 className="hidden lg:block text-4xl font-bold text-yellow px-4 py-2 rounded-lg">
+                {effectiveLevel}
+              </h2>
+            )}
           </div>
 
+          {/* Tab Switcher */}
+          <div className="flex gap-2 mb-4 sm:mb-6">
+            <button
+              className={`px-4 py-2 rounded-lg text-sm sm:text-base font-semibold transition-all duration-200 cursor-pointer ${
+                activeTab === "all"
+                  ? 'bg-[#fff67b]/20 border-2 border-[#fff67b] text-[#fff67b]'
+                  : 'border-2 border-gray-400 hover:border-[#fff67b] hover:bg-blue-900/30'
+              }`}
+              onClick={() => { setActiveTab("all"); setExpandedStrat(null); setSearchQuery(""); }}
+            >
+              All Strats
+            </button>
+            <button
+              className={`px-4 py-2 rounded-lg text-sm sm:text-base font-semibold transition-all duration-200 cursor-pointer ${
+                activeTab === "levels"
+                  ? 'bg-[#fff67b]/20 border-2 border-[#fff67b] text-[#fff67b]'
+                  : 'border-2 border-gray-400 hover:border-[#fff67b] hover:bg-blue-900/30'
+              }`}
+              onClick={() => { setActiveTab("levels"); setExpandedStrat(null); setSearchQuery(""); }}
+            >
+              Level Strats
+            </button>
+            <button
+              className={`px-4 py-2 rounded-lg text-sm sm:text-base font-semibold transition-all duration-200 cursor-pointer ${
+                activeTab === "general"
+                  ? 'bg-[#fff67b]/20 border-2 border-[#fff67b] text-[#fff67b]'
+                  : 'border-2 border-gray-400 hover:border-[#fff67b] hover:bg-blue-900/30'
+              }`}
+              onClick={() => { setActiveTab("general"); setExpandedStrat(null); setSearchQuery(""); }}
+            >
+              General Strats
+            </button>
+          </div>
 
-          <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 lg:h-[calc(100vh-16rem)]">
-            {/* Level Selection - hidden on mobile */}
-            <div className="container-bg rounded-lg p-3 sm:p-4 lg:w-1/3 w-full hidden lg:flex flex-col">
-              <h3 className="text-xl sm:text-2xl font-bold text-yellow mb-3 sm:mb-4 text-center">Select Level</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2 gap-2 sm:gap-3 xl:gap-2 flex-1 auto-rows-fr content-start lg:overflow-y-scroll">
-                {levels.map((level) => (
-                  <button
-                    key={`${level.id}-${level.label}`}
-                    className={`
-                      border-2 rounded-lg p-2 sm:p-3 flex items-center justify-center text-center
-                      transition-all duration-200 cursor-pointer
-                      ${level.label === activeLevel
-                        ? 'border-[#fff67b] bg-[#fff67b]/20 text-[#fff67b] shadow-lg'
-                        : 'border-gray-400 hover:border-[#fff67b] hover:bg-blue-900/30'
-                      }
-                      text-xs sm:text-sm 2xl:text-lg leading-tight min-h-[2.5rem]
-                    `}
-                    style={{
-                      backgroundImage: level.image ? `url(${level.image})` : 'none',
-                      backgroundSize: `${level.label === "Flying Dutchman's Graveyard" || level.label === "Downtown Bikini Bottom" ? "contain" : "cover"}`,
-                      backgroundPosition: "center"
-                    }}
-                    onClick={() => { setActiveLevel(level.label); setActiveSpatula(1); setExpandedStrat(null); setSearchQuery(""); }}
-                  >
-                    <span className="drop-shadow-lg font-semibold">
-                      {level.label}
-                    </span>
-                  </button>
-                ))}
+          <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 lg:h-[calc(100vh-20rem)]">
+            {/* Level Selection - hidden on mobile, hidden on general tab */}
+            {activeTab === "levels" && (
+              <div className="container-bg rounded-lg p-3 sm:p-4 lg:w-1/3 w-full hidden lg:flex flex-col">
+                <h3 className="text-xl sm:text-2xl font-bold text-yellow mb-3 sm:mb-4 text-center">Select Level</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-2 gap-2 sm:gap-3 xl:gap-2 flex-1 auto-rows-fr content-start lg:overflow-y-scroll">
+                  {levels.map((level) => (
+                    <button
+                      key={`${level.id}-${level.label}`}
+                      className={`
+                        border-2 rounded-lg p-2 sm:p-3 flex items-center justify-center text-center
+                        transition-all duration-200 cursor-pointer
+                        ${level.label === activeLevel
+                          ? 'border-[#fff67b] bg-[#fff67b]/20 text-[#fff67b] shadow-lg'
+                          : 'border-gray-400 hover:border-[#fff67b] hover:bg-blue-900/30'
+                        }
+                        text-xs sm:text-sm 2xl:text-lg leading-tight min-h-[2.5rem]
+                      `}
+                      style={{
+                        backgroundImage: level.image ? `url(${level.image})` : 'none',
+                        backgroundSize: `${level.label === "Flying Dutchman's Graveyard" || level.label === "Downtown Bikini Bottom" ? "contain" : "cover"}`,
+                        backgroundPosition: "center"
+                      }}
+                      onClick={() => { setActiveLevel(level.label); setActiveSpatula(1); setExpandedStrat(null); setSearchQuery(""); }}
+                    >
+                      <span className="drop-shadow-lg font-semibold">
+                        {level.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
             {/* Level Content */}
-            <div className="container-bg rounded-lg p-4 sm:p-6 lg:w-2/3 w-full flex flex-col min-h-0">
+            <div className={`container-bg rounded-lg p-4 sm:p-6 w-full flex flex-col min-h-0 ${activeTab === "levels" ? "lg:w-2/3" : ""}`}>
 
-              {effectiveLevel !== "All Strats" && (
+              {effectiveLevel !== "All Strats" && effectiveLevel !== "General" && (
                 <>
                   {/* Spatula Navigation */}
                   <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 mb-4 sm:mb-8 flex-shrink-0">
@@ -195,12 +232,12 @@ const LevelStrategies: React.FC = () => {
                   </div>
                 </>
               )}
-              {/* Search Bar (All Strats only) */}
-              {effectiveLevel === "All Strats" && (
+              {/* Search Bar (All Strats or General tab) */}
+              {(effectiveLevel === "All Strats" || effectiveLevel === "General") && (
                 <div className="mb-4 flex-shrink-0">
                   <input
                     type="text"
-                    placeholder="Search strats..."
+                    placeholder="Search strats or methods..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full px-4 py-2 rounded-lg bg-blue-950/60 border border-blue-700 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-[#fff67b] transition-colors duration-200"
@@ -210,20 +247,34 @@ const LevelStrategies: React.FC = () => {
               {/* Strategy Entries */}
               <div className="space-y-1 flex-1 lg:overflow-y-auto min-h-0">
                 {!loading && (() => {
-                  const allFiltered = effectiveLevel === "All Strats"
-                    ? stratsData.filter(strat => {
-                        if (!searchQuery) return true;
-                        const q = searchQuery.toLowerCase();
-                        return strat.name.toLowerCase().includes(q);
-                      })
-                    : stratsData
-                      .filter(strat => strat.level == effectiveLevel)
-                      .filter(strat => strat.spatula == getActiveSpatulaName());
+                  const searchFilter = (strat: typeof stratsData[0]) => {
+                    if (!searchQuery) return true;
+                    const q = searchQuery.toLowerCase();
+                    const methods = methodsData.filter(m => m.strat === strat.name);
+                    return strat.name.toLowerCase().includes(q) || methods.some(m => m.name.toLowerCase().includes(q));
+                  };
 
-                  const naStrats = effectiveLevel === "All Strats"
-                    ? allFiltered.filter(s => s.spatula === "N/A")
-                    : stratsData.filter(s => s.level === effectiveLevel && s.spatula === "N/A");
-                  const filteredStrats = effectiveLevel === "All Strats" ? allFiltered.filter(s => s.spatula !== "N/A") : allFiltered;
+                  let filteredStrats: typeof stratsData = [];
+                  let naStrats: typeof stratsData = [];
+
+                  const isGeneral = (s: typeof stratsData[0]) => !s.spatulas || s.spatulas.length === 0 || (s.spatulas.length === 1 && s.spatulas[0] === "N/A");
+
+                  if (effectiveLevel === "General") {
+                    naStrats = stratsData.filter(isGeneral).filter(searchFilter);
+                  } else if (effectiveLevel === "All Strats") {
+                    const all = stratsData.filter(searchFilter);
+                    filteredStrats = all.filter(s => !isGeneral(s));
+                    naStrats = all.filter(isGeneral);
+                  } else {
+                    // Specific level selected
+                    const spatName = getActiveSpatulaName();
+                    filteredStrats = stratsData
+                      .filter(strat => strat.level == effectiveLevel)
+                      .filter(strat => strat.spatulas && strat.spatulas.includes(spatName));
+                    naStrats = stratsData.filter(s => s.level === effectiveLevel && isGeneral(s));
+                  }
+
+                  const showExtraInfo = effectiveLevel === "All Strats" || effectiveLevel === "General";
 
                   const renderStrat = (strat: typeof stratsData[0]) => {
                     const stratKey = `${strat.id}`;
@@ -235,12 +286,12 @@ const LevelStrategies: React.FC = () => {
                           className="w-full p-2 flex justify-between items-center cursor-pointer"
                           onClick={() => setExpandedStrat(isExpanded ? null : stratKey)}
                         >
-                          <span className="text-xs font-semibold text-white">{strat.name} {effectiveLevel === "All Strats" && (
-                                <span className="text-xs text-gray-400 mx-2">{strat.spatula}</span>
+                          <span className="text-xs font-semibold text-white">{strat.name} {showExtraInfo && !isGeneral(strat) && (
+                                <span className="text-xs text-gray-400 mx-2">{strat.spatulas.filter((s: string) => s !== "N/A").join(", ")}</span>
                               )}</span>
                           <div>
                             <span>
-                              {effectiveLevel === "All Strats" && (
+                              {showExtraInfo && (
                                 <span className="text-xs text-gray-400 mx-2">{strat.level}</span>
                               )}
                             </span>
@@ -290,22 +341,20 @@ const LevelStrategies: React.FC = () => {
                     <>
                       {filteredStrats.length > 0 && naStrats.length > 0 && (
                         <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                          {effectiveLevel === "All Strats" ? "All Strats" : "Spatula Strats"}
+                          Spatula Strats
                         </h4>
                       )}
                       {filteredStrats.map(renderStrat)}
-                      {naStrats.length > 0 && (
-                        <>
-                          <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-3 mb-1">General Strats</h4>
-                          {naStrats.map(renderStrat)}
-                        </>
+                      {naStrats.length > 0 && filteredStrats.length > 0 && (
+                        <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mt-3 mb-1">General Strats</h4>
                       )}
+                      {naStrats.map(renderStrat)}
                     </>
                   ) : (
                       <div className="text-center py-12">
                         <div className="text-gray-400 text-xl mb-2">No strategies found</div>
                         <div className="text-gray-500 text-sm">
-                          Try selecting a different level or spatula
+                          {effectiveLevel === "General" ? "No general strategies match your search" : "Try selecting a different level or spatula"}
                         </div>
                       </div>
                     );
