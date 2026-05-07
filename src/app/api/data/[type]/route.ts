@@ -35,7 +35,6 @@ export async function GET(
           ...m,
           videoURLs: JSON.parse(m.videoURLs),
           prerequisites: JSON.parse(m.prerequisites),
-          links: JSON.parse(m.links),
         }))
       );
     }
@@ -62,6 +61,10 @@ export async function GET(
           min_spat_requirement: s.minSpatRequirement,
         }))
       );
+    }
+    case "sockStrategies": {
+      const sockStrategies = await prisma.sockStrategy.findMany();
+      return NextResponse.json(sockStrategies);
     }
     case "glossary": {
       const glossary = await prisma.glossaryEntry.findMany();

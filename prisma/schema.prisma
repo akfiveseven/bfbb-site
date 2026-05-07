@@ -84,7 +84,6 @@ model Method {
   videoURLs     String // JSON string array
   prerequisites String @default("[]") // JSON string array
   hans          String @default("N/A")
-  links         String @default("[]") // JSON string array
 }
 
 model Spatula {
@@ -93,6 +92,13 @@ model Spatula {
   name                  String
   level                 String
   minSpatulaRequirement Int
+}
+
+model SockStrategy {
+  id    Int    @id @default(autoincrement())
+  name  String
+  sock  String
+  level String
 }
 
 model Sock {

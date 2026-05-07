@@ -15,7 +15,6 @@ export interface Method {
   videoURLs: string[];
   prerequisites: string[];
   hans: string;
-  links: string[];
 }
 
 export interface Spatula {
@@ -24,6 +23,13 @@ export interface Spatula {
   name: string;
   level: string;
   min_spatula_requirement: number;
+}
+
+export interface SockStrategy {
+  id: number;
+  name: string;
+  sock: string;
+  level: string;
 }
 
 export interface Sock {

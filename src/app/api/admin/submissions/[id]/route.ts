@@ -49,7 +49,6 @@ export async function PATCH(
           videoURLs: JSON.stringify(data.videoURLs || (data.videoURL ? [data.videoURL] : [])),
           prerequisites: JSON.stringify(data.prerequisites || []),
           hans: data.hans || "N/A",
-          links: JSON.stringify(data.links || []),
         },
       });
     } else if (submission.type === "guide") {
@@ -68,6 +67,14 @@ export async function PATCH(
           difficulty: Number(data.difficulty) || 0,
           description: data.description,
           videoURL: data.videoURL || "",
+        },
+      });
+    } else if (submission.type === "sockStrategy") {
+      await prisma.sockStrategy.create({
+        data: {
+          name: data.name,
+          sock: data.sock,
+          level: data.level,
         },
       });
     } else if (submission.type === "route") {
@@ -115,7 +122,6 @@ export async function PATCH(
             videoURLs: JSON.stringify(changes.videoURLs || []),
             prerequisites: JSON.stringify(changes.prerequisites || []),
             hans: changes.hans || "N/A",
-            links: JSON.stringify(changes.links || []),
           },
         });
       } else if (entityType === "guide") {
@@ -136,6 +142,15 @@ export async function PATCH(
             difficulty: Number(changes.difficulty) || 0,
             description: changes.description,
             videoURL: changes.videoURL || "",
+          },
+        });
+      } else if (entityType === "sockStrategy") {
+        await prisma.sockStrategy.update({
+          where: { id: entityId },
+          data: {
+            name: changes.name,
+            sock: changes.sock,
+            level: changes.level,
           },
         });
       }

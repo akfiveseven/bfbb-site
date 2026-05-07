@@ -41,7 +41,6 @@ export async function GET(
         ...m,
         videoURLs: JSON.parse(m.videoURLs),
         prerequisites: JSON.parse(m.prerequisites),
-        links: JSON.parse(m.links),
       }))
     );
   }
@@ -80,6 +79,11 @@ export async function GET(
   if (type === "glossary") {
     const glossary = await prisma.glossaryEntry.findMany();
     return NextResponse.json(glossary);
+  }
+
+  if (type === "sockStrategies") {
+    const sockStrategies = await prisma.sockStrategy.findMany();
+    return NextResponse.json(sockStrategies);
   }
 
   return NextResponse.json({ error: "Unknown type" }, { status: 404 });
@@ -121,7 +125,6 @@ export async function PUT(
         videoURLs: JSON.stringify(body.videoURLs || []),
         prerequisites: JSON.stringify(body.prerequisites || []),
         hans: body.hans || "N/A",
-        links: JSON.stringify(body.links || []),
       },
     });
     return NextResponse.json(updated);
@@ -174,6 +177,18 @@ export async function PUT(
         difficulty: Number(body.difficulty) || 0,
         description: body.description,
         videoURL: body.videoURL || "",
+      },
+    });
+    return NextResponse.json(updated);
+  }
+
+  if (type === "sockStrategies") {
+    const updated = await prisma.sockStrategy.update({
+      where: { id: body.id },
+      data: {
+        name: body.name,
+        sock: body.sock,
+        level: body.level,
       },
     });
     return NextResponse.json(updated);
