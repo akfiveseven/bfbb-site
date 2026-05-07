@@ -21,7 +21,6 @@ interface Method {
   videoURLs: string[];
   prerequisites: string[];
   hans: string;
-  links: string[];
 }
 
 interface Sock {
@@ -56,6 +55,13 @@ interface GlossaryEntry {
   videoURL: string;
 }
 
+interface SockStrategy {
+  id: number;
+  name: string;
+  sock: string;
+  level: string;
+}
+
 interface PublishedRoute {
   id: string;
   name: string;
@@ -71,14 +77,16 @@ export default function AdminContent() {
   const [spatulas, setSpatulas] = useState<Spatula[]>([]);
   const [guides, setGuides] = useState<Guide[]>([]);
   const [glossary, setGlossary] = useState<GlossaryEntry[]>([]);
+  const [sockStrategies, setSockStrategies] = useState<SockStrategy[]>([]);
   const [publishedRoutes, setPublishedRoutes] = useState<PublishedRoute[]>([]);
-  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides" | "glossary" | "routes">("strategies");
+  const [tab, setTab] = useState<"strategies" | "methods" | "socks" | "spatulas" | "guides" | "glossary" | "sockStrategies" | "routes">("strategies");
   const [editingStrat, setEditingStrat] = useState<Strategy | null>(null);
   const [editingMethod, setEditingMethod] = useState<Method | null>(null);
   const [editingSock, setEditingSock] = useState<Sock | null>(null);
   const [editingSpatula, setEditingSpatula] = useState<Spatula | null>(null);
   const [editingGuide, setEditingGuide] = useState<Guide | null>(null);
   const [editingGlossary, setEditingGlossary] = useState<GlossaryEntry | null>(null);
+  const [editingSockStrat, setEditingSockStrat] = useState<SockStrategy | null>(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -88,6 +96,7 @@ export default function AdminContent() {
     axios.get("/api/admin/content/spatulas").then((res) => setSpatulas(res.data));
     axios.get("/api/admin/content/guides").then((res) => setGuides(res.data));
     axios.get("/api/admin/content/glossary").then((res) => setGlossary(res.data));
+    axios.get("/api/admin/content/sockStrategies").then((res) => setSockStrategies(res.data));
     axios.get("/api/routes/published").then((res) => setPublishedRoutes(res.data));
   }, []);
 
@@ -175,6 +184,20 @@ export default function AdminContent() {
     setGlossary((prev) => prev.filter((g) => g.id !== id));
   };
 
+  const saveSockStrategy = async () => {
+    if (!editingSockStrat) return;
+    await axios.put("/api/admin/content/sockStrategies", editingSockStrat);
+    setSockStrategies((prev) =>
+      prev.map((s) => (s.id === editingSockStrat.id ? editingSockStrat : s))
+    );
+    setEditingSockStrat(null);
+  };
+
+  const deleteSockStrategy = async (id: number) => {
+    await axios.delete(`/api/admin/content/sockStrategies/${id}`);
+    setSockStrategies((prev) => prev.filter((s) => s.id !== id));
+  };
+
   const unpublishRoute = async (id: string) => {
     await axios.patch(`/api/routes/${id}/publish`);
     setPublishedRoutes((prev) => prev.filter((r) => r.id !== id));
@@ -218,6 +241,13 @@ export default function AdminContent() {
     (g) =>
       g.name.toLowerCase().includes(search.toLowerCase()) ||
       g.description.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const filteredSockStrategies = sockStrategies.filter(
+    (s) =>
+      s.name.toLowerCase().includes(search.toLowerCase()) ||
+      s.sock.toLowerCase().includes(search.toLowerCase()) ||
+      s.level.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -288,6 +318,16 @@ export default function AdminContent() {
             }`}
           >
             Glossary ({glossary.length})
+          </button>
+          <button
+            onClick={() => setTab("sockStrategies")}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+              tab === "sockStrategies"
+                ? "bg-[#fff67b]/20 text-[#fff67b] border border-[#fff67b]/50"
+                : "text-gray-400 border border-gray-600 hover:border-[#fff67b]"
+            }`}
+          >
+            Sock Strats ({sockStrategies.length})
           </button>
           <button
             onClick={() => setTab("routes")}
@@ -455,7 +495,7 @@ export default function AdminContent() {
                       className={inputClass}
                       placeholder="Strategy"
                     />
-                    <input
+                    <select
                       value={editingMethod.difficulty}
                       onChange={(e) =>
                         setEditingMethod({
@@ -464,8 +504,11 @@ export default function AdminContent() {
                         })
                       }
                       className={inputClass}
-                      placeholder="Difficulty"
-                    />
+                    >
+                      {["Beginner", "Intermediate", "Advanced", "Expert", "Experimental"].map((d) => (
+                        <option key={d} value={d}>{d}</option>
+                      ))}
+                    </select>
                   </div>
                   <textarea
                     value={editingMethod.description}
@@ -558,40 +601,6 @@ export default function AdminContent() {
                       <option value="Enabled">Hans: Enabled</option>
                       <option value="Disabled">Hans: Disabled</option>
                     </select>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs text-gray-400">Links</label>
-                    {editingMethod.links.map((link, i) => (
-                      <div key={i} className="flex gap-1">
-                        <input
-                          value={link}
-                          onChange={(e) => {
-                            const updated = [...editingMethod.links];
-                            updated[i] = e.target.value;
-                            setEditingMethod({ ...editingMethod, links: updated });
-                          }}
-                          className={inputClass}
-                          placeholder="https://..."
-                        />
-                        <button
-                          onClick={() => {
-                            const updated = editingMethod.links.filter((_, j) => j !== i);
-                            setEditingMethod({ ...editingMethod, links: updated });
-                          }}
-                          className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
-                        >
-                          ×
-                        </button>
-                      </div>
-                    ))}
-                    <button
-                      onClick={() =>
-                        setEditingMethod({ ...editingMethod, links: [...editingMethod.links, ""] })
-                      }
-                      className="text-xs text-[#fff67b] hover:underline cursor-pointer"
-                    >
-                      + Add link
-                    </button>
                   </div>
                   <div className="flex gap-2">
                     <button
@@ -1020,6 +1029,89 @@ export default function AdminContent() {
                     </button>
                     <button
                       onClick={() => deleteGlossary(entry.id)}
+                      className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+
+        {/* Sock Strategies */}
+        {tab === "sockStrategies" && (
+          <div className="space-y-2">
+            {filteredSockStrategies.map((ss) =>
+              editingSockStrat?.id === ss.id ? (
+                <div
+                  key={ss.id}
+                  className="container-bg rounded-lg p-4 border border-[#fff67b]/50 space-y-2"
+                >
+                  <input
+                    value={editingSockStrat.name}
+                    onChange={(e) =>
+                      setEditingSockStrat({ ...editingSockStrat, name: e.target.value })
+                    }
+                    className={inputClass}
+                    placeholder="Name"
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      value={editingSockStrat.sock}
+                      onChange={(e) =>
+                        setEditingSockStrat({ ...editingSockStrat, sock: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Sock"
+                    />
+                    <input
+                      value={editingSockStrat.level}
+                      onChange={(e) =>
+                        setEditingSockStrat({ ...editingSockStrat, level: e.target.value })
+                      }
+                      className={inputClass}
+                      placeholder="Level"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={saveSockStrategy}
+                      className="px-3 py-1 rounded text-xs bg-green-600/20 text-green-400 border border-green-600/50 cursor-pointer"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setEditingSockStrat(null)}
+                      className="px-3 py-1 rounded text-xs text-gray-400 border border-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={ss.id}
+                  className="container-bg rounded-lg p-3 flex items-center justify-between border border-transparent hover:border-blue-700"
+                >
+                  <div>
+                    <span className="text-sm font-semibold text-white">
+                      {ss.name}
+                    </span>
+                    <span className="text-xs text-gray-400 ml-2">
+                      {ss.level} — {ss.sock}
+                    </span>
+                  </div>
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => setEditingSockStrat(ss)}
+                      className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => deleteSockStrategy(ss.id)}
                       className="px-2 py-1 rounded text-xs text-red-400 border border-red-500/30 hover:bg-red-500/10 cursor-pointer"
                     >
                       Delete

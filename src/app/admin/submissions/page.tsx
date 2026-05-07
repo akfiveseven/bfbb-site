@@ -98,6 +98,12 @@ export default function AdminSubmissions() {
                     <p>Videos: {(parsed.videoURLs || []).join(", ") || "N/A"}</p>
                   </>
                 )}
+                {sub.type === "sockStrategy" && (
+                  <>
+                    <p>Sock: {parsed.sock}</p>
+                    <p>Level: {parsed.level}</p>
+                  </>
+                )}
                 {sub.type === "guide" && (
                   <>
                     <p>Difficulty: {parsed.difficulty}</p>
