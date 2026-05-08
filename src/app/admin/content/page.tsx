@@ -50,7 +50,7 @@ interface Guide {
 interface GlossaryEntry {
   id: number;
   name: string;
-  difficulty: number;
+  difficulty: string;
   description: string;
   videoURL: string;
 }
@@ -961,14 +961,14 @@ export default function AdminContent() {
                       onChange={(e) =>
                         setEditingGlossary({
                           ...editingGlossary,
-                          difficulty: parseInt(e.target.value) || 0,
+                          difficulty: e.target.value,
                         })
                       }
                       className={inputClass}
                     >
-                      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                        <option key={n} value={n}>
-                          Difficulty: {n}
+                      {["Beginner", "Intermediate", "Advanced", "Expert", "Experimental"].map((d) => (
+                        <option key={d} value={d}>
+                          {d}
                         </option>
                       ))}
                     </select>

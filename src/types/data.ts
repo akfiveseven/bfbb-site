@@ -43,7 +43,7 @@ export interface Sock {
 export interface GlossaryEntry {
   id: number;
   name: string;
-  difficulty: number;
+  difficulty: string;
   description: string;
   videoURL: string;
 }

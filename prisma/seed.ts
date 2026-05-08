@@ -76,7 +76,7 @@ async function main() {
     await prisma.glossaryEntry.create({
       data: {
         name: g.name,
-        difficulty: Number(g.difficulty) || 0,
+        difficulty: g.difficulty || "Beginner",
         description: g.description,
         videoURL: g.videoURL || "",
       },

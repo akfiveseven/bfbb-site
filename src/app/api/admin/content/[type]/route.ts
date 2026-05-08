@@ -174,7 +174,7 @@ export async function PUT(
       where: { id: body.id },
       data: {
         name: body.name,
-        difficulty: Number(body.difficulty) || 0,
+        difficulty: body.difficulty || "Beginner",
         description: body.description,
         videoURL: body.videoURL || "",
       },

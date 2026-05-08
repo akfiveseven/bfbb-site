@@ -32,7 +32,7 @@ export default function Tricks() {
                 </tr>
               </thead>
               <tbody>
-                {tricksData.map((trick: { name: string; videoURL: string; difficulty: number }, index: number) => (
+                {tricksData.map((trick: { name: string; videoURL: string; difficulty: string }, index: number) => (
                   <React.Fragment key={index}>
                     <tr className="">
                       <td>
@@ -44,7 +44,7 @@ export default function Tricks() {
                           <span className="">{trick.name}</span>
                         </a>
                       </td>
-                      <td className="ext-cols"><Difficulty level={String(trick.difficulty)} /></td>
+                      <td className="ext-cols"><Difficulty level={trick.difficulty} /></td>
                     </tr>
                   </React.Fragment>
                 ))}

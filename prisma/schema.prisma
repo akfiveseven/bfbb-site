@@ -112,7 +112,7 @@ model Sock {
 model GlossaryEntry {
   id          Int    @id @default(autoincrement())
   name        String
-  difficulty  Int    @default(0)
+  difficulty  String @default("Beginner")
   description String
   videoURL    String @default("")
 }

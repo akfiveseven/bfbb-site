@@ -64,7 +64,7 @@ export async function PATCH(
       await prisma.glossaryEntry.create({
         data: {
           name: data.name,
-          difficulty: Number(data.difficulty) || 0,
+          difficulty: data.difficulty || "Beginner",
           description: data.description,
           videoURL: data.videoURL || "",
         },
@@ -139,7 +139,7 @@ export async function PATCH(
           where: { id: entityId },
           data: {
             name: changes.name,
-            difficulty: Number(changes.difficulty) || 0,
+            difficulty: changes.difficulty || "Beginner",
             description: changes.description,
             videoURL: changes.videoURL || "",
           },

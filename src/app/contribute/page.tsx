@@ -47,7 +47,7 @@ export default function Contribute() {
 
   // Glossary form
   const [glossaryName, setGlossaryName] = useState("");
-  const [glossaryDifficulty, setGlossaryDifficulty] = useState("0");
+  const [glossaryDifficulty, setGlossaryDifficulty] = useState("Beginner");
   const [glossaryDescription, setGlossaryDescription] = useState("");
   const [glossaryVideoURL, setGlossaryVideoURL] = useState("");
 
@@ -233,7 +233,7 @@ export default function Contribute() {
       });
       setMessage("Glossary entry submitted for review!");
       setGlossaryName("");
-      setGlossaryDifficulty("0");
+      setGlossaryDifficulty("Beginner");
       setGlossaryDescription("");
       setGlossaryVideoURL("");
       const res = await axios.get("/api/submissions");
@@ -838,15 +838,15 @@ export default function Contribute() {
               />
             </div>
             <div>
-              <label className={labelClass}>Difficulty (1-10)</label>
+              <label className={labelClass}>Difficulty</label>
               <select
                 value={glossaryDifficulty}
                 onChange={(e) => setGlossaryDifficulty(e.target.value)}
                 className={inputClass}
               >
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
-                  <option key={n} value={String(n)}>
-                    {n}
+                {["Beginner", "Intermediate", "Advanced", "Expert", "Experimental"].map((d) => (
+                  <option key={d} value={d}>
+                    {d}
                   </option>
                 ))}
               </select>
@@ -1185,9 +1185,9 @@ export default function Contribute() {
                       <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
                     </div>
                     <div>
-                      <label className={labelClass}>Difficulty (0-10)</label>
-                      <select value={editingEntry.difficulty} onChange={(e) => setEditingEntry({ ...editingEntry, difficulty: parseInt(e.target.value) })} className={inputClass}>
-                        {[0,1,2,3,4,5,6,7,8,9,10].map((n) => <option key={n} value={n}>{n}</option>)}
+                      <label className={labelClass}>Difficulty</label>
+                      <select value={editingEntry.difficulty} onChange={(e) => setEditingEntry({ ...editingEntry, difficulty: e.target.value })} className={inputClass}>
+                        {["Beginner", "Intermediate", "Advanced", "Expert", "Experimental"].map((d) => <option key={d} value={d}>{d}</option>)}
                       </select>
                     </div>
                     <div>
