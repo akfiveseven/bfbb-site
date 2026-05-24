@@ -89,6 +89,7 @@ export default function AdminContent() {
   const [editingGlossary, setEditingGlossary] = useState<GlossaryEntry | null>(null);
   const [editingSockStrat, setEditingSockStrat] = useState<SockStrategy | null>(null);
   const [search, setSearch] = useState("");
+  const [spatSearch, setSpatSearch] = useState("");
 
   useEffect(() => {
     axios.get("/api/admin/content/strategies").then((res) => setStrategies(res.data));
@@ -378,37 +379,58 @@ export default function AdminContent() {
                     />
                     <div className="space-y-1">
                       <label className="text-xs text-gray-400">Spatulas</label>
-                      {editingStrat.spatulas.map((spat, i) => (
-                        <div key={i} className="flex gap-1">
-                          <input
-                            value={spat}
-                            onChange={(e) => {
-                              const updated = [...editingStrat.spatulas];
-                              updated[i] = e.target.value;
-                              setEditingStrat({ ...editingStrat, spatulas: updated });
-                            }}
-                            className={inputClass}
-                            placeholder="e.g. On Top of the Pineapple"
-                          />
-                          <button
-                            onClick={() => {
-                              const updated = editingStrat.spatulas.filter((_, j) => j !== i);
-                              setEditingStrat({ ...editingStrat, spatulas: updated });
-                            }}
-                            className="px-2 text-red-400 hover:text-red-300 cursor-pointer text-sm"
-                          >
-                            ×
-                          </button>
-                        </div>
-                      ))}
-                      <button
-                        onClick={() =>
-                          setEditingStrat({ ...editingStrat, spatulas: [...editingStrat.spatulas, ""] })
-                        }
-                        className="text-xs text-[#fff67b] hover:underline cursor-pointer"
-                      >
-                        + Add spatula
-                      </button>
+                      <div className="flex flex-wrap gap-1 mb-1">
+                        {editingStrat.spatulas.filter(s => s !== "N/A").map((spat, i) => (
+                          <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-900/60 border border-blue-700 text-xs text-white">
+                            {spat}
+                            <button
+                              onClick={() => {
+                                const updated = editingStrat.spatulas.filter((_, j) => j !== i);
+                                setEditingStrat({ ...editingStrat, spatulas: updated });
+                              }}
+                              className="text-red-400 hover:text-red-300 cursor-pointer ml-1"
+                            >
+                              ×
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                      <div className="relative">
+                        <input
+                          value={spatSearch}
+                          onChange={(e) => setSpatSearch(e.target.value)}
+                          className={inputClass}
+                          placeholder="Search spatulas to add..."
+                        />
+                        {spatSearch && (() => {
+                          const q = spatSearch.toLowerCase();
+                          const levelSpats = spatulas.filter(s => s.level === editingStrat.level);
+                          const available = levelSpats.filter(s =>
+                            s.name.toLowerCase().includes(q) &&
+                            !editingStrat.spatulas.includes(s.name)
+                          );
+                          return available.length > 0 ? (
+                            <div className="absolute z-10 w-full mt-1 max-h-40 overflow-y-auto rounded-lg bg-blue-950 border border-blue-700 shadow-lg">
+                              {available.map((s) => (
+                                <button
+                                  key={s.id}
+                                  onClick={() => {
+                                    setEditingStrat({ ...editingStrat, spatulas: [...editingStrat.spatulas, s.name] });
+                                    setSpatSearch("");
+                                  }}
+                                  className="w-full text-left px-3 py-1.5 text-xs text-white hover:bg-blue-900/60 cursor-pointer"
+                                >
+                                  {s.name}
+                                </button>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="absolute z-10 w-full mt-1 rounded-lg bg-blue-950 border border-blue-700 shadow-lg px-3 py-2">
+                              <p className="text-xs text-gray-500">No matching spatulas found for {editingStrat.level || "this level"}</p>
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
                   </div>
                   <textarea
@@ -452,7 +474,7 @@ export default function AdminContent() {
                   </div>
                   <div className="flex gap-1">
                     <button
-                      onClick={() => setEditingStrat(strat)}
+                      onClick={() => { setEditingStrat(strat); setSpatSearch(""); }}
                       className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
                     >
                       Edit
