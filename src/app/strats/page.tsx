@@ -9,6 +9,23 @@ import { Difficulty } from "@/components/ui/Difficulty";
 
 
 
+const getYouTubeEmbedUrl = (url: string): string | null => {
+  try {
+    const u = new URL(url);
+    let videoId: string | null = null;
+    if (u.hostname === 'youtu.be') {
+      videoId = u.pathname.slice(1);
+    } else if (u.hostname.includes('youtube.com')) {
+      videoId = u.searchParams.get('v');
+    }
+    if (!videoId) return null;
+    const t = u.searchParams.get('t');
+    return `https://www.youtube-nocookie.com/embed/${videoId}${t ? `?start=${t.replace('s', '')}` : ''}`;
+  } catch {
+    return null;
+  }
+};
+
 const LevelStrategies: React.FC = () => {
   const [levelSubTab, setLevelSubTab] = useState<"spatulas" | "socks" | "general">("spatulas");
   const [activeLevel, setActiveLevel] = useState("All Strats")
@@ -285,18 +302,31 @@ const LevelStrategies: React.FC = () => {
                                 <p className="font-mono text-sm text-gray-300 mt-1">{method.description}</p>
                               )}
                               {method.videoURLs && method.videoURLs.length > 0 && (
-                                <div className="mt-2 space-y-1">
-                                  {method.videoURLs.map((url: string, vi: number) => (
-                                    <a
-                                      key={vi}
-                                      href={url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-xs text-[#fff67b] hover:underline block truncate"
-                                    >
-                                      {url}
-                                    </a>
-                                  ))}
+                                <div className="mt-2 space-y-2">
+                                  {method.videoURLs.map((url: string, vi: number) => {
+                                    const embedUrl = getYouTubeEmbedUrl(url);
+                                    return embedUrl ? (
+                                      <div key={vi} className="relative w-1/2" style={{ paddingBottom: '28.125%' }}>
+                                        <iframe
+                                          className="absolute top-0 left-0 w-full h-full rounded-md"
+                                          src={embedUrl}
+                                          title={`${method.name} video ${vi + 1}`}
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullScreen
+                                        />
+                                      </div>
+                                    ) : (
+                                      <a
+                                        key={vi}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-[#fff67b] hover:underline block truncate"
+                                      >
+                                        {url}
+                                      </a>
+                                    );
+                                  })}
                                 </div>
                               )}
                             </div>
@@ -353,18 +383,31 @@ const LevelStrategies: React.FC = () => {
                                 <p className="font-mono text-sm text-gray-300 mt-1">{method.description}</p>
                               )}
                               {method.videoURLs && method.videoURLs.length > 0 && (
-                                <div className="mt-2 space-y-1">
-                                  {method.videoURLs.map((url: string, vi: number) => (
-                                    <a
-                                      key={vi}
-                                      href={url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="text-xs text-[#fff67b] hover:underline block truncate"
-                                    >
-                                      {url}
-                                    </a>
-                                  ))}
+                                <div className="mt-2 space-y-2">
+                                  {method.videoURLs.map((url: string, vi: number) => {
+                                    const embedUrl = getYouTubeEmbedUrl(url);
+                                    return embedUrl ? (
+                                      <div key={vi} className="relative w-1/2" style={{ paddingBottom: '28.125%' }}>
+                                        <iframe
+                                          className="absolute top-0 left-0 w-full h-full rounded-md"
+                                          src={embedUrl}
+                                          title={`${method.name} video ${vi + 1}`}
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullScreen
+                                        />
+                                      </div>
+                                    ) : (
+                                      <a
+                                        key={vi}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-[#fff67b] hover:underline block truncate"
+                                      >
+                                        {url}
+                                      </a>
+                                    );
+                                  })}
                                 </div>
                               )}
                             </div>
