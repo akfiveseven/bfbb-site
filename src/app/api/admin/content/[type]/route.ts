@@ -125,6 +125,7 @@ export async function PUT(
         videoURLs: JSON.stringify(body.videoURLs || []),
         prerequisites: JSON.stringify(body.prerequisites || []),
         hans: body.hans || "N/A",
+        obsolete: body.obsolete ?? false,
       },
     });
     return NextResponse.json(updated);

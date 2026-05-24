@@ -21,6 +21,7 @@ interface Method {
   videoURLs: string[];
   prerequisites: string[];
   hans: string;
+  obsolete: boolean;
 }
 
 interface Sock {
@@ -601,6 +602,16 @@ export default function AdminContent() {
                       <option value="Enabled">Hans: Enabled</option>
                       <option value="Disabled">Hans: Disabled</option>
                     </select>
+                    <label className="flex items-center gap-2 text-xs text-gray-400 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={editingMethod.obsolete}
+                        onChange={(e) =>
+                          setEditingMethod({ ...editingMethod, obsolete: e.target.checked })
+                        }
+                      />
+                      Obsolete
+                    </label>
                   </div>
                   <div className="flex gap-2">
                     <button
@@ -629,6 +640,9 @@ export default function AdminContent() {
                     <span className="text-xs text-gray-400 ml-2">
                       {method.strat} — Difficulty: {method.difficulty}
                     </span>
+                    {method.obsolete && (
+                      <span className="text-xs text-red-400 ml-2 font-semibold">Obsolete</span>
+                    )}
                   </div>
                   <div className="flex gap-1">
                     <button

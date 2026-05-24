@@ -38,6 +38,7 @@ export default function Contribute() {
   const [methodVideoURLs, setMethodVideoURLs] = useState<string[]>([""]);
   const [methodPrereqs, setMethodPrereqs] = useState("");
   const [methodHans, setMethodHans] = useState("N/A");
+  const [methodObsolete, setMethodObsolete] = useState(false);
 
   // Guide form
   const [guideName, setGuideName] = useState("");
@@ -170,6 +171,7 @@ export default function Contribute() {
             .map((s) => s.trim())
             .filter(Boolean),
           hans: methodHans,
+          obsolete: methodObsolete,
         },
       });
       setMessage("Method submitted for review!");
@@ -182,6 +184,7 @@ export default function Contribute() {
       setMethodVideoURLs([""]);
       setMethodPrereqs("");
       setMethodHans("N/A");
+      setMethodObsolete(false);
       const res = await axios.get("/api/submissions");
       setSubmissions(res.data);
     } catch {
@@ -686,6 +689,15 @@ export default function Contribute() {
                 </select>
               </div>
             </div>
+            <label className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={methodObsolete}
+                onChange={(e) => setMethodObsolete(e.target.checked)}
+                className="accent-[#fff67b]"
+              />
+              Obsolete
+            </label>
             <button
               type="submit"
               disabled={submitting}
@@ -1126,6 +1138,15 @@ export default function Contribute() {
                         </select>
                       </div>
                     </div>
+                    <label className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={editingEntry.obsolete ?? false}
+                        onChange={(e) => setEditingEntry({ ...editingEntry, obsolete: e.target.checked })}
+                        className="accent-[#fff67b]"
+                      />
+                      Obsolete
+                    </label>
                   </>
                 )}
 

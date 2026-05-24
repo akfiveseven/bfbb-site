@@ -289,7 +289,12 @@ const LevelStrategies: React.FC = () => {
                           ) : methods.map((method, mIndex) => (
                             <div key={mIndex} className="bg-blue-950/60 rounded-md p-3 border border-blue-800">
                               <div className="flex justify-between items-center mb-1">
-                                <span className="text-sm font-semibold text-yellow">{method.name}</span>
+                                <span className="text-sm font-semibold text-yellow">
+                                  {method.name}
+                                  {method.obsolete && (
+                                    <span className="ml-2 text-xs text-red-400 font-semibold">Obsolete</span>
+                                  )}
+                                </span>
                                 <Difficulty className="text-sm" level={method.difficulty} />
                               </div>
                               {method.hans && method.hans !== "N/A" && (
@@ -370,7 +375,12 @@ const LevelStrategies: React.FC = () => {
                           ) : methods.map((method, mIndex) => (
                             <div key={mIndex} className="bg-blue-950/60 rounded-md p-3 border border-blue-800">
                               <div className="flex justify-between items-center mb-1">
-                                <span className="text-sm font-semibold text-yellow">{method.name}</span>
+                                <span className="text-sm font-semibold text-yellow">
+                                  {method.name}
+                                  {method.obsolete && (
+                                    <span className="ml-2 text-xs text-red-400 font-semibold">Obsolete</span>
+                                  )}
+                                </span>
                                 <Difficulty className="text-sm" level={method.difficulty} />
                               </div>
                               {method.hans && method.hans !== "N/A" && (

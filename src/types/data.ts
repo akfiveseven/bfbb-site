@@ -15,6 +15,7 @@ export interface Method {
   videoURLs: string[];
   prerequisites: string[];
   hans: string;
+  obsolete: boolean;
 }
 
 export interface Spatula {

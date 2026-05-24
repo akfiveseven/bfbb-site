@@ -83,7 +83,8 @@ model Method {
   description   String
   videoURLs     String // JSON string array
   prerequisites String @default("[]") // JSON string array
-  hans          String @default("N/A")
+  hans          String  @default("N/A")
+  obsolete      Boolean @default(false)
 }
 
 model Spatula {
