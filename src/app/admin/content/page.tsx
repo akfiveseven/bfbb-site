@@ -872,6 +872,8 @@ export default function AdminContent() {
                       <option value="Beginner">Beginner</option>
                       <option value="Intermediate">Intermediate</option>
                       <option value="Advanced">Advanced</option>
+                      <option value="Expert">Expert</option>
+                      <option value="Experimental">Experimental</option>
                     </select>
                     <input
                       value={editingGuide.category}
