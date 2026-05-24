@@ -696,7 +696,7 @@ export default function Contribute() {
                 onChange={(e) => setMethodObsolete(e.target.checked)}
                 className="accent-[#fff67b]"
               />
-              Obsolete
+              Obsolete strategy
             </label>
             <button
               type="submit"
