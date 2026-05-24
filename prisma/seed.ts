@@ -61,7 +61,7 @@ async function main() {
     await prisma.method.create({
       data: {
         name: m.name,
-        strat: m.strat,
+        strat: JSON.stringify(m.strats || (m.strat ? [m.strat] : [])),
         difficulty: String(m.difficulty),
         description: m.description,
         videoURLs: JSON.stringify(m.videoURL && m.videoURL !== "N/A" ? [m.videoURL] : []),

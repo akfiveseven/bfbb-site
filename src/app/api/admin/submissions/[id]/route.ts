@@ -43,7 +43,7 @@ export async function PATCH(
       await prisma.method.create({
         data: {
           name: data.name,
-          strat: data.strat,
+          strat: JSON.stringify(data.strats || (data.strat ? [data.strat] : [])),
           difficulty: String(data.difficulty),
           description: data.description,
           videoURLs: JSON.stringify(data.videoURLs || (data.videoURL ? [data.videoURL] : [])),
@@ -116,7 +116,7 @@ export async function PATCH(
           where: { id: entityId },
           data: {
             name: changes.name,
-            strat: changes.strat,
+            strat: JSON.stringify(changes.strats || (changes.strat ? [changes.strat] : [])),
             difficulty: String(changes.difficulty),
             description: changes.description,
             videoURLs: JSON.stringify(changes.videoURLs || []),

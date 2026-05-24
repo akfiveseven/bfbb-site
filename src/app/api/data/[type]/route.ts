@@ -33,6 +33,7 @@ export async function GET(
       return NextResponse.json(
         methods.map((m) => ({
           ...m,
+          strats: (() => { try { const p = JSON.parse(m.strat); return Array.isArray(p) ? p : [m.strat]; } catch { return [m.strat]; } })(),
           videoURLs: JSON.parse(m.videoURLs),
           prerequisites: JSON.parse(m.prerequisites),
         }))

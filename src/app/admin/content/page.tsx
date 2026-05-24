@@ -15,7 +15,7 @@ interface Strategy {
 interface Method {
   id: number;
   name: string;
-  strat: string;
+  strats: string[];
   difficulty: string;
   description: string;
   videoURLs: string[];
@@ -90,6 +90,7 @@ export default function AdminContent() {
   const [editingSockStrat, setEditingSockStrat] = useState<SockStrategy | null>(null);
   const [search, setSearch] = useState("");
   const [spatSearch, setSpatSearch] = useState("");
+  const [methodStratSearch, setMethodStratSearch] = useState("");
 
   useEffect(() => {
     axios.get("/api/admin/content/strategies").then((res) => setStrategies(res.data));
@@ -217,7 +218,7 @@ export default function AdminContent() {
   const filteredMethods = methods.filter(
     (m) =>
       m.name.toLowerCase().includes(search.toLowerCase()) ||
-      m.strat.toLowerCase().includes(search.toLowerCase())
+      m.strats.some(s => s.toLowerCase().includes(search.toLowerCase()))
   );
 
   const filteredSocks = socks.filter(
@@ -509,15 +510,62 @@ export default function AdminContent() {
                     className={inputClass}
                     placeholder="Name"
                   />
+                  <div className="space-y-1">
+                    <label className="text-xs text-gray-400">Strategies</label>
+                    <div className="flex flex-wrap gap-1 mb-1">
+                      {editingMethod.strats.map((s, i) => (
+                        <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-900/60 border border-blue-700 text-xs text-white">
+                          {s}
+                          <button
+                            onClick={() => setEditingMethod({ ...editingMethod, strats: editingMethod.strats.filter((_, j) => j !== i) })}
+                            className="text-red-400 hover:text-red-300 cursor-pointer ml-1"
+                          >
+                            ×
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                    <div className="relative">
+                      <input
+                        value={methodStratSearch}
+                        onChange={(e) => setMethodStratSearch(e.target.value)}
+                        className={inputClass}
+                        placeholder="Search strategies to add..."
+                      />
+                      {methodStratSearch && (() => {
+                        const q = methodStratSearch.toLowerCase();
+                        const allStrats = [
+                          ...strategies.map(s => ({ id: `strat-${s.id}`, name: s.name })),
+                          ...sockStrategies.map(s => ({ id: `sock-${s.id}`, name: s.name })),
+                        ];
+                        const available = allStrats.filter(s =>
+                          s.name.toLowerCase().includes(q) &&
+                          !editingMethod.strats.includes(s.name)
+                        );
+                        return available.length > 0 ? (
+                          <div className="absolute z-10 w-full mt-1 max-h-40 overflow-y-auto rounded-lg bg-blue-950 border border-blue-700 shadow-lg">
+                            {available.map((s) => (
+                              <button
+                                key={s.id}
+                                onClick={() => {
+                                  setEditingMethod({ ...editingMethod, strats: [...editingMethod.strats, s.name] });
+                                  setMethodStratSearch("");
+                                }}
+                                className="w-full text-left px-3 py-1.5 text-xs text-white hover:bg-blue-900/60 cursor-pointer"
+                              >
+                                {s.name}
+                              </button>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="absolute z-10 w-full mt-1 rounded-lg bg-blue-950 border border-blue-700 shadow-lg px-3 py-2">
+                            <p className="text-xs text-gray-500">No matching strategies found</p>
+                          </div>
+                        );
+                      })()}
+                    </div>
+                  </div>
                   <div className="grid grid-cols-2 gap-2">
-                    <input
-                      value={editingMethod.strat}
-                      onChange={(e) =>
-                        setEditingMethod({ ...editingMethod, strat: e.target.value })
-                      }
-                      className={inputClass}
-                      placeholder="Strategy"
-                    />
                     <select
                       value={editingMethod.difficulty}
                       onChange={(e) =>
@@ -660,7 +708,7 @@ export default function AdminContent() {
                       {method.name}
                     </span>
                     <span className="text-xs text-gray-400 ml-2">
-                      {method.strat} — Difficulty: {method.difficulty}
+                      {method.strats.join(", ")} — Difficulty: {method.difficulty}
                     </span>
                     {method.obsolete && (
                       <span className="text-xs text-red-400 ml-2 font-semibold">Obsolete</span>
@@ -668,7 +716,7 @@ export default function AdminContent() {
                   </div>
                   <div className="flex gap-1">
                     <button
-                      onClick={() => setEditingMethod(method)}
+                      onClick={() => { setEditingMethod(method); setMethodStratSearch(""); }}
                       className="px-2 py-1 rounded text-xs text-[#fff67b] border border-[#fff67b]/30 hover:bg-[#fff67b]/10 cursor-pointer"
                     >
                       Edit

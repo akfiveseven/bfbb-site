@@ -39,6 +39,7 @@ export async function GET(
     return NextResponse.json(
       methods.map((m) => ({
         ...m,
+        strats: (() => { try { const p = JSON.parse(m.strat); return Array.isArray(p) ? p : [m.strat]; } catch { return [m.strat]; } })(),
         videoURLs: JSON.parse(m.videoURLs),
         prerequisites: JSON.parse(m.prerequisites),
       }))
@@ -119,7 +120,7 @@ export async function PUT(
       where: { id: body.id },
       data: {
         name: body.name,
-        strat: body.strat,
+        strat: JSON.stringify(body.strats || []),
         difficulty: String(body.difficulty),
         description: body.description,
         videoURLs: JSON.stringify(body.videoURLs || []),

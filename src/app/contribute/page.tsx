@@ -30,7 +30,7 @@ export default function Contribute() {
 
   // Method form
   const [methodName, setMethodName] = useState("");
-  const [methodStrat, setMethodStrat] = useState("");
+  const [methodStrats, setMethodStrats] = useState<string[]>([]);
   const [methodStratSearch, setMethodStratSearch] = useState("");
   const [methodStratOpen, setMethodStratOpen] = useState(false);
   const [methodDifficulty, setMethodDifficulty] = useState("Beginner");
@@ -162,7 +162,7 @@ export default function Contribute() {
         type: "method",
         data: {
           name: methodName,
-          strat: methodStrat,
+          strats: methodStrats,
           difficulty: methodDifficulty,
           description: methodDescription,
           videoURLs: methodVideoURLs.filter(Boolean),
@@ -176,7 +176,7 @@ export default function Contribute() {
       });
       setMessage("Method submitted for review!");
       setMethodName("");
-      setMethodStrat("");
+      setMethodStrats([]);
       setMethodStratSearch("");
       setMethodStratOpen(false);
       setMethodDifficulty("Beginner");
@@ -317,7 +317,7 @@ export default function Contribute() {
     if (editEntityType === "strategy") {
       return strategies.filter((s) => s.name.toLowerCase().includes(q) || s.level.toLowerCase().includes(q));
     } else if (editEntityType === "method") {
-      return methods.filter((m) => m.name.toLowerCase().includes(q) || m.strat.toLowerCase().includes(q));
+      return methods.filter((m) => m.name.toLowerCase().includes(q) || m.strats.some(s => s.toLowerCase().includes(q)));
     } else if (editEntityType === "sockStrategy") {
       return sockStrategiesData.filter((s) => s.name.toLowerCase().includes(q) || s.sock.toLowerCase().includes(q) || s.level.toLowerCase().includes(q));
     } else if (editEntityType === "guide") {
@@ -540,70 +540,79 @@ export default function Contribute() {
                 placeholder="e.g. Original Disable"
               />
             </div>
-            <div className="relative">
-              <label className={labelClass}>Strategy *</label>
-              <input
-                type="text"
-                value={methodStratOpen ? methodStratSearch : methodStrat}
-                onChange={(e) => { setMethodStratSearch(e.target.value); setMethodStratOpen(true); }}
-                onFocus={() => { setMethodStratOpen(true); setMethodStratSearch(""); }}
-                onBlur={() => { setTimeout(() => setMethodStratOpen(false), 150); }}
-                className={inputClass}
-                placeholder="Search strategies..."
-                required={!methodStrat}
-              />
-              {methodStrat && !methodStratOpen && (
-                <button
-                  type="button"
-                  onClick={() => { setMethodStrat(""); setMethodStratSearch(""); setMethodStratOpen(true); }}
-                  className="absolute right-2 top-7 text-gray-400 hover:text-white text-sm cursor-pointer"
-                >
-                  ×
-                </button>
+            <div>
+              <label className={labelClass}>Strategies *</label>
+              <div className="flex flex-wrap gap-1 mb-2">
+                {methodStrats.map((s, i) => (
+                  <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-900/60 border border-blue-700 text-xs text-white">
+                    {s}
+                    <button
+                      type="button"
+                      onClick={() => setMethodStrats(methodStrats.filter((_, j) => j !== i))}
+                      className="text-red-400 hover:text-red-300 cursor-pointer ml-1"
+                    >
+                      ×
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={methodStratSearch}
+                  onChange={(e) => { setMethodStratSearch(e.target.value); setMethodStratOpen(true); }}
+                  onFocus={() => setMethodStratOpen(true)}
+                  onBlur={() => { setTimeout(() => setMethodStratOpen(false), 150); }}
+                  className={inputClass}
+                  placeholder="Search strategies to add..."
+                />
+                {methodStratOpen && (() => {
+                  const q = methodStratSearch.toLowerCase();
+                  const filteredSpat = strategies.filter(s => s.name.toLowerCase().includes(q) && !methodStrats.includes(s.name));
+                  const filteredSock = sockStrategiesData.filter(s => s.name.toLowerCase().includes(q) && !methodStrats.includes(s.name));
+                  return (filteredSpat.length > 0 || filteredSock.length > 0) ? (
+                    <div className="absolute z-10 w-full mt-1 max-h-48 overflow-y-auto rounded-lg bg-blue-950 border border-blue-700 shadow-lg">
+                      {filteredSpat.length > 0 && (
+                        <>
+                          <div className="px-3 py-1 text-xs text-gray-500 uppercase">Spatula Strategies</div>
+                          {filteredSpat.map((s) => (
+                            <button
+                              key={`strat-${s.id}`}
+                              type="button"
+                              onClick={() => { setMethodStrats([...methodStrats, s.name]); setMethodStratSearch(""); }}
+                              className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
+                            >
+                              {s.name}
+                            </button>
+                          ))}
+                        </>
+                      )}
+                      {filteredSock.length > 0 && (
+                        <>
+                          <div className="px-3 py-1 text-xs text-gray-500 uppercase">Sock Strategies</div>
+                          {filteredSock.map((s) => (
+                            <button
+                              key={`sock-${s.id}`}
+                              type="button"
+                              onClick={() => { setMethodStrats([...methodStrats, s.name]); setMethodStratSearch(""); }}
+                              className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
+                            >
+                              {s.name}
+                            </button>
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="absolute z-10 w-full mt-1 rounded-lg bg-blue-950 border border-blue-700 shadow-lg px-3 py-3">
+                      <p className="text-sm text-gray-500">No strategies found</p>
+                    </div>
+                  );
+                })()}
+              </div>
+              {methodStrats.length === 0 && (
+                <input type="text" required value="" readOnly className="sr-only" tabIndex={-1} />
               )}
-              {methodStratOpen && (() => {
-                const q = methodStratSearch.toLowerCase();
-                const filteredSpat = strategies.filter(s => s.name.toLowerCase().includes(q));
-                const filteredSock = sockStrategiesData.filter(s => s.name.toLowerCase().includes(q));
-                return (filteredSpat.length > 0 || filteredSock.length > 0) ? (
-                  <div className="absolute z-10 w-full mt-1 max-h-48 overflow-y-auto rounded-lg bg-blue-950 border border-blue-700 shadow-lg">
-                    {filteredSpat.length > 0 && (
-                      <>
-                        <div className="px-3 py-1 text-xs text-gray-500 uppercase">Spatula Strategies</div>
-                        {filteredSpat.map((s) => (
-                          <button
-                            key={`strat-${s.id}`}
-                            type="button"
-                            onClick={() => { setMethodStrat(s.name); setMethodStratOpen(false); setMethodStratSearch(""); }}
-                            className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
-                          >
-                            {s.name}
-                          </button>
-                        ))}
-                      </>
-                    )}
-                    {filteredSock.length > 0 && (
-                      <>
-                        <div className="px-3 py-1 text-xs text-gray-500 uppercase">Sock Strategies</div>
-                        {filteredSock.map((s) => (
-                          <button
-                            key={`sock-${s.id}`}
-                            type="button"
-                            onClick={() => { setMethodStrat(s.name); setMethodStratOpen(false); setMethodStratSearch(""); }}
-                            className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
-                          >
-                            {s.name}
-                          </button>
-                        ))}
-                      </>
-                    )}
-                  </div>
-                ) : (
-                  <div className="absolute z-10 w-full mt-1 rounded-lg bg-blue-950 border border-blue-700 shadow-lg px-3 py-3">
-                    <p className="text-sm text-gray-500">No strategies found</p>
-                  </div>
-                );
-              })()}
             </div>
             <div>
               <label className={labelClass}>Difficulty *</label>
@@ -979,7 +988,7 @@ export default function Contribute() {
                       <span className="text-xs text-gray-400 ml-2">{e.level as string}</span>
                     )}
                     {editEntityType === "method" && (
-                      <span className="text-xs text-gray-400 ml-2">{e.strat as string}</span>
+                      <span className="text-xs text-gray-400 ml-2">{(e.strats as string[]).join(", ")}</span>
                     )}
                     {editEntityType === "sockStrategy" && (
                       <span className="text-xs text-gray-400 ml-2">{e.level as string} — {e.sock as string}</span>
@@ -1073,15 +1082,74 @@ export default function Contribute() {
                       <input value={editingEntry.name} onChange={(e) => setEditingEntry({ ...editingEntry, name: e.target.value })} className={inputClass} />
                     </div>
                     <div>
-                      <label className={labelClass}>Strategy</label>
-                      <select value={editingEntry.strat} onChange={(e) => setEditingEntry({ ...editingEntry, strat: e.target.value })} className={inputClass}>
-                        <optgroup label="Spatula Strategies">
-                          {strategies.map((s) => <option key={`strat-${s.id}`} value={s.name}>{s.name}</option>)}
-                        </optgroup>
-                        <optgroup label="Sock Strategies">
-                          {sockStrategiesData.map((s) => <option key={`sock-${s.id}`} value={s.name}>{s.name}</option>)}
-                        </optgroup>
-                      </select>
+                      <label className={labelClass}>Strategies</label>
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {(editingEntry.strats || []).map((s: string, i: number) => (
+                          <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-900/60 border border-blue-700 text-xs text-white">
+                            {s}
+                            <button
+                              type="button"
+                              onClick={() => setEditingEntry({ ...editingEntry, strats: editingEntry.strats.filter((_: string, j: number) => j !== i) })}
+                              className="text-red-400 hover:text-red-300 cursor-pointer ml-1"
+                            >
+                              ×
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={editSearch}
+                          onChange={(e) => setEditSearch(e.target.value)}
+                          onFocus={() => setEditSearch("")}
+                          className={inputClass}
+                          placeholder="Search strategies to add..."
+                        />
+                        {editSearch && (() => {
+                          const q = editSearch.toLowerCase();
+                          const filteredSpat = strategies.filter(s => s.name.toLowerCase().includes(q) && !(editingEntry.strats || []).includes(s.name));
+                          const filteredSock = sockStrategiesData.filter(s => s.name.toLowerCase().includes(q) && !(editingEntry.strats || []).includes(s.name));
+                          return (filteredSpat.length > 0 || filteredSock.length > 0) ? (
+                            <div className="absolute z-10 w-full mt-1 max-h-48 overflow-y-auto rounded-lg bg-blue-950 border border-blue-700 shadow-lg">
+                              {filteredSpat.length > 0 && (
+                                <>
+                                  <div className="px-3 py-1 text-xs text-gray-500 uppercase">Spatula Strategies</div>
+                                  {filteredSpat.map((s) => (
+                                    <button
+                                      key={`strat-${s.id}`}
+                                      type="button"
+                                      onClick={() => { setEditingEntry({ ...editingEntry, strats: [...(editingEntry.strats || []), s.name] }); setEditSearch(""); }}
+                                      className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
+                                    >
+                                      {s.name}
+                                    </button>
+                                  ))}
+                                </>
+                              )}
+                              {filteredSock.length > 0 && (
+                                <>
+                                  <div className="px-3 py-1 text-xs text-gray-500 uppercase">Sock Strategies</div>
+                                  {filteredSock.map((s) => (
+                                    <button
+                                      key={`sock-${s.id}`}
+                                      type="button"
+                                      onClick={() => { setEditingEntry({ ...editingEntry, strats: [...(editingEntry.strats || []), s.name] }); setEditSearch(""); }}
+                                      className="w-full text-left px-3 py-2 text-sm text-white hover:bg-blue-900/60 cursor-pointer"
+                                    >
+                                      {s.name}
+                                    </button>
+                                  ))}
+                                </>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="absolute z-10 w-full mt-1 rounded-lg bg-blue-950 border border-blue-700 shadow-lg px-3 py-3">
+                              <p className="text-sm text-gray-500">No strategies found</p>
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
                     <div>
                       <label className={labelClass}>Difficulty</label>

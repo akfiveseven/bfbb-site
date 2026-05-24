@@ -91,7 +91,7 @@ export default function AdminSubmissions() {
                 )}
                 {sub.type === "method" && (
                   <>
-                    <p>Strategy: {parsed.strat}</p>
+                    <p>Strategies: {(parsed.strats || (parsed.strat ? [parsed.strat] : [])).join(", ")}</p>
                     <p>Difficulty: {parsed.difficulty}</p>
                     <p>Hans: {parsed.hans || "N/A"}</p>
                     <p>Prerequisites: {(parsed.prerequisites || []).join(", ") || "None"}</p>

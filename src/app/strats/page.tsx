@@ -257,7 +257,7 @@ const LevelStrategies: React.FC = () => {
                 const searchFilter = (strat: typeof stratsData[0]) => {
                   if (!searchQuery) return true;
                   const q = searchQuery.toLowerCase();
-                  const methods = methodsData.filter(m => m.strat === strat.name);
+                  const methods = methodsData.filter(m => m.strats && m.strats.includes(strat.name));
                   return strat.name.toLowerCase().includes(q) || methods.some(m => m.name.toLowerCase().includes(q));
                 };
 
@@ -267,7 +267,7 @@ const LevelStrategies: React.FC = () => {
                   const stratKey = `sock-${ss.id}`;
                   const isExpanded = expandedStrat === stratKey;
                   const diffOrder: Record<string, number> = { Beginner: 0, Intermediate: 1, Advanced: 2, Expert: 3, Experimental: 4 };
-                  const methods = methodsData.filter(m => m.strat === ss.name).sort((a, b) => (diffOrder[a.difficulty] ?? 99) - (diffOrder[b.difficulty] ?? 99));
+                  const methods = methodsData.filter(m => m.strats && m.strats.includes(ss.name)).sort((a, b) => (diffOrder[a.difficulty] ?? 99) - (diffOrder[b.difficulty] ?? 99));
                   return (
                     <div key={ss.id} className="bg-blue-900/80 rounded-lg border border-blue-700 hover:border-[#fff67b] transition-colors duration-200">
                       <button
@@ -346,7 +346,7 @@ const LevelStrategies: React.FC = () => {
                   const stratKey = `${strat.id}`;
                   const isExpanded = expandedStrat === stratKey;
                   const diffOrder: Record<string, number> = { Beginner: 0, Intermediate: 1, Advanced: 2, Expert: 3, Experimental: 4 };
-                  const methods = methodsData.filter(m => m.strat === strat.name).sort((a, b) => (diffOrder[a.difficulty] ?? 99) - (diffOrder[b.difficulty] ?? 99));
+                  const methods = methodsData.filter(m => m.strats && m.strats.includes(strat.name)).sort((a, b) => (diffOrder[a.difficulty] ?? 99) - (diffOrder[b.difficulty] ?? 99));
                   return (
                     <div key={strat.id} className="bg-blue-900/80 rounded-lg border border-blue-700 hover:border-[#fff67b] transition-colors duration-200">
                       <button
@@ -436,7 +436,7 @@ const LevelStrategies: React.FC = () => {
                   const q = searchQuery.toLowerCase();
                   const filteredSockStrats = sockStratsData.filter(ss => {
                     if (!searchQuery) return true;
-                    const methods = methodsData.filter(m => m.strat === ss.name);
+                    const methods = methodsData.filter(m => m.strats && m.strats.includes(ss.name));
                     return ss.name.toLowerCase().includes(q) || ss.sock.toLowerCase().includes(q) || methods.some(m => m.name.toLowerCase().includes(q));
                   });
                   return (

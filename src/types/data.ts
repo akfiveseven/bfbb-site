@@ -9,7 +9,7 @@ export interface Strategy {
 export interface Method {
   id: number;
   name: string;
-  strat: string;
+  strats: string[];
   difficulty: string;
   description: string;
   videoURLs: string[];
