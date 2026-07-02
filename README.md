@@ -1,28 +1,51 @@
 # BfBB Community Resource Website
 
-A community-driven resource website for **SpongeBob SquarePants: Battle for Bikini Bottom** speedrunners. Built with Next.js 15, React 19, and TypeScript. All game data is stored as static JSON files, making it easy for anyone to contribute strategies, guides, glossary terms, and more.
+A community-driven resource website for **SpongeBob SquarePants: Battle for Bikini Bottom** speedrunners. Built with Next.js 15, React 19, and TypeScript, backed by a PostgreSQL database with Prisma ORM. Users can browse strategies, guides, glossary terms, and build routes. Authenticated users can submit new content for admin review.
 
 ## Tech Stack
 
 - **Next.js 15** (App Router) with **Turbopack** for development
-- **React 19** with client-side rendering
+- **React 19**
 - **TypeScript 5** (strict mode)
-- **Tailwind CSS v4** for styling
+- **Tailwind CSS v4**
+- **Prisma 7** with **PostgreSQL** (Neon-compatible via `@prisma/adapter-pg`)
+- **NextAuth v5** with Discord OAuth
 - **Axios** for client-side data fetching
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- [Node.js](https://nodejs.org/) (v18 or later)
 - npm
+- A PostgreSQL database (e.g. [Neon](https://neon.tech/))
+- A [Discord application](https://discord.com/developers/applications) for OAuth
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+DATABASE_URL=postgresql://user:password@host/dbname
+AUTH_SECRET=<random-secret>          # generate with: npx auth secret
+AUTH_DISCORD_ID=<discord-client-id>
+AUTH_DISCORD_SECRET=<discord-client-secret>
+ADMIN_DISCORD_IDS=<comma-separated-discord-user-ids>
+```
 
 ### Installation
 
 ```bash
 git clone <repo-url>
-cd bfbb-prod
+cd bfbb-site
 npm install
+```
+
+### Database Setup
+
+```bash
+npx prisma migrate deploy   # apply migrations
+npx prisma db seed           # seed data from public/data/ JSON files
 ```
 
 ### Development
@@ -35,232 +58,100 @@ The site will be available at [http://localhost:3000](http://localhost:3000).
 
 ### Other Commands
 
-| Command         | Description                  |
-| --------------- | ---------------------------- |
-| `npm run build` | Create a production build    |
-| `npm run start` | Start the production server  |
-| `npm run lint`  | Run ESLint                   |
+| Command              | Description                 |
+| -------------------- | --------------------------- |
+| `npm run build`      | Create a production build   |
+| `npm run start`      | Start the production server |
+| `npm run lint`       | Run ESLint                  |
 
 ## Project Structure
 
 ```
 src/
-├── app/                    # Pages (Next.js App Router)
-│   ├── layout.tsx          # Root layout (navbar, fonts, metadata)
-│   ├── page.tsx            # Home page
-│   ├── globals.css         # Global styles and Tailwind config
-│   ├── guides/page.tsx     # Guides listing
-│   ├── strats/page.tsx     # Strategy browser (by level/spatula)
-│   ├── tricks/page.tsx     # Tricks listing
-│   ├── glossary/page.tsx   # Glossary of terms
-│   └── route-builder/page.tsx  # Interactive route planner
+├── app/
+│   ├── layout.tsx              # Root layout (navbar, auth provider, fonts)
+│   ├── page.tsx                # Home page
+│   ├── globals.css             # Global styles and Tailwind config
+│   ├── strats/                 # Strategy browser (by level/spatula)
+│   ├── guides/                 # Guides listing
+│   ├── glossary/               # Glossary of terms
+│   ├── tricks/                 # Tricks listing
+│   ├── levels/                 # Level pages
+│   ├── route-builder/          # Interactive route planner
+│   ├── resources/              # Community resources
+│   ├── modding/                # Modding resources
+│   ├── contribute/             # User contribution forms (requires login)
+│   ├── admin/                  # Admin panel
+│   │   ├── content/            # Manage strategies, methods, glossary, etc.
+│   │   ├── submissions/        # Review user submissions
+│   │   ├── users/              # Manage users and roles
+│   │   └── feedback/           # View user feedback
+│   └── api/                    # API routes
+│       ├── auth/               # NextAuth endpoints
+│       ├── data/               # Public data endpoints
+│       ├── routes/             # Saved route CRUD
+│       ├── submissions/        # User submission endpoint
+│       └── admin/              # Admin API endpoints
 ├── components/
-│   ├── layout/             # Layout components (Navigation, containers)
-│   └── ui/                 # Reusable UI components (Difficulty badge, etc.)
+│   ├── layout/                 # Navigation, containers
+│   ├── ui/                     # Reusable UI (DataTable, Difficulty badge, etc.)
+│   └── providers/              # SessionProvider (NextAuth)
+├── types/                      # TypeScript type definitions
+prisma/
+├── schema.prisma               # Database schema
+├── seed.ts                     # Seeds DB from public/data/ JSON files
+├── migrations/                 # Migration history
 public/
-├── data/                   # All game data (JSON files — see below)
-├── assets/                 # Game asset images (spatulas, tikis, items, etc.)
-├── img/                    # Level thumbnails, logos, background
-└── font/                   # Custom Spongeboy font
+├── data/                       # Seed data (JSON files)
+├── assets/                     # Game asset images (spatulas, tikis, items)
+├── img/                        # Level thumbnails, logos, background
+└── font/                       # Custom Spongeboy font
 ```
 
-## Data Files
+## Data Model
 
-All content displayed on the site is stored as **static JSON files** in the `public/data/` directory. This is the primary place contributors will interact with. No database is required — editing a JSON file is all it takes to update the site.
+All game content is stored in PostgreSQL and managed through the admin panel. The `public/data/` JSON files serve as seed data for initial database setup.
 
-### `Strategies.json`
+### Core Models
 
-The largest and most important data file. Contains every speedrun strategy in the game.
+**Strategy** — A speedrun strategy tied to a level and spatula(s).
 
-```json
-{
-  "id": 3,
-  "name": "Shady Glide",
-  "spatula": "On Top of Shady Shoals",
-  "level": "Bikini Bottom",
-  "prerequisites": ["Bubble Bowl", "Cruise Bubble"],
-  "hans": "N/A",
-  "description": "Using a cruise boost and an ascending sponge-glide...",
-  "links": []
-}
-```
+**Method** — A specific way to execute a strategy, with difficulty rating, video links, prerequisites, and an optional obsolete flag.
 
-| Field           | Description                                          |
-| --------------- | ---------------------------------------------------- |
-| `id`            | Unique numeric ID                                    |
-| `name`          | Strategy name                                        |
-| `spatula`       | The spatula this strategy relates to (or `"N/A"`)    |
-| `level`         | Game level name                                      |
-| `prerequisites` | Array of abilities/items needed                      |
-| `hans`          | Whether Hans (the hand) is involved (`"N/A"` if not) |
-| `description`   | Explanation of the strategy                          |
-| `links`         | Array of related links                               |
+**Spatula** — A golden spatula collectible with its level and minimum spatula requirement.
 
-### `Methods.json`
+**Sock** — Patrick's lost socks and their locations.
 
-Different ways to execute a strategy. Each method references a strategy by name.
+**SockStrategy** — Strategies for collecting socks.
 
-```json
-{
-  "name": "Original Disable",
-  "strat": "Hand Disable",
-  "difficulty": "1",
-  "description": "Activate the Jellyfish Fields taxi pad by standing OOB...",
-  "videoURL": "https://youtu.be/..."
-}
-```
+**GlossaryEntry** — Speedrunning terms with descriptions and optional video links.
 
-| Field       | Description                                       |
-| ----------- | ------------------------------------------------- |
-| `name`      | Method name                                       |
-| `strat`     | Name of the parent strategy (must match exactly)  |
-| `difficulty`| Difficulty rating (string, `"1"` to `"5"`)        |
-| `description`| Step-by-step explanation                         |
-| `videoURL`  | Link to a video demonstration (or `"N/A"`)        |
+**Guide** — Links to external tutorial videos, categorized by difficulty.
 
-### `Spatulas.json`
+**SavedRoute** — User-created routes saved to their account, optionally published for others.
 
-All golden spatula collectibles and their locations.
+### Auth & Moderation Models
 
-```json
-{
-  "id": 1,
-  "pos": 1,
-  "name": "SpongeBob's Closet",
-  "level": "Bikini Bottom",
-  "min_spatula_requirement": 0
-}
-```
+**User** — Authenticated via Discord OAuth. Has a role (`user` or `admin`).
 
-| Field                    | Description                                  |
-| ------------------------ | -------------------------------------------- |
-| `id`                     | Unique numeric ID                            |
-| `pos`                    | Position index within the level (1-8)        |
-| `name`                   | Spatula name                                 |
-| `level`                  | Game level name                              |
-| `min_spatula_requirement`| Minimum spatulas needed to access this one   |
-
-### `Socks.json`
-
-Patrick's lost socks and their locations.
-
-```json
-{
-  "id": 1,
-  "name": "Sock Name",
-  "area": "Area Name",
-  "level": "Level Name",
-  "min_spat_requirement": 0
-}
-```
-
-### `Guides.json`
-
-Links to external tutorial videos and guides.
-
-```json
-{
-  "name": "SHiFT Any% Tutorial",
-  "difficulty": "Beginner",
-  "category": "Any%",
-  "link": "https://youtu.be/...",
-  "index": 0
-}
-```
-
-### `Glossary.json`
-
-Speedrunning terminology and trick definitions.
-
-```json
-{
-  "name": "Cruise Boost (CB)",
-  "difficulty": 5,
-  "description": "Name for the trick that gives SpongeBob a constant forward movement vector...",
-  "videoURL": "#",
-  "index": 1
-}
-```
-
-| Field       | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `name`      | Term name                                      |
-| `difficulty`| Difficulty rating (numeric, 1-5)               |
-| `description`| Plain-text explanation                        |
-| `videoURL`  | Link to a video (or `"#"` if none)             |
-| `index`     | Display order                                  |
+**Submission** — User-submitted content (strategies, methods, etc.) pending admin review.
 
 ## Contributing
 
-### Adding or Updating Data
+### Submitting Content
 
-The easiest way to contribute is by editing the JSON files in `public/data/`. For example:
+Logged-in users can submit new strategies, methods, guides, glossary entries, and more through the [Contribute](/contribute) page. Submissions are reviewed and approved by admins.
 
-- **Add a new strategy:** Append a new object to `Strategies.json` with a unique `id`.
-- **Add a method for a strategy:** Append a new object to `Methods.json` with the `strat` field matching the strategy's `name`.
-- **Add a glossary term:** Append a new object to `Glossary.json` with the next `index` value.
-- **Add a guide:** Append a new object to `Guides.json` with the next `index` value.
+### Contributing Code
 
-Make sure your JSON is valid before submitting. You can verify with `npm run build` — the site will fail to render broken JSON.
-
-### Adding or Updating Pages
-
-Pages live in `src/app/` and follow the [Next.js App Router](https://nextjs.org/docs/app) file convention. Each folder becomes a route, and the `page.tsx` file inside it is the page component.
-
-To create a new page:
-
-1. Create a new folder under `src/app/` (e.g., `src/app/my-page/`).
-2. Add a `page.tsx` file inside it.
-3. Add the page to the navigation in `src/components/layout/Navigation.tsx`.
-
-All current pages are client components (`"use client"`) that fetch data from `public/data/` using Axios:
-
-```tsx
-"use client";
-import axios from "axios";
-import { useState, useEffect } from "react";
-
-export default function MyPage() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    axios.get("/data/MyData.json")
-      .then((res) => setData(res.data))
-      .catch((err) => console.log(err));
-  }, []);
-
-  return <div>{/* render data */}</div>;
-}
-```
-
-### Adding or Updating Components
-
-Reusable components live in `src/components/`:
-
-- **`layout/`** — Structural components (navigation, containers)
-- **`ui/`** — Visual components (difficulty badges, tables, etc.)
-
-### Adding Images
-
-- **Game assets** (sprites, icons) go in `public/assets/`
-- **Level thumbnails and logos** go in `public/img/`
-
-Reference them in code with paths relative to `public/` (e.g., `/img/Bikini-Bottom.png`).
-
-### Styling
-
-The site uses **Tailwind CSS v4** with custom utility classes defined in `src/app/globals.css`. Key custom classes:
-
-- `.font-bob` — SpongeBob-style Spongeboy font
-- `.text-yellow` — The yellow accent color (`#fff67b`)
-- `.my-container` — Standard page container with background
-- `.my-table` — Styled table with borders and responsive behavior
-
-Use Tailwind utility classes for styling. Add new custom classes to `globals.css` only when a pattern is reused across multiple components.
+1. Fork the repo and create a feature branch.
+2. Set up your local environment (see [Getting Started](#getting-started)).
+3. Make your changes and test with `npm run build`.
+4. Open a pull request.
 
 ## Level Names Reference
 
-These are the valid level names used across the data files:
+These are the valid level names used across the data:
 
 | Level Name                    |
 | ----------------------------- |
