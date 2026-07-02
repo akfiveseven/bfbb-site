@@ -215,7 +215,11 @@ const LevelStrategies: React.FC = () => {
                       {spatulaData
                         .filter(spatula => spatula.level == activeLevel)
                         .map((spatula, spatIdx) => (
-                          <div key={spatula.id} className="flex flex-col items-center">
+                          <div
+                            key={spatula.id}
+                            className={`flex flex-col items-center ${spatIdx+1 !== activeSpatula ? 'cursor-pointer' : ''}`}
+                            onClick={() => { setActiveSpatula(spatIdx+1); setExpandedStrat(null); }}
+                          >
                             <Image
                               src={spatIdx+1 === activeSpatula ? "/assets/spatula_golden_straight.png" : "/assets/spatula_silver_straight.png"}
                               alt={`Spatula ${spatIdx+1}`}
